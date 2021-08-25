@@ -7,12 +7,13 @@ function generateTxt(data) {
         // Adjust hour for student's time zone
         if(data.timeZone === 'Mountain Time') {
             hour += 1
-            console.log(hour)
-
+            console.log(hour + ':' + minute)
         } else if(data.timeZone === 'Central Time') {
             hour += 2
-            console.log(hour)
-
+            console.log(hour + ':' + minute)
+        } else if(data.timeZone === 'Eastern Time') {
+            hour += 3
+            console.log(hour + ':' + minute)
         }
     
         // Convert military time to am/pm time
