@@ -6,61 +6,86 @@ var linksArray = links.split('\r\n')
 linksArray = linksArray.map(i => JSON.parse(i))
 
 function generateTxt(data) {
-    var day = moment().format('L')
+    var today = moment().format('L')
     var txt
     var timeZoneDiff
+
     if (data.init === 'Email confirmation') {
-        let hour = parseInt(data.time.split(':')[0])
-        let minute = data.time.split(':')[1]
+        let sessionHour = parseInt(data.time.split(':')[0])
+        let sessionMinute = data.time.split(':')[1]
         let meridiem
-        // Adjust hour for student's time zone
-        if (data.timeZone === 'Mountain Time') {
+        let sessionDate = data.date
+        let textColor
+
+        // Determine hour difference based on student's time zone
+        if (data.timeZone === 'PST') {
+            timeZoneDiff = -1
+        } else if (data.timeZone === 'PDT' || data.timeZone === 'MST') {
+            timeZoneDiff = 0
+        } else if (data.timeZone === 'MDT' || data.timeZone === 'CST') {
             timeZoneDiff = 1
-            hour += timeZoneDiff
-            console.log(hour + ':' + minute)
-            timeZoneDiff = `+${timeZoneDiff}hr`
-            console.log(timeZoneDiff)
-        } else if (data.timeZone === 'Central Time') {
+        } else if (data.timeZone === 'CDT' || data.timeZone === 'EST') {
             timeZoneDiff = 2
-            hour += timeZoneDiff
-            console.log(hour + ':' + minute)
-            timeZoneDiff = `+${timeZoneDiff}hr`
-            console.log(timeZoneDiff)
-        } else if (data.timeZone === 'Eastern Time') {
+        } else if (data.timeZone === 'EDT') {
             timeZoneDiff = 3
-            hour += timeZoneDiff
-            console.log(hour + ':' + minute)
-            timeZoneDiff = `+${timeZoneDiff}hr`
-            console.log(timeZoneDiff)
+        } else if (data.timeZone === 'AEST') {
+            timeZoneDiff = 17
         }
 
-        // Convert military time to am/pm time
-        if (hour > 12) {
-            hour -= 12
-            meridiem = 'pm'
-        } else if (hour === 12) {
-            meridiem = 'pm'
+        // Convert user entered military time to AM/PM time
+        if (sessionHour === 24) {
+            sessionHour -= 12
+            meridiem = 'AM'
+        } else if (sessionHour > 12 && sessionHour < 24) {
+            sessionHour -= 12
+            meridiem = 'PM'
+        } else if (sessionHour === 12) {
+            meridiem = 'PM'
         } else {
-            meridiem = 'am'
+            meridiem = 'AM'
         }
 
-        txt = `# Subject
-Coding Boot Camp - Tutorial Confirmation - ${data.date}, ${hour}:${minute}${meridiem} ${data.timeZone}
-            
-# Email_Body
-Hi ${data.firstName}!
-    
-Thank you for scheduling your session with me. I am looking forward to our session on ${data.date}, ${hour}:${minute}${meridiem} ${data.timeZone}.`
+        let sessionTime = `${sessionHour}:${sessionMinute} ${meridiem}`
+        let emailDate = moment(`${sessionDate} ${sessionTime}`).add(timeZoneDiff, 'hours').format('llll')
+
+        if(emailDate === 'Invalid date') {
+            textColor = '\x1b[31m%s\x1b[0m'
+            txt = 'Invalid Session Date Format'
+        } else {
+            textColor = '\x1b[32m%s\x1b[0m'
+
+            txt = `# Subject
+            Coding Boot Camp - Tutorial Confirmation - ${emailDate}
+                        
+            # Email_Body
+            Hi ${data.firstName}!
+                
+            Thank you for scheduling your session with me. I am looking forward to our session on ${emailDate}.`
+        }
+
+        console.log('\x1b[36m%s\x1b[0m', `Student: ${data.firstName} ${data.lastName}`,)
+        console.log(textColor, `Student's Session Date and Time: ${emailDate}`)
+        console.log('\x1b[36m%s\x1b[0m', `Time Zone: ${data.timeZone}`)
+        console.log('\x1b[36m%s\x1b[0m', `Time Zone Difference: ${timeZoneDiff} hr`)
     } else {
         // Adjust hour for student's time zone
-        if (data.timeZone === 'Mountain Time') {
+        if (data.timeZone === 'PST') {
+            timeZoneDiff = -1
+            timeZoneDiff = `${timeZoneDiff}hr`
+        } else if (data.timeZone === 'PDT' || data.timeZone === 'MST') {
+            timeZoneDiff = 0
+            timeZoneDiff = `+${timeZoneDiff}hr`
+        } else if (data.timeZone === 'MDT' || data.timeZone === 'CST') {
             timeZoneDiff = 1
             timeZoneDiff = `+${timeZoneDiff}hr`
-        } else if (data.timeZone === 'Central Time') {
+        } else if (data.timeZone === 'CDT' || data.timeZone === 'EST') {
             timeZoneDiff = 2
             timeZoneDiff = `+${timeZoneDiff}hr`
-        } else if (data.timeZone === 'Eastern Time') {
+        } else if (data.timeZone === 'EDT') {
             timeZoneDiff = 3
+            timeZoneDiff = `+${timeZoneDiff}hr`
+        } else if (data.timeZone === 'AEST') {
+            timeZoneDiff = 17
             timeZoneDiff = `+${timeZoneDiff}hr`
         }
 
@@ -71,7 +96,7 @@ Your class code is: ${data.classCode}
 Have a great week!
 
 # GOOGLE SHEETS
-=SPLIT("${data.classCode},${data.gradDate},${data.firstName} ${data.lastName},${data.email},${day},${timeZoneDiff}", ",")
+=SPLIT("${data.classCode},${data.gradDate},${data.firstName} ${data.lastName},${data.email},${today},${timeZoneDiff}", ",")
 
 # TUTOR EVALUATION FORM
 ${linksArray[0].tutorForm}
