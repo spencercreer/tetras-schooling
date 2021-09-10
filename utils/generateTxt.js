@@ -54,13 +54,16 @@ function generateTxt(data) {
         } else {
             textColor = '\x1b[32m%s\x1b[0m'
 
-            txt = `# Subject
-            Coding Boot Camp - Tutorial Confirmation - ${emailDate}
+            txt = `# Student Email
+${data.email}
+            
+# Subject
+Coding Boot Camp - Tutorial Confirmation - ${emailDate} ${data.timeZone}
                         
-            # Email_Body
-            Hi ${data.firstName}!
+# Email_Body
+Hi ${data.firstName}!
                 
-            Thank you for scheduling your session with me. I am looking forward to our session on ${emailDate}.`
+Thank you for scheduling your session with me. I am looking forward to our session on ${emailDate} ${data.timeZone}.`
         }
 
         console.log('\x1b[36m%s\x1b[0m', `Student: ${data.firstName} ${data.lastName}`,)
@@ -90,7 +93,7 @@ function generateTxt(data) {
         }
 
         txt = `# SLACK
-Please fill out the evaluation form at the link below:
+${data.slack} Please fill out the evaluation form at the link below:
 ${linksArray[0].studentForm}
 Your class code is: ${data.classCode}
 Have a great week!
