@@ -9,6 +9,11 @@ var studentsNamesArray = []
 studentsInfoArray.forEach(student => {
     studentsNamesArray.push(`${student.id}-${student.firstName} ${student.lastName}`)
 })
+var studentsEmails = ''
+studentsInfoArray.forEach(student => {
+    studentsEmails += `${student.email},`
+})
+fs.writeFile('_emails.txt', studentsEmails, (err) => console.error(err))
 
 function init() {
     var gTxt = require('./utils/generateTxt')
