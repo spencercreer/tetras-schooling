@@ -1,3 +1,5 @@
+// have date field auto-populate with tomorrows date
+
 document.getElementById("submitBtn").addEventListener("click", function () {
     let name = document.getElementById("name").value
     let session = convertTime()

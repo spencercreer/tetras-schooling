@@ -15,7 +15,7 @@ A command line application for generating .txt files for assisting full stack tu
 * [Contact](#contact)
 
 ## Links
-
+Published URL: [https://spencercreer.github.io/tutor-templates/](https://spencercreer.github.io/tutor-templates/)
 Repository: [https://github.com/spencercreer/tutor-templates](https://github.com/spencercreer/tutor-templates)
 
 ## Instructions
