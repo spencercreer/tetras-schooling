@@ -16,41 +16,61 @@
   <div class="container-fluid">
     <h1>Tutor Template</h1>
     <div class="form-group">
-      <div class="col">
-        <label for="first-name">First Name:</label>
-        <input type="text" class="form-control" name="first-name" id="name" placeholder="">
+      <div class="row">
+        <div class="col-md-8">
+          <label for="first-name">First Name:</label>
+          <input type="text" class="form-control" name="first-name" id="name" placeholder="">
+        </div>
+        <div class="col-md-4">
+          <label for="time-zone">Timezone:</label>
+          <select name="time-zone" id="time-zone" class="form-control">
+            <option value=""></option>
+            <option value="PST">PST</option>
+            <option value="PDT">PDT</option>
+            <option value="MST">MST</option>
+            <option value="MDT">MDT</option>
+            <option value="CST">CST</option>
+            <option value="CDT">CDT</option>
+            <option value="EST">EST</option>
+            <option value="EDT">EDT</option>
+            <option value="AEST">AEST</option>
+          </select>
+        </div>
       </div>
-      <div class="col">
-        <label for="time-zone">Timezone:</label>
-        <select name="time-zone" id="time-zone" class="form-control">
-          <option value=""></option>
-          <option value="PST">PST</option>
-          <option value="PDT">PDT</option>
-          <option value="MST">MST</option>
-          <option value="MDT">MDT</option>
-          <option value="CST">CST</option>
-          <option value="CDT">CDT</option>
-          <option value="EST">EST</option>
-          <option value="EDT">EDT</option>
-          <option value="AEST">AEST</option>
-        </select>
-      </div>
-      <div class="col">
-        <label for="date">Date:</label>
-        <input type="date" class="form-control" id="date" name="date">
-      </div>
-      <div class="col">
-        <label for="time">Time:</label>
-        <input type="text" class="form-control" name="time" id="time" placeholder="">
+      <div class="row">
+        <div class="col-md-8">
+          <label for="date">Date:</label>
+          <input type="date" class="form-control" id="date" name="date">
+        </div>
+        <div class="col-md-4">
+          <label for="time">Time:</label>
+          <div class="input-group">
+            <input type="number" max="12" min="0" class="form-control" name="hour" id="hour">
+            <div class="input-group-append">
+              <select name="minute" id="minute" class="form-control">
+                <option value=""></option>
+                <option value="00">00</option>
+                <option value="30">30</option>a
+              </select>
+            </div>
+            <div class="input-group-append">
+              <select name="meridiem" id="meridiem" class="form-control">
+                <option value=""></option>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>a
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- href="https://mail.google.com/mail/u/0/#inbox?compose=new" -->
       <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" id="submitBtn" type="submit" class="btn btn-secondary mt-2" value="Submit" target="_blank">Submit</a>
     </div>
     <textarea type="text" id="email-subject" class="form-control" cols="30" rows="1"></textarea>
-    <button onclick="copySubject()">Copy Subject</button>
+    <button class="btn btn-secondary mt-2" onclick="copySubject()">Copy Subject</button>
     <br><br>
     <textarea type="text" name="email-text" class="form-control" id="email-text" cols="30" rows="10"></textarea>
-    <button onclick="copyEmail()">Copy Email</button>
+    <button class="btn btn-secondary mt-2" onclick="copyEmail()">Copy Email</button>
   </div>
 
   <!-- Optional JavaScript -->
@@ -64,6 +84,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="./utils/script.js"></script>
 </body>
 

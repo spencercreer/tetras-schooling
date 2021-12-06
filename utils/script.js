@@ -1,21 +1,52 @@
 document.getElementById("submitBtn").addEventListener("click", function () {
-    var name = document.getElementById("name").value
-    var timeZone = document.getElementById("time-zone").value
-    var date = document.getElementById("date").value
-    var time = document.getElementById("time").value
+    let name = document.getElementById("name").value
+    let session = convertTime()
+    console.log(session)
 
-    document.getElementById("email-subject").value = `Coding Boot Camp - Tutorial Confirmation - ${date} ${time} ${timeZone}`
+    document.getElementById("email-subject").value = `Coding Boot Camp - Tutorial Confirmation - ${session}`
 
     document.getElementById("email-text").value = `Hi ${name}!
                 
-    Thank you for scheduling your session with me. I am looking forward to our session on ${date} at ${time} ${timeZone}.`
+    Thank you for scheduling your session with me. I am looking forward to our session on ${session}.`
 
     copySubject()
 })
 
+function formatDate() {
+
+}
+
+function convertTime() {
+    let timeZone = document.getElementById("time-zone").value
+    let date = document.getElementById("date").value
+    let hour = document.getElementById("hour").value
+    let minute = document.getElementById("minute").value
+    let meridiem = document.getElementById("meridiem").value
+    let time = `${hour}:${minute} ${meridiem}`
+
+    let timeZoneDiff
+    // Determine hour difference based on student's time zone
+    if (timeZone === 'PST') {
+        timeZoneDiff = -1
+    } else if (timeZone === 'PDT' || timeZone === 'MST') {
+        timeZoneDiff = 0
+    } else if (timeZone === 'MDT' || timeZone === 'CST') {
+        timeZoneDiff = 1
+    } else if (timeZone === 'CDT' || timeZone === 'EST') {
+        timeZoneDiff = 2
+    } else if (timeZone === 'EDT') {
+        timeZoneDiff = 3
+    } else if (timeZone === 'AEST') {
+        timeZoneDiff = 18
+    }
+
+    date = moment(`${date} ${time}`).add(timeZoneDiff, 'hours').format('llll')
+    return date
+}
+
 function copySubject() {
     /* Get the text field */
-    var copyText = document.getElementById("email-subject");
+    let copyText = document.getElementById("email-subject");
 
     /* Select the text field */
     copyText.select();
@@ -29,7 +60,7 @@ function copySubject() {
 }
 
 function copyEmail() {
-    var copyText = document.getElementById("email-text");
+    let copyText = document.getElementById("email-text");
 
     copyText.select();
     copyText.setSelectionRange(0, 99999); /* For mobile devices */
