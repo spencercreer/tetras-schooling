@@ -29,7 +29,7 @@ function generateTxt(data) {
         } else if (data.timeZone === 'EDT') {
             timeZoneDiff = 3
         } else if (data.timeZone === 'AEST') {
-            timeZoneDiff = 17
+            timeZoneDiff = 18
         }
 
         // Convert user entered military time to AM/PM time
@@ -88,7 +88,7 @@ Thank you for scheduling your session with me. I am looking forward to our sessi
             timeZoneDiff = 3
             timeZoneDiff = `+${timeZoneDiff}hr`
         } else if (data.timeZone === 'AEST') {
-            timeZoneDiff = 17
+            timeZoneDiff = 18
             timeZoneDiff = `+${timeZoneDiff}hr`
         }
 
