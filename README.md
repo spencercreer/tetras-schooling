@@ -15,7 +15,7 @@ A command line application for generating .txt files for assisting full stack tu
 * [Contact](#contact)
 
 ## Links
-Published URL: [https://spencercreer.github.io/tutor-templates/](https://spencercreer.github.io/tutor-templates/)
+Published URL: [https://spencercreer.github.io/tutor-templates/](https://spencercreer.github.io/tutor-templates/)<br>
 Repository: [https://github.com/spencercreer/tutor-templates](https://github.com/spencercreer/tutor-templates)
 
 ## Instructions
@@ -24,6 +24,13 @@ To start the application, run npm start
 ## Installation
 This application utilizes the following dependencies:
 * [Inquirer.js](https://www.npmjs.com/package/inquirer)
+* express
+* dotenv
+* express-handlebars
+* handlebars
+* mysql2
+* sequelize
+* body-parser
 
 To install the necessary dependencies, run the following command:
 
