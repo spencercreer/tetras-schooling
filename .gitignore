@@ -4,3 +4,5 @@ _students.txt
 _tutor-template.txt
 _links.txt
 db/seeds.sql
+/seeds/
+.env
