@@ -5,7 +5,8 @@
   "main": "tutorTemplate.js",
   "scripts": {
     "start": "node tutorTemplate.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,11 @@
   },
   "homepage": "https://github.com/spencercreer/tutor-templates#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "inquirer": "^8.1.2",
     "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

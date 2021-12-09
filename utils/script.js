@@ -12,6 +12,7 @@ document.getElementById("submitBtn").addEventListener("click", function () {
     Thank you for scheduling your session with me. I am looking forward to our session on ${session}.`
 
     copySubject()
+    // remove the link to gmail from submit button and move to a link next to it
 })
 
 function formatDate() {
