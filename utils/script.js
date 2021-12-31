@@ -1,9 +1,10 @@
 // have date field auto-populate with tomorrows date
+$("#date").val(moment().add(1, 'days').format('L'))
 
 $("#submitBtn").click(() => {
-    let name = document.getElementById("name").value
+    let name = $("#name").val()
     let session = convertTime()
-    let timeZone = document.getElementById("time-zone").value
+    let timeZone = $("#time-zone").val()
 
     document.getElementById("email-subject").value = `Coding Boot Camp - Tutorial Confirmation - ${session} ${timeZone}`
 
@@ -50,11 +51,11 @@ function formatDate() {
 }
 
 function convertTime() {
-    let timeZone = document.getElementById("time-zone").value
-    let date = document.getElementById("date").value
-    let hour = document.getElementById("hour").value
-    let minute = document.getElementById("minute").value
-    let meridiem = document.getElementById("meridiem").value
+    let timeZone = $("#time-zone").val()
+    let date = $("#date").val()
+    let hour = $("#hour").val()
+    let minute = $("#minute").val()
+    let meridiem = $("#meridiem").val()
     let time = `${hour}:${minute} ${meridiem}`
 
     let timeZoneDiff
@@ -89,7 +90,7 @@ function copySubject() {
     navigator.clipboard.writeText(copyText.value);
 
     /* Alert the copied text */
-    alert("Copied the text: " + copyText.value);
+    alert("Copied: " + copyText.value);
 }
 
 function copyEmail() {
