@@ -3,13 +3,13 @@
 document.getElementById("submitBtn").addEventListener("click", function () {
     let name = document.getElementById("name").value
     let session = convertTime()
-    console.log(session)
+    let timeZone = document.getElementById("time-zone").value
 
-    document.getElementById("email-subject").value = `Coding Boot Camp - Tutorial Confirmation - ${session}`
+    document.getElementById("email-subject").value = `Coding Boot Camp - Tutorial Confirmation - ${session} ${timeZone}`
 
     document.getElementById("email-text").value = `Hi ${name}!
                 
-    Thank you for scheduling your session with me. I am looking forward to our session on ${session}.`
+    Thank you for scheduling your session with me. I am looking forward to our session on ${session} ${timeZone}.`
 
     copySubject()
     // remove the link to gmail from submit button and move to a link next to it

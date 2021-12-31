@@ -58,7 +58,7 @@
               <select name="meridiem" id="meridiem" class="form-control">
                 <option value=""></option>
                 <option value="AM">AM</option>
-                <option value="PM">PM</option>a
+                <option value="PM">PM</option>
               </select>
             </div>
           </div>
@@ -70,11 +70,11 @@
     <textarea type="text" id="email-subject" class="form-control" cols="30" rows="1"></textarea>
     <button class="btn btn-secondary mt-2" onclick="copySubject()">Copy Subject</button>
     <br><br>
-    <textarea type="text" name="email-text" class="form-control" id="email-text" cols="30" rows="10"></textarea>
+    <div name="email-text" class="form-control" id="email-text"></div>
     <button class="btn btn-secondary mt-2" onclick="copyEmail()">Copy Email</button>
   </div>
 
-  <div style="padding: 20px 200px">
+  <div style="padding: 20px 10vw">
     <p>Hi $name!</p>
   
     <p>Thank you for scheduling your session with me. I am looking forward to our session on <b>$date, $starttime -
