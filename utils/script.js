@@ -1,16 +1,46 @@
 // have date field auto-populate with tomorrows date
 
-document.getElementById("submitBtn").addEventListener("click", function () {
+$("#submitBtn").click(() => {
     let name = document.getElementById("name").value
     let session = convertTime()
     let timeZone = document.getElementById("time-zone").value
 
     document.getElementById("email-subject").value = `Coding Boot Camp - Tutorial Confirmation - ${session} ${timeZone}`
 
-    document.getElementById("email-text").value = `Hi ${name}!
-                
-    Thank you for scheduling your session with me. I am looking forward to our session on ${session} ${timeZone}.`
+    $("#email-text").append(`<div style="padding: 20px 10vw">
+  <p>Hi ${name}!</p>
 
+  <p>Thank you for scheduling your session with me. I am looking forward to our session on <b>${session} ${timeZone}</b>.</p>
+
+  <p>If something comes up and the scheduled time will not work, <b>let me know a minimum of 6 hours before the
+      appointment time</b> and we&apos;ll figure something out.</p>
+
+  <p>This session will take place here: https://us05web.zoom.us/j/5380280796?pwd=NWV5Q3YwZlBaS0l5V1ViVHpoUUxUZz09</p>
+
+  <div style="padding-left: 2em;">(If you have not used zoom before please join the meeting at least 15 minutes early
+    because it may have you download and install some software.)</div><br>
+
+  Again, all I need from you:
+  <ul>
+    <li>Be on Tutors &amp; Students Slack 5 minutes before your time slot.</li>
+
+    <li>Make sure your computer/mic/internet connection are working.</li>
+
+    <li>Make sure your workspace is quiet and free from interruptions.</li>
+
+    <li>At the end of the session, I will provide you with a link to a 2 minute evaluation form that you are required to
+      complete.</li>
+  </ul>
+
+  <p>Slack or email me with any questions. I&apos;m looking forward to our meeting!</p>
+
+  <p><b>Please Reply All to this email so that I know you have seen it.</b></p>
+
+  <p><b>(CC Central Support on all tutor email by always using REPLY ALL).</b></p>
+
+  <p>Sincerely,<br>
+    Spencer Creer</p>
+</div>`)
     copySubject()
     // remove the link to gmail from submit button and move to a link next to it
 })
