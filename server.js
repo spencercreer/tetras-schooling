@@ -6,7 +6,6 @@ const path = require('path')
 require('dotenv').config()
 
 const sequelize = require('./config/config')
-const Student = require('./models/Student')
 
 sequelize.authenticate()
     .then(() => console.log('coding_quiz_db connected...'))
@@ -26,10 +25,7 @@ app.engine('handlebars', exphbs({
 }))
 app.set('view engine', 'handlebars')
 
-app.get('/', (req, res) => {
-    Student.findAll()
-    .then(students => res.render('index', { students }))
-    .catch(err => console.log(err))
-})
+// routes
+app.use(require('./controller/'))
 
 app.listen(PORT, () => console.log(`app listening at http://localhost:${PORT}`))
