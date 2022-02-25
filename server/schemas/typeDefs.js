@@ -13,8 +13,24 @@ const typeDefs = gql`
         status: String
     }
 
+    input StudentInput {
+        first_name: String
+        last_name: String
+        email: String
+        class_code: String
+        grad_date: String
+        time_zone: String
+        slack: String
+        status: String
+    }
+
     type Query {
         getStudent: [Student]
+    }
+
+    type Mutation {
+        addStudent(studentData: StudentInput!): Student
+        updateStudent(studentData: StudentInput!): Student
     }
 `
 

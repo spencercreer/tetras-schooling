@@ -8,6 +8,17 @@ const resolvers = {
 
             return studentData
         }
+    },
+
+    Mutation: {
+        addStudent: async (parent, args) => {
+            const student = await Student.create(args)
+
+            return { student }
+        },
+        // updateStudent: async (parent, { studentData }) => {
+
+        // }
     }
 
 
