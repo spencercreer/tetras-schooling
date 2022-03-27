@@ -7,6 +7,7 @@ export const GET_STUDENTS = gql`
             first_name
             last_name
             time_zone
+            status
         }
     }
 `

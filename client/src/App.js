@@ -1,5 +1,3 @@
-import Nav from './components/Nav';
-
 import {
   ApolloClient,
   InMemoryCache,
@@ -8,12 +6,14 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+import Nav from './components/Nav';
+import NavSider from './components/NavSider';
+import Students from './components/Students';
+
+import './App.css';
 import { Layout } from 'antd'
 
-import Students from './components/Students';
-import './App.css';
-
-const { Header, Footer, Sider, Content } = Layout
+const { Footer, Content } = Layout
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -44,7 +44,7 @@ function App() {
       <Layout>
         <Nav />
         <Layout>
-          <Sider></Sider>
+          <NavSider></NavSider>
           <Content>
             <Students />
           </Content>
