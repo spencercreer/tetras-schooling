@@ -47,8 +47,8 @@ function App() {
         <Layout>
           <NavSider></NavSider>
           <Content>
-            {/* <Students /> */}
-            <StudentForm />
+            <Students />
+            {/* <StudentForm /> */}
 
           </Content>
         </Layout>
