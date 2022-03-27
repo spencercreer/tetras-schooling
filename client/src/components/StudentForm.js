@@ -1,57 +1,66 @@
-import { useState } from 'react'
-import { Select, DatePicker } from 'antd'
+import { Form, Input, Select, DatePicker, Switch, Button } from 'antd'
 
-import { useQuery } from '@apollo/client'
-import { GET_STUDENTS } from '../utils/queries'
-
+const { Item } = Form
 const { Option } = Select
 
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: '${label} is not a valid email!',
+    number: '${label} is not a valid number!',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
+  },
+};
+
 const StudentForm = () => {
-  const [studentData, setStudentData] = useState()
-  const [timeData, setTimeData] = useState()
-
-  const { loading, data } = useQuery(GET_STUDENTS)
-  if (loading)
-    return <div>Loading...</div>
-
-  const students = data.getStudents || []
-
-  const handleSelectStudent = (value) => {
-    const student = data.getStudent[value.key]
-    setStudentData(student)
-  }
-
-  const handleSelectDate = (value) => {
-    console.log(value)
-    // setTimeData(value._d)
-  }
+  const onFinish = (values) => {
+    console.log(values);
+  };
 
   return (
-    <>
-      <Select
-        style={{ width: '300px' }}
-        showSearch
-        placeholder="Student"
-        optionFilterProp="children"
-        labelInValue
-        onSelect={handleSelectStudent}
-        filterOption={(input, option) =>
-          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }
-      >
-        {
-          students?.map((student) => (
-            <Option key={student.id} value={student.id}>{`${student.first_name} ${student.last_name}`}</Option>
-          ))
-        }
-      </Select>
-      <DatePicker
-        value={timeData}
-        onChange={handleSelectDate}
-        showTime={{ format: 'HH:mm' }}
-        format="YYYY-MM-DD HH:mm"
-      />
-    </>
+    <div style={{ marginTop: 30, marginRight: 40 }}>
+      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+        <Item name={['student', 'firstName']} label="First Name" rules={[{ required: true }]}>
+          <Input />
+        </Item>
+        <Item name={['student', 'lastName']} label="Last Name" rules={[{ required: true }]}>
+          <Input />
+        </Item>
+        <Item name={['student', 'email']} label="Email" rules={[{ required: true }, { type: 'email' }]}>
+          <Input />
+        </Item>
+        <Item name={['student', 'classCode']} label="Class Code" rules={[{ required: true }]}>
+          <Input />
+        </Item>
+        <Item name={['student', 'timeZone']} label="Time Zone">
+          <Select>
+            <Option value="PT">Pacific Time</Option>
+            <Option value="MST">Arizona Time</Option>
+            <Option value="MT">Mountain Time</Option>
+            <Option value="CT">Central Time</Option>
+            <Option value="ET">Eastern Time</Option>
+          </Select>
+        </Item>
+        <Item name={['student', 'gradDate']} label="Graduation Date">
+          <DatePicker />
+        </Item>
+        <Item name={['student', 'status']} label="Active" valuePropName="checked" >
+          <Switch defaultChecked />
+        </Item>
+        <Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Item>
+      </Form>
+    </div>
   )
 }
 

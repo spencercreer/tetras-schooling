@@ -18,7 +18,8 @@ Student.init(
             allowNull: false
         },
         class_code: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         grad_date: {
             type: DataTypes.STRING,

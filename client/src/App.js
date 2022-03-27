@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import Nav from './components/Nav';
 import NavSider from './components/NavSider';
 import Students from './components/Students';
+import StudentForm from './components/StudentForm';
 
 import './App.css';
 import { Layout } from 'antd'
@@ -46,7 +47,9 @@ function App() {
         <Layout>
           <NavSider></NavSider>
           <Content>
-            <Students />
+            {/* <Students /> */}
+            <StudentForm />
+
           </Content>
         </Layout>
         <Footer>Footer</Footer>
