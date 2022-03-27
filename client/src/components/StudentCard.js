@@ -5,11 +5,11 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const StudentCard = ({ loading, studentId, firstName, lastName, status, handleToggleModal, setSelectedStudent }) => {
+const StudentCard = ({ loading, studentId, firstName, lastName, status, handleToggleModal, setSelectedStudentId }) => {
     const [active, setActive] = useState(status === "Active")
 
     const handleOnClick = () => {
-        setSelectedStudent({ studentId, firstName, lastName})
+        setSelectedStudentId(studentId)
         handleToggleModal()
     }
     

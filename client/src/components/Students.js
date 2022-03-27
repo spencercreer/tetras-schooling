@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { GET_STUDENTS } from '../utils/queries'
+import { GET_STUDENT_CARDS } from '../utils/queries'
 
 import StudentCard from './StudentCard';
 import StudentModal from './StudentModal';
 
 const Students = () => {
     const [modalVisible, setModalVisible] = useState(false)
-    const [selectedStudent, setSelectedStudent] = useState({ studentId: null, firstName: null, lastName: null })
+    const [selectedStudentId, setSelectedStudentId] = useState(1)
 
-    const { loading, data } = useQuery(GET_STUDENTS)
+    const { loading, data } = useQuery(GET_STUDENT_CARDS)
     if (loading)
         return (
             [...Array(12).keys()].map((i) => (
@@ -38,14 +38,14 @@ const Students = () => {
                     status={status}
                     loading={false}
                     handleToggleModal={handleToggleModal}
-                    setSelectedStudent={setSelectedStudent}
+                    setSelectedStudentId={setSelectedStudentId}
                 />
             ))
         }
         <StudentModal
             visible={modalVisible}
             handleCancel={handleToggleModal}
-            student={selectedStudent}
+            studentId={selectedStudentId}
         />
         </div>
     )
