@@ -5,14 +5,17 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const StudentCard = ({ firstName, lastName, status }) => {
+const StudentCard = ({ firstName, lastName, status, handleToggleModal }) => {
     const [active, setActive] = useState(status === "Active")
 
     return (
         <Card
             style={{ width: 300, marginTop: 16, marginLeft: 10, marginRight: 10, display: "inline-block" }}
             actions={[
-                <EllipsisOutlined key="ellipsis" />,
+                <EllipsisOutlined
+                    key="ellipsis"
+                    onClick={handleToggleModal}
+                />,
                 <EditOutlined key="edit" />,
                 <Switch 
                     checked={active}
