@@ -1,3 +1,5 @@
+import Nav from './components/Nav';
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,9 +8,12 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+import { Layout } from 'antd'
+
 import Students from './components/Students';
 import './App.css';
 
+const { Header, Footer, Sider, Content } = Layout
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -36,7 +41,17 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Students />
+      <Layout>
+        <Nav />
+        <Layout>
+          <Sider></Sider>
+          <Content>
+            <Students />
+          </Content>
+        </Layout>
+        <Footer>Footer</Footer>
+      </Layout>
+
     </ApolloProvider>
   );
 }

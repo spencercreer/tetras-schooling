@@ -35,6 +35,7 @@ const resolvers = {
 
             return newStudent
         },
+        
         updateStudent: async (parent, { id, studentData }) => {
             const { first_name, last_name, email, class_code, grad_date, time_zone, slack, status } = studentData
             const updateStudent = await Student.update({
