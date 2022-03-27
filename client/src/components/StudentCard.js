@@ -5,8 +5,23 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const StudentCard = ({ firstName, lastName, status, handleToggleModal }) => {
+const StudentCard = ({ loading, studentId, firstName, lastName, status, handleToggleModal, setSelectedStudent }) => {
     const [active, setActive] = useState(status === "Active")
+
+    const handleOnClick = () => {
+        setSelectedStudent({ studentId, firstName, lastName})
+        handleToggleModal()
+    }
+    
+    const getAvatar = (firstName, lastName, github) => {
+        if (github) {
+            return <Avatar src="https://github.com/spencercreer.png" />
+        } else if (firstName && lastName) {
+            return <Avatar style={{ backgroundColor: '#00a2ae' }}>{firstName[0] + lastName[0]}</Avatar>
+        } else {
+            return <Avatar>{"Icon"}</Avatar>
+        }
+    }
 
     return (
         <Card
@@ -14,7 +29,7 @@ const StudentCard = ({ firstName, lastName, status, handleToggleModal }) => {
             actions={[
                 <EllipsisOutlined
                     key="ellipsis"
-                    onClick={handleToggleModal}
+                    onClick={handleOnClick}
                 />,
                 <EditOutlined key="edit" />,
                 <Switch 
@@ -23,9 +38,9 @@ const StudentCard = ({ firstName, lastName, status, handleToggleModal }) => {
                 />,
             ]}
         >
-            <Skeleton loading={!firstName} avatar active>
+            <Skeleton loading={loading} avatar active>
                 <Meta
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                    avatar={getAvatar(firstName, lastName, null)}
                     title={`${firstName} ${lastName}`}
                     description="This is the description"
                 />

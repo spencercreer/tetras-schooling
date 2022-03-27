@@ -6,7 +6,8 @@ import StudentCard from './StudentCard';
 import StudentModal from './StudentModal';
 
 const Students = () => {
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false)
+    const [selectedStudent, setSelectedStudent] = useState({ studentId: null, firstName: null, lastName: null })
 
     const { loading, data } = useQuery(GET_STUDENTS)
     if (loading)
@@ -31,17 +32,20 @@ const Students = () => {
             students?.map(({ id, first_name, last_name, status }) => (
                 <StudentCard
                     key={id}
+                    studentId={id}
                     firstName={first_name}
                     lastName={last_name}
                     status={status}
                     loading={false}
                     handleToggleModal={handleToggleModal}
+                    setSelectedStudent={setSelectedStudent}
                 />
             ))
         }
         <StudentModal
             visible={modalVisible}
             handleCancel={handleToggleModal}
+            student={selectedStudent}
         />
         </div>
     )
