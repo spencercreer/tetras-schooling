@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Select, DatePicker, TimePicker } from 'antd'
 
 import { useQuery } from '@apollo/client'
@@ -6,11 +7,24 @@ import { GET_STUDENT } from '../utils/queries'
 const { Option } = Select
 
 const Students = () => {
+    const [studentData, setStudentData] = useState()
+    const [timeData, setTimeData] = useState()
+
     const { loading, data } = useQuery(GET_STUDENT)
     if (loading)
         return <div>Loading...</div>
 
     const students = data.getStudent || []
+    
+    const handleSelectStudet = (value) => {
+        const student = data.getStudent[value.key]
+        setStudentData(student)
+    }
+
+    const handleSelectDate = (value) => {
+        console.log(value)
+        // setTimeData(value._d)
+    }
 
     return (
         <>
@@ -22,7 +36,7 @@ const Students = () => {
                         placeholder="Student"
                         optionFilterProp="children"
                         labelInValue
-                        // onChange={onFoodChange}
+                        onSelect={handleSelectStudet}
                         filterOption={(input, option) =>
                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                         }
@@ -34,7 +48,8 @@ const Students = () => {
                         }
                     </Select>
                     <DatePicker
-                        // onChange={onChange}
+                        value={timeData}
+                        onChange={handleSelectDate}
                         showTime={{ format: 'HH:mm' }}
                         format="YYYY-MM-DD HH:mm"
                     />
