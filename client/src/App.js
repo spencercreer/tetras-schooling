@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {
   ApolloClient,
   InMemoryCache,
@@ -11,8 +12,11 @@ import NavSider from './components/NavSider';
 import Students from './components/Students';
 import StudentForm from './components/StudentForm';
 
-import './App.css';
+import AddStudent from './pages/AddStudent';
+
 import { Layout } from 'antd'
+import './App.css';
+import StudentDashboard from './pages/StudentDashboard';
 
 const { Footer, Content } = Layout
 
@@ -43,18 +47,30 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Layout>
-        <Nav />
-        <Layout>
-          <NavSider></NavSider>
-          <Content>
-            <Students />
-            {/* <StudentForm /> */}
-
-          </Content>
-        </Layout>
+        <Router>
+          <Nav />
+          <Layout>
+            <NavSider></NavSider>
+            <Content>
+              <Routes>
+                <Route
+                  path="/addStudent"
+                  element={<AddStudent />}
+                />
+                <Route
+                  path="/students"
+                  element={<StudentDashboard />}
+                />
+                <Route
+                  path='*'
+                  element={<h1 className="display-2">Wrong page!</h1>}
+                />
+              </Routes>
+            </Content>
+          </Layout>
+        </Router>
         <Footer>Footer</Footer>
       </Layout>
-
     </ApolloProvider>
   );
 }
