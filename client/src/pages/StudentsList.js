@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_STUDENT_CARDS } from '../utils/queries'
 
-import StudentCard from './StudentCard';
-import StudentModal from './StudentModal';
+import StudentCard from '../components/StudentCard';
+import StudentModal from '../components/StudentModal';
 
-const Students = () => {
+const StudentsList = () => {
     const [modalVisible, setModalVisible] = useState(false)
     const [selectedStudentId, setSelectedStudentId] = useState(1)
 
@@ -51,4 +51,4 @@ const Students = () => {
     )
 }
 
-export default Students
+export default StudentsList

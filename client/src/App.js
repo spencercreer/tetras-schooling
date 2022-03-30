@@ -9,14 +9,11 @@ import { setContext } from '@apollo/client/link/context';
 
 import Nav from './components/Nav';
 import NavSider from './components/NavSider';
-import Students from './components/Students';
-import StudentForm from './components/StudentForm';
-
-import AddStudent from './pages/AddStudent';
+import AddStudentForm from './pages/AddStudentForm';
+import StudentsList from './pages/StudentsList';
 
 import { Layout } from 'antd'
 import './App.css';
-import StudentDashboard from './pages/StudentDashboard';
 
 const { Footer, Content } = Layout
 
@@ -55,11 +52,11 @@ function App() {
               <Routes>
                 <Route
                   path="/addStudent"
-                  element={<AddStudent />}
+                  element={<AddStudentForm />}
                 />
                 <Route
                   path="/students"
-                  element={<StudentDashboard />}
+                  element={<StudentsList />}
                 />
                 <Route
                   path='*'

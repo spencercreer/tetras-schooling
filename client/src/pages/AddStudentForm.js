@@ -1,4 +1,5 @@
-import { Form, Input, Select, DatePicker, Switch, Button } from 'antd'
+import { useState } from 'react'
+import { Form, Input, Select, DatePicker, Alert, Button } from 'antd'
 import { useMutation } from "@apollo/client"
 import { ADD_STUDENT } from '../utils/mutations'
 
@@ -23,6 +24,7 @@ const validateMessages = {
 
 const StudentForm = () => {
 
+  const [message, setMessage] = useState()
   const [addStudent, { error }] = useMutation(ADD_STUDENT)
 
   const onFinish = async (values) => {
@@ -30,8 +32,15 @@ const StudentForm = () => {
       const { data } = await addStudent({
         variables: { studentData: { ...values.student }}
       })
+      
+      if (data.addStudent.id) {
+        setMessage({ text: 'The student was added successfully.', error: false })
+      } else {
+        setMessage({ text: 'The student was not added.', error: true })
+      }
     }
     catch (err) {
+      setMessage({ text: 'The student was not added.', error: true })
       console.error(err)
     }
   };
@@ -63,10 +72,10 @@ const StudentForm = () => {
         <Item name={['student', 'grad_date']} label="Graduation Date">
           <DatePicker />
         </Item>
-        {/* <Item name={['student', 'status']} label="Active" valuePropName="checked" >
-          <Switch defaultChecked />
-        </Item> */}
         <Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          {
+            message && <Alert message={message.text} type={message.error ? "error" : "success"} />
+          }   
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
