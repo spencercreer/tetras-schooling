@@ -23,7 +23,7 @@ const validateMessages = {
 };
 
 const StudentForm = () => {
-
+  const [form] = Form.useForm()
   const [message, setMessage] = useState()
   const [addStudent, { error }] = useMutation(ADD_STUDENT)
 
@@ -32,9 +32,10 @@ const StudentForm = () => {
       const { data } = await addStudent({
         variables: { studentData: { ...values.student }}
       })
-      
+
       if (data.addStudent.id) {
-        setMessage({ text: 'The student was added successfully.', error: false })
+        setMessage({ text: `${data.addStudent.first_name} ${data.addStudent.last_name} was added successfully.`, error: false })
+        form.resetFields()
       } else {
         setMessage({ text: 'The student was not added.', error: true })
       }
@@ -47,7 +48,13 @@ const StudentForm = () => {
 
   return (
     <div style={{ marginTop: 30, marginRight: 40 }}>
-      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+      <Form
+        {...layout}
+        form={form}
+        name="nest-messages"
+        onFinish={onFinish}
+        validateMessages={validateMessages}
+      >
         <Item name={['student', 'first_name']} label="First Name" rules={[{ required: true }]}>
           <Input />
         </Item>
@@ -76,7 +83,10 @@ const StudentForm = () => {
           {
             message && <Alert message={message.text} type={message.error ? "error" : "success"} />
           }   
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </Item>
