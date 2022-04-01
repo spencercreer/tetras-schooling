@@ -47,7 +47,7 @@ function App() {
         <Router>
           <Nav />
           <Layout>
-            <NavSider></NavSider>
+            <NavSider />
             <Content>
               <Routes>
                 <Route
@@ -56,7 +56,11 @@ function App() {
                 />
                 <Route
                   path="/students"
-                  element={<StudentsList />}
+                  element={<StudentsList statuses={["Active", "Inactive"]} />}
+                />
+                <Route
+                  path="/students/active"
+                  element={<StudentsList statuses={["Active"]} />}
                 />
                 <Route
                   path='*'

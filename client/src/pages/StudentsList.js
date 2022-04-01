@@ -6,7 +6,7 @@ import StudentCard from '../components/StudentCard';
 import LoadingStudentCard from '../components/LoadingStudentCard';
 import StudentModal from '../components/StudentModal';
 
-const StudentsList = () => {
+const StudentsList = ({ statuses }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [selectedStudentId, setSelectedStudentId] = useState(1)
 
@@ -31,6 +31,7 @@ const StudentsList = () => {
         <div style={{ marginLeft: 10, marginRight: 10 }}>
         {
             students?.map((student) => (
+                statuses.includes(student.status) &&
                 <StudentCard
                     key={student.id}
                     student={student}
