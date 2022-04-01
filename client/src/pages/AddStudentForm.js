@@ -31,7 +31,7 @@ const StudentForm = () => {
   const onFinish = async (values) => {
     try {
       const { data } = await addStudent({
-        variables: { studentData: { ...values.student } }
+        variables: { studentData: { ...values.student, status: "Active" } }
       })
 
       if (data.addStudent.id) {
