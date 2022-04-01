@@ -19,7 +19,7 @@ const StudentCard = ({ student, loading, handleToggleModal, setSelectedStudentId
         if (github) {
             return <Avatar src="https://github.com/spencercreer.png" />
         } else if (first_name && last_name) {
-            return <Avatar style={{ backgroundColor: '#00a2ae' }}>{first_name[0] + last_name[0]}</Avatar>
+            return <Avatar style={{ backgroundColor: '#00a2ae' }}>{first_name[0].toUpperCase() + last_name[0].toUpperCase()}</Avatar>
         } else {
             return <Avatar>{"Icon"}</Avatar>
         }
