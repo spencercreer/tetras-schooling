@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import { GET_STUDENT_CARDS } from '../utils/queries'
 
 import StudentCard from '../components/StudentCard';
+import LoadingStudentCard from '../components/LoadingStudentCard';
 import StudentModal from '../components/StudentModal';
 
 const StudentsList = () => {
@@ -13,7 +14,7 @@ const StudentsList = () => {
     if (loading)
         return (
             [...Array(12).keys()].map((i) => (
-                <StudentCard
+                <LoadingStudentCard
                     key={i}
                     loading={true}
                 />
@@ -29,13 +30,10 @@ const StudentsList = () => {
     return (
         <div style={{ marginLeft: 10, marginRight: 10 }}>
         {
-            students?.map(({ id, first_name, last_name, status }) => (
+            students?.map((student) => (
                 <StudentCard
-                    key={id}
-                    studentId={id}
-                    firstName={first_name}
-                    lastName={last_name}
-                    status={status}
+                    key={student.id}
+                    student={student}
                     loading={false}
                     handleToggleModal={handleToggleModal}
                     setSelectedStudentId={setSelectedStudentId}

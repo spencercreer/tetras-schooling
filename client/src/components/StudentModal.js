@@ -6,7 +6,6 @@ import { SlackOutlined } from '@ant-design/icons';
 
 
 const StudentModal = ({ visible, handleCancel, studentId }) => {
-    console.log(studentId)
 
     const { loading, data } = useQuery(GET_STUDENT_MODAL, { variables: { id: studentId } })
     if (loading)

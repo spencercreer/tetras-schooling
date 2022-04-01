@@ -7,7 +7,7 @@ const { Item } = Form
 const { Option } = Select
 
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 6 },
   wrapperCol: { span: 16 },
 };
 
@@ -25,16 +25,16 @@ const validateMessages = {
 const StudentForm = () => {
   const [form] = Form.useForm()
   const [message, setMessage] = useState()
-  const [addStudent, { error }] = useMutation(ADD_STUDENT)
+  const [loading, setLoading] = useState()
+  const [addStudent] = useMutation(ADD_STUDENT)
 
   const onFinish = async (values) => {
     try {
       const { data } = await addStudent({
-        variables: { studentData: { ...values.student }}
+        variables: { studentData: { ...values.student } }
       })
 
       if (data.addStudent.id) {
-        setMessage({ text: `${data.addStudent.first_name} ${data.addStudent.last_name} was added successfully.`, error: false })
         form.resetFields()
       } else {
         setMessage({ text: 'The student was not added.', error: true })
@@ -44,6 +44,7 @@ const StudentForm = () => {
       setMessage({ text: 'The student was not added.', error: true })
       console.error(err)
     }
+    setLoading(false)
   };
 
   return (
@@ -79,13 +80,14 @@ const StudentForm = () => {
         <Item name={['student', 'grad_date']} label="Graduation Date">
           <DatePicker />
         </Item>
-        <Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+        <Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
           {
             message && <Alert message={message.text} type={message.error ? "error" : "success"} />
-          }   
+          }
           <Button
             type="primary"
             htmlType="submit"
+            loading={loading}
           >
             Submit
           </Button>

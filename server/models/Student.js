@@ -22,7 +22,7 @@ Student.init(
             allowNull: false
         },
         grad_date: {
-            type: DataTypes.STRING,
+            type: DataTypes.DATE,
         },
         time_zone: {
             type: DataTypes.STRING,
