@@ -10,7 +10,6 @@ const StudentsList = ({ statuses }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [selectedStudentId, setSelectedStudentId] = useState(1)
-    console.log(editModal)
 
     const { loading, data } = useQuery(GET_STUDENT_CARDS)
     if (loading)
@@ -52,6 +51,7 @@ const StudentsList = ({ statuses }) => {
             visible={modalVisible}
             edit={editModal}
             handleCancel={handleToggleModal}
+            handleToggleEdit={handleToggleEdit}
             studentId={selectedStudentId}
         />
         </div>
