@@ -6,13 +6,15 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const StudentCard = ({ student, loading, handleToggleModal, setSelectedStudentId }) => {
+const StudentCard = ({ student, loading, handleToggleModal, handleToggleEdit, setSelectedStudentId }) => {
     let { id, first_name, last_name, class_code, grad_date, status } = student
     const [active, setActive] = useState(status === "Active")
 
-    const handleOnClick = () => {
+    const handleOnClick = (edit) => {
+        console.log(edit)
         setSelectedStudentId(id)
         handleToggleModal()
+        handleToggleEdit(edit)
     }
     
     const getAvatar = () => {
@@ -40,9 +42,12 @@ const StudentCard = ({ student, loading, handleToggleModal, setSelectedStudentId
             actions={[
                 <EllipsisOutlined
                     key="ellipsis"
-                    onClick={handleOnClick}
+                    onClick={() => handleOnClick(false)}
                 />,
-                <EditOutlined key="edit" />,
+                <EditOutlined
+                    key="edit"
+                    onClick={() => handleOnClick(true)}
+                />,
                 <Switch 
                     checked={active}
                     onChange={() => setActive(!active)}

@@ -8,7 +8,9 @@ import StudentModal from '../components/StudentModal';
 
 const StudentsList = ({ statuses }) => {
     const [modalVisible, setModalVisible] = useState(false)
+    const [editModal, setEditModal] = useState(false)
     const [selectedStudentId, setSelectedStudentId] = useState(1)
+    console.log(editModal)
 
     const { loading, data } = useQuery(GET_STUDENT_CARDS)
     if (loading)
@@ -27,6 +29,10 @@ const StudentsList = ({ statuses }) => {
       setModalVisible(!modalVisible);
     };
 
+    const handleToggleEdit = (edit) => {
+        setEditModal(edit)
+    }
+
     return (
         <div style={{ marginLeft: 10, marginRight: 10 }}>
         {
@@ -37,6 +43,7 @@ const StudentsList = ({ statuses }) => {
                     student={student}
                     loading={false}
                     handleToggleModal={handleToggleModal}
+                    handleToggleEdit={handleToggleEdit}
                     setSelectedStudentId={setSelectedStudentId}
                 />
             ))

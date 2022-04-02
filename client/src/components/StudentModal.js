@@ -85,9 +85,8 @@ No Show`)
         message.success('Clock-out notes copied! ' + getRandomEmoji())
     }
 
-    const getTimeZoneTime = () => {
+    const getStudentsTime = () => {
         let currentTime = new Date()
-        console.log(currentTime)
         currentTime = currentTime.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
         return currentTime
     }
@@ -176,7 +175,7 @@ No Show`)
                         <Input.Group compact>
                             <Input
                                 style={{ width: '70%' }}
-                                defaultValue={getTimeZoneTime()}
+                                defaultValue={getStudentsTime()}
                                 disabled={false}
                             />
                             <Input
