@@ -11,7 +11,6 @@ const StudentCard = ({ student, loading, handleToggleModal, handleToggleEdit, se
     const [active, setActive] = useState(status === "Active")
 
     const handleOnClick = (edit) => {
-        console.log(edit)
         setSelectedStudentId(id)
         handleToggleModal()
         handleToggleEdit(edit)

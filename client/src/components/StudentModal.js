@@ -3,7 +3,7 @@ import { GET_STUDENT_MODAL } from '../utils/queries';
 import convertGradDate from '../utils/conversions';
 
 import { Row, Modal, Button, message, Avatar, Tooltip, Form, Input, Select, Alert } from 'antd'
-import { SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
+import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
 
 const { Item } = Form
 const { Option } = Select
@@ -24,12 +24,13 @@ const validateMessages = {
     },
 };
 
-const StudentModal = ({ visible, handleCancel, studentId }) => {
+const StudentModal = ({ visible, edit, studentId, handleCancel }) => {
     const [form] = Form.useForm()
     const { loading, data } = useQuery(GET_STUDENT_MODAL, { variables: { id: studentId } })
     if (loading)
         return <div>Loading...</div>
 
+    const disabled = !edit
     const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
     const { gradDate, graduated } = convertGradDate(grad_date)
 
@@ -91,45 +92,81 @@ No Show`)
         return currentTime
     }
 
+    const footerButtons = edit ?
+        [
+            <Button key="back" onClick={handleCancel}>
+                Exit
+            </Button>,
+            <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+            >
+                Submit
+            </Button>,
+            <Tooltip key="info" title={'Student Info'}>
+                <Button
+                    type="primary"
+                // onClick={handleFormNotesClick}
+                >
+                    <UserOutlined />
+                </Button>
+            </Tooltip>,
+        ]
+        :
+        [
+            <Button key="back" onClick={handleCancel}>
+                Exit
+            </Button>,
+            <Button
+                key="submit"
+                type="primary"
+                loading={loading}
+            >
+                Record Session
+            </Button>,
+            <Tooltip key="edit" title={'Edit'}>
+                <Button
+                    type="primary"
+                // onClick={handleFormNotesClick}
+                >
+                    <EditOutlined />
+                </Button>
+            </Tooltip>,
+            <Tooltip key="form-notes" title={'Form Notes'}>
+                <Button
+                    type="primary"
+                    onClick={handleFormNotesClick}
+                >
+                    <CopyOutlined />
+                </Button>
+            </Tooltip>,
+            <Tooltip key="slack-message" title={'Slack Message'}>
+                <Button
+                    type="primary"
+                    onClick={handleSlackClick}
+                >
+                    <SlackOutlined />
+                </Button>
+            </Tooltip>,
+            <Tooltip key="clock-out-notes" title={'Clock-Out Notes'}>
+                <Button
+                    type="primary"
+                    onClick={handleClockOutClick}
+                >
+                    <ClockCircleOutlined />
+                </Button>
+            </Tooltip>,
+        ]
+
     return (
         <>
             <Modal
-                title="Student Info"
+                title={edit ? "Edit Student Info" : "Student Info"}
                 visible={visible}
                 // onOk={handleOk}
                 onCancel={handleCancel}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>
-                        Return
-                    </Button>,
-                    <Button key="submit" type="primary" loading={loading}>
-                        Submit
-                    </Button>,
-                    <Tooltip key="form-notes" title={'Form Notes'}>
-                        <Button
-                            type="primary"
-                            onClick={handleFormNotesClick}
-                        >
-                            <CopyOutlined />
-                        </Button>
-                    </Tooltip>,
-                    <Tooltip key="slack-message" title={'Slack Message'}>
-                        <Button
-                            type="primary"
-                            onClick={handleSlackClick}
-                        >
-                            <SlackOutlined />
-                        </Button>
-                    </Tooltip>,
-                    <Tooltip key="clock-out-notes" title={'Clock-Out Notes'}>
-                        <Button
-                            type="primary"
-                            onClick={handleClockOutClick}
-                        >
-                            <ClockCircleOutlined />
-                        </Button>
-                    </Tooltip>,
-                ]}
+                footer={footerButtons}
             >
                 <Row>
                     <Avatar style={{ backgroundColor: '#00a2ae', marginRight: '8px' }}>{first_name[0] + last_name[0]}</Avatar>
@@ -147,7 +184,7 @@ No Show`)
                             <Input
                                 style={{ width: '90%' }}
                                 defaultValue={class_code}
-                                disabled
+                                disabled={disabled}
                             />
                             <Tooltip
                                 style={{ width: '10%' }}
@@ -162,7 +199,7 @@ No Show`)
                             <Input
                                 style={{ width: '90%' }}
                                 defaultValue={email}
-                                disabled
+                                disabled={disabled}
                             />
                             <Tooltip
                                 style={{ width: '10%' }}
@@ -176,33 +213,26 @@ No Show`)
                             <Input
                                 style={{ width: '70%' }}
                                 defaultValue={getStudentsTime()}
-                                disabled={false}
+                                disabled={disabled}
                             />
                             <Input
                                 style={{ width: '30%' }}
                                 defaultValue={time_zone}
-                                disabled
+                                disabled={disabled}
                             />
                         </Input.Group>
                     </Item>
                     <Item name={['student', 'grad_date']} label="Graduation Date">
                         <Input
                             defaultValue={gradDate}
-                            suffix={graduated && <StopTwoTone twoToneColor={"red"}/>}
-                            disabled
+                            suffix={graduated && <StopTwoTone twoToneColor={"red"} />}
+                            disabled={disabled}
                         />
                     </Item>
                     <Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
                         {
                             message && <Alert message={message.text} type={message.error ? "error" : "success"} />
                         }
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            loading={loading}
-                        >
-                            Submit
-                        </Button>
                     </Item>
                 </Form>
             </Modal>
