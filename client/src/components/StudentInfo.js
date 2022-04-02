@@ -3,25 +3,13 @@ import { GET_STUDENT_MODAL } from '../utils/queries';
 import convertGradDate from '../utils/conversions';
 
 import { Row, Modal, Button, message, Avatar, Tooltip, Form, Input, Select, Alert } from 'antd'
-import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
+import { EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
 
 const { Item } = Form
-const { Option } = Select
 
 const layout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 16 },
-};
-
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-    },
-    number: {
-        range: '${label} must be between ${min} and ${max}',
-    },
 };
 
 const StudentInfo = ({ visible, edit, studentId, handleCancel, handleToggleEdit }) => {
@@ -92,74 +80,51 @@ No Show`)
         return currentTime
     }
 
-    const footerButtons = edit ?
-        [
-            <Button key="back" onClick={handleCancel}>
-                Exit
-            </Button>,
-            <Tooltip key="info" title={'Student Info'}>
-                <Button
-                    type="primary"
-                    onClick={() => handleToggleEdit(false)}
-                >
-                    <UserOutlined />
-                </Button>
-            </Tooltip>,
+    const footerButtons = [
+        <Button key="back" onClick={handleCancel}>
+            Exit
+        </Button>,
+        <Tooltip key="form-notes" title={'Form Notes'}>
             <Button
                 type="primary"
-                htmlType="submit"
-                style={{width: "125px"}}
-                loading={loading}
+                onClick={handleFormNotesClick}
             >
-                Submit
-            </Button>,
-        ]
-        :
-        [
-            <Button key="back" onClick={handleCancel}>
-                Exit
-            </Button>,
-            <Tooltip key="form-notes" title={'Form Notes'}>
-                <Button
-                    type="primary"
-                    onClick={handleFormNotesClick}
-                >
-                    <CopyOutlined />
-                </Button>
-            </Tooltip>,
-            <Tooltip key="slack-message" title={'Slack Message'}>
-                <Button
-                    type="primary"
-                    onClick={handleSlackClick}
-                >
-                    <SlackOutlined />
-                </Button>
-            </Tooltip>,
-            <Tooltip key="clock-out-notes" title={'Clock-Out Notes'}>
-                <Button
-                    type="primary"
-                    onClick={handleClockOutClick}
-                >
-                    <ClockCircleOutlined />
-                </Button>
-            </Tooltip>,
-            <Tooltip key="edit" title={'Edit'}>
-                <Button
-                    type="primary"
-                    onClick={() => handleToggleEdit(true)}
-                >
-                    <EditOutlined />
-                </Button>
-            </Tooltip>,
+                <CopyOutlined />
+            </Button>
+        </Tooltip>,
+        <Tooltip key="slack-message" title={'Slack Message'}>
             <Button
-                key="record-session"
                 type="primary"
-                style={{width: "125px"}}
-                loading={loading}
+                onClick={handleSlackClick}
             >
-                Record Session
-            </Button>,
-        ]
+                <SlackOutlined />
+            </Button>
+        </Tooltip>,
+        <Tooltip key="clock-out-notes" title={'Clock-Out Notes'}>
+            <Button
+                type="primary"
+                onClick={handleClockOutClick}
+            >
+                <ClockCircleOutlined />
+            </Button>
+        </Tooltip>,
+        <Tooltip key="edit" title={'Edit'}>
+            <Button
+                type="primary"
+                onClick={() => handleToggleEdit(true)}
+            >
+                <EditOutlined />
+            </Button>
+        </Tooltip>,
+        <Button
+            key="record-session"
+            type="primary"
+            style={{ width: "125px" }}
+            loading={loading}
+        >
+            Record Session
+        </Button>,
+    ]
 
     return (
         <>
@@ -179,9 +144,8 @@ No Show`)
                     form={form}
                     name="nest-messages"
                     onFinish={onFinish}
-                    validateMessages={validateMessages}
                 >
-                    <Item name={['student', 'class_code']} label="Class Code" rules={[{ required: true }]}>
+                    <Item name={['student', 'class_code']} label="Class Code">
                         <Input.Group compact>
                             <Input
                                 style={{ width: '90%' }}
@@ -196,7 +160,7 @@ No Show`)
                             </Tooltip>
                         </Input.Group>
                     </Item>
-                    <Item name={['student', 'email']} label="Email" rules={[{ required: true }, { type: 'email' }]}>
+                    <Item name={['student', 'email']} label="Email">
                         <Input.Group compact>
                             <Input
                                 style={{ width: '90%' }}
@@ -230,11 +194,6 @@ No Show`)
                             suffix={graduated && <StopTwoTone twoToneColor={"red"} />}
                             disabled={disabled}
                         />
-                    </Item>
-                    <Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
-                        {
-                            message && <Alert message={message.text} type={message.error ? "error" : "success"} />
-                        }
                     </Item>
                 </Form>
             </Modal>
