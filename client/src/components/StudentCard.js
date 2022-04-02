@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import convertGradDate from '../utils/conversions';
 
 import { Skeleton, Switch, Card, Avatar } from 'antd';
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
@@ -26,12 +27,10 @@ const StudentCard = ({ student, loading, handleToggleModal, setSelectedStudentId
     }
 
     const getDescription = () => {
-        let graduationDate = new Date(parseInt(grad_date))
-        const graduated = graduationDate < Date.now()
-        graduationDate = graduationDate.toLocaleString().split(",")[0]
+        const { gradDate, graduated } = convertGradDate(grad_date)
         return <div>
             <div>{class_code}</div>
-            <div>Graduation Date: <span style={{ color: graduated && 'red'}}>{graduationDate}</span></div>
+            <div>Graduation Date: <span style={{ color: graduated && 'red'}}>{gradDate}</span></div>
         </div>
     }
 

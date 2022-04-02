@@ -1,8 +1,9 @@
 import { useQuery } from '@apollo/client'
 import { GET_STUDENT_MODAL } from '../utils/queries';
+import convertGradDate from '../utils/conversions';
 
 import { Row, Modal, Button, message, Avatar, Tooltip, Form, Input, Select, Alert } from 'antd'
-import { SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined } from '@ant-design/icons';
+import { SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
 
 const { Item } = Form
 const { Option } = Select
@@ -30,6 +31,7 @@ const StudentModal = ({ visible, handleCancel, studentId }) => {
         return <div>Loading...</div>
 
     const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
+    const { gradDate, graduated } = convertGradDate(grad_date)
 
     const onFinish = async (values) => {
         // try {
@@ -186,7 +188,8 @@ No Show`)
                     </Item>
                     <Item name={['student', 'grad_date']} label="Graduation Date">
                         <Input
-                            defaultValue={grad_date}
+                            defaultValue={gradDate}
+                            suffix={graduated && <StopTwoTone twoToneColor={"red"}/>}
                             disabled
                         />
                     </Item>
