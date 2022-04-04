@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_STUDENT_CARDS } from '../utils/queries'
 
+import { Row, Button } from 'antd'
+
 import StudentCard from '../components/StudentCard';
 import LoadingStudentCard from '../components/LoadingStudentCard';
 import StudentModal from '../components/StudentModal';
@@ -24,8 +26,12 @@ const StudentsList = ({ statuses }) => {
 
     const students = data.getStudents || []
 
+    const handleChangeStatus = () => {
+        
+    }
+
     const handleToggleModal = () => {
-      setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible);
     };
 
     const handleToggleEdit = (edit) => {
@@ -33,27 +39,35 @@ const StudentsList = ({ statuses }) => {
     }
 
     return (
-        <div style={{ marginLeft: 10, marginRight: 10 }}>
-        {
-            students?.map((student) => (
-                statuses.includes(student.status) &&
-                <StudentCard
-                    key={student.id}
-                    student={student}
-                    loading={false}
-                    handleToggleModal={handleToggleModal}
-                    handleToggleEdit={handleToggleEdit}
-                    setSelectedStudentId={setSelectedStudentId}
-                />
-            ))
-        }
-        <StudentModal
-            visible={modalVisible}
-            edit={editModal}
-            handleCloseModal={handleToggleModal}
-            handleToggleEdit={handleToggleEdit}
-            studentId={selectedStudentId}
-        />
+        <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
+            <Row>
+                <Button
+                    type="primary"
+                // onClick={handleRecordSession}
+                >
+                    Update Student Statuses
+                </Button>
+            </Row>
+            {
+                students?.map((student) => (
+                    statuses.includes(student.status) &&
+                    <StudentCard
+                        key={student.id}
+                        student={student}
+                        loading={false}
+                        handleToggleModal={handleToggleModal}
+                        handleToggleEdit={handleToggleEdit}
+                        setSelectedStudentId={setSelectedStudentId}
+                    />
+                ))
+            }
+            <StudentModal
+                visible={modalVisible}
+                edit={editModal}
+                handleCloseModal={handleToggleModal}
+                handleToggleEdit={handleToggleEdit}
+                studentId={selectedStudentId}
+            />
         </div>
     )
 }

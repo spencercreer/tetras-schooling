@@ -14,6 +14,7 @@ const typeDefs = gql`
     }
 
     input StudentInput {
+        id: Int
         first_name: String
         last_name: String
         email: String
@@ -32,6 +33,7 @@ const typeDefs = gql`
     type Mutation {
         addStudent(studentData: StudentInput!): Student
         updateStudent(id: Int!, studentData: StudentInput!): Student
+        updateStatuses(studentsData: [StudentInput]): [Student]
     }
 `
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Row, Avatar, Form, Input, Select, DatePicker, Alert, message } from 'antd'
+import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
 import moment from 'moment';
 
 const { Item } = Form
@@ -86,7 +86,7 @@ const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
                     />
                 </Item>
                 {
-                    updateMessage ? <Alert message={updateMessage.text} type={updateMessage.error ? "error" : "success"} /> : <div style={{ height: "40px" }}></div>
+                    updateMessage && <Alert message={updateMessage.text} type={updateMessage.error ? "error" : "success"} />
                 }
             </Form>
         </>

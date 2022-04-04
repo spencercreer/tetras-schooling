@@ -32,8 +32,7 @@ const StudentInfo = ({ student }) => {
             <Form
                 {...layout}
                 form={form}
-                name="nest-messages"
-                onFinish={onFinish}
+                name="student-info"
             >
                 <Item name={['student', 'class_code']} label="Class Code">
                     <Input.Group compact>

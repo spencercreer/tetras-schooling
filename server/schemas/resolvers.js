@@ -57,6 +57,18 @@ const resolvers = {
             })
 
             return student
+        },
+
+        updateStatuses: (parent, { studentsData }) => {
+            studentsData.forEach(async (student) => {
+                const studentUpdated = await Student.update({
+                    status: student.status
+                },
+                {
+                    where: { id: student.id }
+                })
+            })
+            return studentsData
         }
     }
 

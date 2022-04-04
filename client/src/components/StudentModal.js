@@ -21,7 +21,7 @@ const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggle
 
     const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
     const graduation = convertGradDate(grad_date)
-    const student = { first_name, last_name, email, class_code, graduation, time_zone, slack }
+    let student = { first_name, last_name, email, class_code, graduation, time_zone, slack }
 
     const handleCloseClick = () => {
         setUpdateMessage(null)
@@ -78,7 +78,8 @@ B2B-No`)
             console.log(data)
 
             if (data.updateStudent.id) {
-                setUpdateMessage({ text: `${data.updateStudent.first_name} ${data.updateStudent.last_name} was updated successfully.`, error: false})
+                student = { ...student, ...data.updateStudent}
+                message.success(`The student's info was updated successfully. ` + getRandomEmoji(), 1.5)
             } else {
                 setUpdateMessage({ text: 'The student was not updated.', error: true })
             }

@@ -16,8 +16,12 @@ export const UPDATE_STUDENT = gql`
             id
             first_name
             last_name
+            email
             class_code
             grad_date
+            time_zone
+            slack
+            status
         }
     }
 `
