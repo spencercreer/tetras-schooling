@@ -1,5 +1,5 @@
-import { Row, Modal, Button, message, Avatar, Tooltip, Form, Input, Select, Alert } from 'antd'
-import { EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
+import { Row, Button, Avatar, Tooltip, Form, Input } from 'antd'
+import { CopyOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
 
 const { Item } = Form
 

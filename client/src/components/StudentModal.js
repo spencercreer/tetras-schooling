@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_MODAL } from '../utils/queries'
 import { UPDATE_STUDENT } from '../utils/mutations'
@@ -5,12 +7,13 @@ import { UPDATE_STUDENT } from '../utils/mutations'
 import StudentInfo from './StudentInfo'
 import EditStudentForm from './EditStudentForm'
 
-import { Row, Modal, Form, Button, message, Avatar, Tooltip } from 'antd'
+import { Modal, Form, Button, message, Tooltip } from 'antd'
 import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import convertGradDate from '../utils/conversions'
 
-const StudentModal = ({ visible, edit, studentId, handleCancel, handleToggleEdit }) => {
+const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggleEdit }) => {
     const [form] = Form.useForm()
+    const [updateMessage, setUpdateMessage] = useState(null)
     const [updateStudent] = useMutation(UPDATE_STUDENT)
     const { loading, data } = useQuery(GET_STUDENT_MODAL, { variables: { id: studentId } })
     if (loading)
@@ -19,6 +22,11 @@ const StudentModal = ({ visible, edit, studentId, handleCancel, handleToggleEdit
     const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
     const graduation = convertGradDate(grad_date)
     const student = { first_name, last_name, email, class_code, graduation, time_zone, slack }
+
+    const handleCloseClick = () => {
+        setUpdateMessage(null)
+        handleCloseModal()
+    }
 
     const getRandomEmoji = () => {
         const emojis = [0x1F600, 0x1F604, 0x1F609, 0x1F929, 0x1F92A, 0x1F920, 0x1F973, 0x1F60E, 0x1F9D0, 0x1F34A, 0x1F344, 0x1F37F, 0x1F363, 0x1F370, 0x1F355, 0x1F354, 0x1F35F, 0x1F6C0, 0x1F48E, 0x1F5FA, 0x23F0, 0x1F579, 0x1F4DA, 0x1F431, 0x1F42A, 0x1F439, 0x1F424];
@@ -69,17 +77,16 @@ B2B-No`)
             })
             console.log(data)
 
-            // if (data.updateStudent.id) {
-            //     form.resetFields()
-            // } else {
-            //     setMessage({ text: 'The student was not updated.', error: true })
-            // }
+            if (data.updateStudent.id) {
+                setUpdateMessage({ text: `${data.updateStudent.first_name} ${data.updateStudent.last_name} was updated successfully.`, error: false})
+            } else {
+                setUpdateMessage({ text: 'The student was not updated.', error: true })
+            }
         }
         catch (err) {
-            // setMessage({ text: 'The student was not updated.', error: true })
+            setUpdateMessage({ text: 'The student was not updated.', error: true })
             console.error(err)
         }
-        // setLoading(false)
     };
 
     // move this to conversions
@@ -91,7 +98,7 @@ B2B-No`)
 
     const footerButtons = edit ?
         [
-            <Button key="back" onClick={handleCancel}>
+            <Button key="back" onClick={handleCloseClick}>
                 Exit
             </Button>,
             <Tooltip key="info" title={'Student Info'}>
@@ -114,7 +121,7 @@ B2B-No`)
         ]
         :
         [
-            <Button key="back" onClick={handleCancel}>
+            <Button key="back" onClick={handleCloseClick}>
                 Exit
             </Button>,
             <Tooltip key="form-notes" title={'Form Notes'}>
@@ -165,14 +172,14 @@ B2B-No`)
             <Modal
                 title={edit ? "Edit Student Info" : "Student Info"}
                 visible={visible}
-                // onOk={handleOk}
-                onCancel={handleCancel}
+                onCancel={handleCloseClick}
                 footer={footerButtons}
             >
                 {edit ?
                     <EditStudentForm
                         student={student}
                         form={form}
+                        updateMessage={updateMessage}
                         onFinish={handleSubmitEdit}
                     />
                     :

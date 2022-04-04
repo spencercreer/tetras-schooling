@@ -50,7 +50,7 @@ const StudentsList = ({ statuses }) => {
         <StudentModal
             visible={modalVisible}
             edit={editModal}
-            handleCancel={handleToggleModal}
+            handleCloseModal={handleToggleModal}
             handleToggleEdit={handleToggleEdit}
             studentId={selectedStudentId}
         />

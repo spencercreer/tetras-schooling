@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
+import { Row, Avatar, Form, Input, Select, DatePicker, Alert, message } from 'antd'
 import moment from 'moment';
 
 const { Item } = Form
@@ -19,13 +19,12 @@ const validateMessages = {
     },
 };
 
-const EditStudentForm = ({ student, form, onFinish }) => {
+const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
     const { first_name, last_name, email, class_code, graduation, time_zone, slack } = student
     useEffect(() => {
         form.resetFields()
     }, [student])
     const [editName, setEditName] = useState(false)
-    const [message, setMessage] = useState()
     const [loading, setLoading] = useState()
 
     const getStudentsTime = () => {
@@ -41,7 +40,7 @@ const EditStudentForm = ({ student, form, onFinish }) => {
                 {editName ?
                     <Input
                         style={{ width: '90%' }}
-                        // defaultValue={`${first_name}  ${last_name}`}
+                    // defaultValue={`${first_name}  ${last_name}`}
                     />
                     :
                     <h2 onClick={() => setEditName(true)}>{`${first_name}  ${last_name}`}</h2>
@@ -62,35 +61,33 @@ const EditStudentForm = ({ student, form, onFinish }) => {
                     }
                 }}
             >
-                <Item name={['student','class_code']} label="Class Code"
+                <Item name={['student', 'class_code']} label="Class Code"
                     rules={[{ required: true }]}
                 >
-                        <Input />
+                    <Input />
                 </Item>
                 <Item name={['student', 'email']} label="Email" rules={[{ required: true }, { type: 'email' }]} >
-                        <Input />
+                    <Input />
                 </Item>
                 <Item name={['student', 'time_zone']} label="Time Zone">
-                        <Select
-                        >
-                            <Option value="PT">Pacific Time</Option>
-                            <Option value="MST">Arizona Time</Option>
-                            <Option value="MT">Mountain Time</Option>
-                            <Option value="CT">Central Time</Option>
-                            <Option value="ET">Eastern Time</Option>
-                        </Select>
+                    <Select
+                    >
+                        <Option value="PT">Pacific Time</Option>
+                        <Option value="MST">Arizona Time</Option>
+                        <Option value="MT">Mountain Time</Option>
+                        <Option value="CT">Central Time</Option>
+                        <Option value="ET">Eastern Time</Option>
+                    </Select>
                 </Item>
                 <Item name={['student', 'grad_date']} label="Graduation Date">
                     <DatePicker
-                        style={{width: "100%"}}
+                        style={{ width: "100%" }}
                         format={"MM/DD/YYYY"}
                     />
                 </Item>
-                <Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
-                    {
-                        message && <Alert message={message.text} type={message.error ? "error" : "success"} />
-                    }
-                </Item>
+                {
+                    updateMessage ? <Alert message={updateMessage.text} type={updateMessage.error ? "error" : "success"} /> : <div style={{ height: "40px" }}></div>
+                }
             </Form>
         </>
     )
