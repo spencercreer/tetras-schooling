@@ -9,3 +9,13 @@ export const ADD_STUDENT = gql`
         }
     }
 `
+
+export const UPDATE_STUDENT = gql`
+    mutation updateStudent($studentData: StudentInput!) {
+        updateStudent(studentData: $studentData) {
+            id
+            first_name
+            last_name
+        }
+    }
+`

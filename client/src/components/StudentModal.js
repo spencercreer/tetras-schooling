@@ -1,21 +1,22 @@
-import StudentInfo from './StudentInfo';
-import EditStudentForm from './EditStudentForm';
+import StudentInfo from './StudentInfo'
+import EditStudentForm from './EditStudentForm'
 
-import { Row, Modal, Button, message, Avatar, Tooltip } from 'antd'
-import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { Row, Modal, Form, Button, message, Avatar, Tooltip } from 'antd'
+import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
 
 import { useQuery } from '@apollo/client'
-import { GET_STUDENT_MODAL } from '../utils/queries';
-import convertGradDate from '../utils/conversions';
+import { GET_STUDENT_MODAL } from '../utils/queries'
+import convertGradDate from '../utils/conversions'
 
 const StudentModal = ({ visible, edit, studentId, handleCancel, handleToggleEdit }) => {
+    const [form] = Form.useForm()
     const { loading, data } = useQuery(GET_STUDENT_MODAL, { variables: { id: studentId } })
     if (loading)
         return <div>Loading...</div>
 
-        const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
-        const graduation = convertGradDate(grad_date)
-        const student = { first_name, last_name, email, class_code, graduation, time_zone, slack }
+    const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
+    const graduation = convertGradDate(grad_date)
+    const student = { first_name, last_name, email, class_code, graduation, time_zone, slack }
 
     const getRandomEmoji = () => {
         const emojis = [0x1F600, 0x1F604, 0x1F609, 0x1F929, 0x1F92A, 0x1F920, 0x1F973, 0x1F60E, 0x1F9D0, 0x1F34A, 0x1F344, 0x1F37F, 0x1F363, 0x1F370, 0x1F355, 0x1F354, 0x1F35F, 0x1F6C0, 0x1F48E, 0x1F5FA, 0x23F0, 0x1F579, 0x1F4DA, 0x1F431, 0x1F42A, 0x1F439, 0x1F424];
@@ -49,6 +50,32 @@ B2B-No`)
         message.success('Clock-out notes copied! ' + getRandomEmoji())
     }
 
+    const handleRecordSession = () => {
+        //TODO: Automate this process
+        navigator.clipboard.writeText(`=SPLIT("${class_code},${graduation.gradDate},${first_name} ${last_name},${email},today's date,+blank hr", ",")
+        `)
+    }
+
+    const handleSubmitEdit = async (values) => {
+        console.log('submit edit: ', values)
+        // try {
+        //     const { data } = await updateStudent({
+        //         variables: { studentData: { ...values.student } }
+        //     })
+
+        //     if (data.updateStudent.id) {
+        //         form.resetFields()
+        //     } else {
+        //         setMessage({ text: 'The student was not updated.', error: true })
+        //     }
+        // }
+        // catch (err) {
+        //     setMessage({ text: 'The student was not updated.', error: true })
+        //     console.error(err)
+        // }
+        // setLoading(false)
+    };
+
     // move this to conversions
     const getStudentsTime = () => {
         let currentTime = new Date()
@@ -74,6 +101,7 @@ B2B-No`)
                 htmlType="submit"
                 style={{ width: "125px" }}
                 loading={loading}
+                onClick={() => form.submit()}
             >
                 Submit
             </Button>,
@@ -120,6 +148,7 @@ B2B-No`)
                 type="primary"
                 style={{ width: "125px" }}
                 loading={loading}
+                onClick={handleRecordSession}
             >
                 Record Session
             </Button>,
@@ -137,6 +166,8 @@ B2B-No`)
                 {edit ?
                     <EditStudentForm
                         student={student}
+                        form={form}
+                        onFinish={handleSubmitEdit}
                     />
                     :
                     <StudentInfo
