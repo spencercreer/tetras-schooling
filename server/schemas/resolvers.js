@@ -38,7 +38,7 @@ const resolvers = {
         
         updateStudent: async (parent, { id, studentData }) => {
             const { first_name, last_name, email, class_code, grad_date, time_zone, slack, status } = studentData
-            const updateStudent = await Student.update({
+            const studentUpdated = await Student.update({
                 first_name,
                 last_name,
                 email,
@@ -52,7 +52,11 @@ const resolvers = {
                 where: { id },
             })
 
-            return updateStudent
+            const student = await Student.findOne({
+                where: { id }
+            })
+
+            return student
         }
     }
 

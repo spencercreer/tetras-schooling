@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useMutation } from '@apollo/client'
-import { UPDATE_STUDENT } from '../utils/mutations';
 
 import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
 import moment from 'moment';
@@ -29,8 +27,6 @@ const EditStudentForm = ({ student, form, onFinish }) => {
     const [editName, setEditName] = useState(false)
     const [message, setMessage] = useState()
     const [loading, setLoading] = useState()
-    const [updateStudent] = useMutation(UPDATE_STUDENT)
-
 
     const getStudentsTime = () => {
         let currentTime = new Date()

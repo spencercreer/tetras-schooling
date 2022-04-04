@@ -1,15 +1,17 @@
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_STUDENT_MODAL } from '../utils/queries'
+import { UPDATE_STUDENT } from '../utils/mutations'
+
 import StudentInfo from './StudentInfo'
 import EditStudentForm from './EditStudentForm'
 
 import { Row, Modal, Form, Button, message, Avatar, Tooltip } from 'antd'
 import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
-
-import { useQuery } from '@apollo/client'
-import { GET_STUDENT_MODAL } from '../utils/queries'
 import convertGradDate from '../utils/conversions'
 
 const StudentModal = ({ visible, edit, studentId, handleCancel, handleToggleEdit }) => {
     const [form] = Form.useForm()
+    const [updateStudent] = useMutation(UPDATE_STUDENT)
     const { loading, data } = useQuery(GET_STUDENT_MODAL, { variables: { id: studentId } })
     if (loading)
         return <div>Loading...</div>
@@ -58,21 +60,25 @@ B2B-No`)
 
     const handleSubmitEdit = async (values) => {
         console.log('submit edit: ', values)
-        // try {
-        //     const { data } = await updateStudent({
-        //         variables: { studentData: { ...values.student } }
-        //     })
+        try {
+            const { data } = await updateStudent({
+                variables: { 
+                    id: studentId,
+                    studentData: { ...values.student }
+                }
+            })
+            console.log(data)
 
-        //     if (data.updateStudent.id) {
-        //         form.resetFields()
-        //     } else {
-        //         setMessage({ text: 'The student was not updated.', error: true })
-        //     }
-        // }
-        // catch (err) {
-        //     setMessage({ text: 'The student was not updated.', error: true })
-        //     console.error(err)
-        // }
+            // if (data.updateStudent.id) {
+            //     form.resetFields()
+            // } else {
+            //     setMessage({ text: 'The student was not updated.', error: true })
+            // }
+        }
+        catch (err) {
+            // setMessage({ text: 'The student was not updated.', error: true })
+            console.error(err)
+        }
         // setLoading(false)
     };
 
