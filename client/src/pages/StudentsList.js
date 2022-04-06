@@ -1,18 +1,24 @@
 import { useState } from 'react'
-import { useQuery } from '@apollo/client'
-import { GET_STUDENT_CARDS } from '../utils/queries'
 
-import { Row, Button } from 'antd'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_STUDENT_CARDS } from '../utils/queries'
+import { UPDATE_STATUSES } from '../utils/mutations'
 
 import StudentCard from '../components/StudentCard';
 import LoadingStudentCard from '../components/LoadingStudentCard';
 import StudentModal from '../components/StudentModal';
 
+import { Row, Button } from 'antd'
+
 const StudentsList = ({ statuses }) => {
+    // TODO: Search input
     const [modalVisible, setModalVisible] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [selectedStudentId, setSelectedStudentId] = useState(1)
+    //change state variable names
+    const [statusUpdates, setStatusUpdates] = useState([])
 
+    const [updateStatuses] = useMutation(UPDATE_STATUSES)
     const { loading, data } = useQuery(GET_STUDENT_CARDS)
     if (loading)
         return (
@@ -26,8 +32,36 @@ const StudentsList = ({ statuses }) => {
 
     const students = data.getStudents || []
 
-    const handleChangeStatus = () => {
-        
+    const handleUpdateStatuses = async () => {
+        try {
+            const { data } = await updateStatuses({
+                variables: {
+                    studentsData: statusUpdates
+                }
+            })
+            console.log(data)
+            setStatusUpdates([])
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleToggleStatus = (id, status) => {
+        const found = statusUpdates.find((statusUpdate) => statusUpdate.id === id)
+        if (found) {
+            const copyArray = statusUpdates.map((statusUpdate) => {
+                if(statusUpdate.id === id){
+                    return { id, status }
+                }
+                return statusUpdate            
+            })
+            console.log(copyArray)
+            setStatusUpdates(copyArray)
+        } else {
+            console.log([...statusUpdates, {id, status}])
+            setStatusUpdates([...statusUpdates, {id, status}])
+        }
     }
 
     const handleToggleModal = () => {
@@ -43,7 +77,7 @@ const StudentsList = ({ statuses }) => {
             <Row>
                 <Button
                     type="primary"
-                // onClick={handleRecordSession}
+                    onClick={handleUpdateStatuses}
                 >
                     Update Student Statuses
                 </Button>
@@ -55,6 +89,7 @@ const StudentsList = ({ statuses }) => {
                         key={student.id}
                         student={student}
                         loading={false}
+                        handleToggleStatus={handleToggleStatus}
                         handleToggleModal={handleToggleModal}
                         handleToggleEdit={handleToggleEdit}
                         setSelectedStudentId={setSelectedStudentId}

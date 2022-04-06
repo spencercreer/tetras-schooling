@@ -67,7 +67,6 @@ B2B-No`)
     }
 
     const handleSubmitEdit = async (values) => {
-        console.log('submit edit: ', values)
         try {
             const { data } = await updateStudent({
                 variables: { 
@@ -75,7 +74,6 @@ B2B-No`)
                     studentData: { ...values.student }
                 }
             })
-            console.log(data)
 
             if (data.updateStudent.id) {
                 student = { ...student, ...data.updateStudent}

@@ -6,7 +6,7 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const StudentCard = ({ student, loading, handleToggleModal, handleToggleEdit, setSelectedStudentId }) => {
+const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, handleToggleEdit, setSelectedStudentId }) => {
     let { id, first_name, last_name, class_code, grad_date, status } = student
     const [active, setActive] = useState(status === "Active")
 
@@ -14,6 +14,11 @@ const StudentCard = ({ student, loading, handleToggleModal, handleToggleEdit, se
         setSelectedStudentId(id)
         handleToggleModal()
         handleToggleEdit(edit)
+    }
+
+    const handleStatusChange = () => {
+        handleToggleStatus(id, active ? "Inactive" : "Active")
+        setActive(!active)
     }
     
     const getAvatar = () => {
@@ -49,7 +54,7 @@ const StudentCard = ({ student, loading, handleToggleModal, handleToggleEdit, se
                 />,
                 <Switch 
                     checked={active}
-                    onChange={() => setActive(!active)}
+                    onChange={handleStatusChange}
                 />,
             ]}
         >

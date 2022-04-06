@@ -25,3 +25,12 @@ export const UPDATE_STUDENT = gql`
         }
     }
 `
+
+export const UPDATE_STATUSES = gql`
+    mutation updateStatuses($studentsData: [StudentInput]) {
+        updateStatuses(studentsData: $studentsData) {
+            id
+            status
+        }
+    }
+`
