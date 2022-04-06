@@ -2,7 +2,7 @@
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
-A command line application for generating .txt files for assisting full stack tutoring.
+A tutor CRM for managing tutor sessions with students.
 
 ## Table of Contents
 * [Links](#links)
@@ -50,6 +50,9 @@ Please submit a PR if you would like to contribute.
 ## Technologies
  * JavaScript
  * Node.js
+ * GraphQL
+ * MySQL
+ * Sequelize
 
 ## License
 This project is licensed under the MIT license.
