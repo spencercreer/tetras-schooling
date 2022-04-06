@@ -15,7 +15,6 @@ const StudentsList = ({ statuses }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [selectedStudentId, setSelectedStudentId] = useState(1)
-    //change state variable names
     const [statusUpdates, setStatusUpdates] = useState([])
 
     const [updateStatuses] = useMutation(UPDATE_STATUSES)

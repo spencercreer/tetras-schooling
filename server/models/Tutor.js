@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/config')
 
-class Student extends Model { }
+class Tutor extends Model { }
 
-Student.init(
+Tutor.init(
     {
         first_name: {
             type: DataTypes.STRING,
@@ -17,12 +17,9 @@ Student.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        class_code: {
+        password: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        grad_date: {
-            type: DataTypes.DATE,
         },
         time_zone: {
             type: DataTypes.STRING,
@@ -30,13 +27,10 @@ Student.init(
         slack: {
             type: DataTypes.STRING,
         },
-        status: {
-            type: DataTypes.STRING
-        }
     },
     {
         sequelize
     }
 )
 
-module.exports = Student
+module.exports = Tutor
