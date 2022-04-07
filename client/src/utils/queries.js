@@ -10,6 +10,7 @@ export const GET_STUDENT_CARDS = gql`
             class_code
             grad_date
             status
+            github
         }
     }
 `
@@ -26,6 +27,7 @@ export const GET_STUDENT_MODAL = gql`
             time_zone
             slack
             status
+            github
         }
     }
 `

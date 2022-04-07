@@ -31,7 +31,10 @@ Student.init(
             type: DataTypes.STRING,
         },
         status: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+        },
+        github: {
+            type: DataTypes.STRING,
         }
     },
     {

@@ -1,6 +1,16 @@
 const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
+    type Tutor {
+        id: Int!
+        first_name: String
+        last_name: String
+        email: String
+        password: String
+        time_zone: String
+        slack: String
+    }
+
     type Student {
         id: Int!
         first_name: String
@@ -11,6 +21,8 @@ const typeDefs = gql`
         time_zone: String
         slack: String
         status: String
+        github: String
+        tutor_id: Int
     }
 
     input StudentInput {

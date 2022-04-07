@@ -7,8 +7,9 @@ import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 const { Meta } = Card;
 
 const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, handleToggleEdit, setSelectedStudentId }) => {
-    let { id, first_name, last_name, class_code, grad_date, status } = student
+    let { id, first_name, last_name, class_code, grad_date, status, github } = student
     const [active, setActive] = useState(status === "Active")
+    console.log(student)
 
     const handleOnClick = (edit) => {
         setSelectedStudentId(id)
@@ -22,9 +23,8 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
     }
     
     const getAvatar = () => {
-        const github = false
         if (github) {
-            return <Avatar src="https://github.com/spencercreer.png" />
+            return <Avatar src={`https://github.com/${github}.png`} />
         } else if (first_name && last_name) {
             return <Avatar style={{ backgroundColor: '#00a2ae' }}>{first_name[0].toUpperCase() + last_name[0].toUpperCase()}</Avatar>
         } else {
