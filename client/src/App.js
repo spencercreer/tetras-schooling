@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 
 import Nav from './components/Nav';
 import NavSider from './components/NavSider';
+import TutorDashboard from './pages/TutorDashboard';
 import AddStudentForm from './pages/AddStudentForm';
 import StudentsList from './pages/StudentsList';
 
@@ -46,6 +47,10 @@ function App() {
             <NavSider />
             <Content>
               <Routes>
+              <Route
+                  path="/dashboard"
+                  element={<TutorDashboard />}
+                />
                 <Route
                   path="/addStudent"
                   element={<AddStudentForm />}
