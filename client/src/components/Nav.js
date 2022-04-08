@@ -12,8 +12,7 @@ const Nav = () => {
             <Item key="1"><Link to={'/students'} >Students</Link></Item>
             <Item key="2"><Link to={'/addStudent'} >Add Student</Link></Item>
             <Item key="3"><Link to={'/dashboard'}>Dashboard</Link></Item>
-            <Item key="3"><Link to={'/dashboard'}>Email Templates</Link></Item>
-
+            <Item key="4"><Link to={'/addSession'}>Add Session</Link></Item>
         </Menu>
     </Header>
   )

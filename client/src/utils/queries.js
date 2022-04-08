@@ -15,6 +15,16 @@ export const GET_STUDENT_CARDS = gql`
     }
 `
 
+export const GET_STUDENT_NAMES = gql`
+    {
+        getStudents {
+            id
+            first_name
+            last_name
+        }
+    }
+`
+
 export const GET_STUDENT_MODAL = gql`
     query getStudent($id: Int!) {
         getStudent (id: $id) {

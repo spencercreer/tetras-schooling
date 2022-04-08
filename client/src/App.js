@@ -11,6 +11,7 @@ import Nav from './components/Nav';
 import NavSider from './components/NavSider';
 import TutorDashboard from './pages/TutorDashboard';
 import AddStudentForm from './pages/AddStudentForm';
+import AddSessionForm from './pages/AddSessionForm';
 import StudentsList from './pages/StudentsList';
 
 import { Layout } from 'antd'
@@ -54,6 +55,10 @@ function App() {
                 <Route
                   path="/addStudent"
                   element={<AddStudentForm />}
+                />
+                <Route
+                  path="/addSession"
+                  element={<AddSessionForm />}
                 />
                 <Route
                   path="/students"

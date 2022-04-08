@@ -1,23 +1,15 @@
+// React
 import { useState } from 'react'
-import { Form, Input, Select, DatePicker, Alert, Button } from 'antd'
+// Apollo
 import { useMutation } from "@apollo/client"
 import { ADD_STUDENT } from '../utils/mutations'
+// Antd
+import { Form, Input, Select, DatePicker, Alert, Button } from 'antd'
+// Utils
+import { validateMessages, layout } from '../utils/form'
 
 const { Item } = Form
 const { Option } = Select
-
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 16 },
-};
-
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
-  },
-};
 
 const StudentForm = () => {
   const [form] = Form.useForm()
@@ -45,11 +37,11 @@ const StudentForm = () => {
   };
 
   return (
-    <div style={{ marginTop: 30, marginRight: 40 }}>
       <Form
+        style={{ marginTop: 30, marginRight: 40 }}
         {...layout}
         form={form}
-        name="nest-messages"
+        name="add-student"
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
@@ -90,7 +82,6 @@ const StudentForm = () => {
           </Button>
         </Item>
       </Form>
-    </div>
   )
 }
 
