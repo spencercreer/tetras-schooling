@@ -7,9 +7,6 @@ require('dotenv').config()
 const { typeDefs, resolvers } = require('./schemas')
 
 const sequelize = require('./config/config')
-// sequelize.authenticate()
-//     .then(() => console.log('tutor_db connected...'))
-//     .catch(err => console.log('db.authenticate error: ' + err))
 
 const PORT = process.env.PORT || 3001;
 const app = express();

@@ -7,11 +7,12 @@ Session.init(
     {
         date: {
             type: DataTypes.DATE,
+            allowNull: false,
         },
-        time_in: {
+        clock_in: {
             type: DataTypes.DATE,
         },
-        time_out: {
+        clock_out: {
             type: DataTypes.DATE,
         },
         notes_added: {

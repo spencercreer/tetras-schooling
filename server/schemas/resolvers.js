@@ -1,6 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { Student } = require('../models')
-const { update } = require('../models/Student')
+const { Student, Session } = require('../models')
 
 const resolvers = {
     Query: {
@@ -69,6 +68,25 @@ const resolvers = {
                 })
             })
             return studentsData
+        },
+
+        addSession: async (parent, { sessionData }) => {
+            const { date, student_id, tutor_id } = sessionData
+            const session = await Session.create({
+                date,
+                student_id,
+                tutor_id
+                // clock_in,
+                // clock_out,
+                // notes_added,
+                // b2b,
+                // presession_conf,
+                // b2b,
+                // presession_conf,
+                // tutor_eval,
+                // show,
+            })
+            return session
         }
     }
 

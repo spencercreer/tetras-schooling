@@ -34,3 +34,7 @@ export const UPDATE_STATUSES = gql`
         }
     }
 `
+
+export const ADD_SESSION = gql`
+    mutation addSession()
+`

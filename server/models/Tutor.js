@@ -27,6 +27,9 @@ Tutor.init(
         slack: {
             type: DataTypes.STRING,
         },
+        status: {
+            type: DataTypes.STRING,
+        },
     },
     {
         sequelize
