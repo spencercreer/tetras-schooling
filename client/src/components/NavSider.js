@@ -10,7 +10,7 @@ const NavSider = () => {
       width={200}
       className="site-layout-background"
       breakpoint="md"
-      collapsedWidth="100"
+      collapsedWidth="0"
     >
       <Menu
         mode="inline"

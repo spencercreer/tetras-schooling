@@ -13,6 +13,7 @@ import TutorDashboard from './pages/TutorDashboard';
 import AddStudentForm from './pages/AddStudentForm';
 import AddSessionForm from './pages/AddSessionForm';
 import StudentsList from './pages/StudentsList';
+import SessionsList from './pages/SessionsList';
 
 import { Layout } from 'antd'
 import './App.css';
@@ -67,6 +68,10 @@ function App() {
                 <Route
                   path="/students/active"
                   element={<StudentsList statuses={["Active"]} />}
+                />
+                <Route 
+                  path="/sessions"
+                  element={<SessionsList />}
                 />
                 <Route
                   path='*'

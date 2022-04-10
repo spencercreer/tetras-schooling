@@ -54,6 +54,8 @@ const typeDefs = gql`
         payment_date: String
         tutor_id: Int
         student_id: Int
+        Tutor: Tutor
+        Student: Student
     }
 
     input SessionInput {
@@ -74,9 +76,12 @@ const typeDefs = gql`
         student_id: Int
     }
 
+    
+
     type Query {
         getStudents: [Student]
         getStudent(id: Int!): Student
+        getTutorSessions(tutorId: Int!): [Session]
     }
 
     type Mutation {

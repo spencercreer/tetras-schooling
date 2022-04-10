@@ -1,6 +1,9 @@
+// React
+import { useState } from 'react'
 // Apollo
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_NAMES } from '../utils/queries';
+import { ADD_SESSION } from '../utils/mutations';
 // Antd
 import { Form, Input, Select, DatePicker, TimePicker, Alert, Button } from 'antd'
 // Utils
@@ -11,17 +14,33 @@ const { Option } = Select
 
 const AddSessionForm = () => {
   const [form] = Form.useForm()
-  const message = ''
+  const [message, setMessage] = useState()
+  const [addSession] = useMutation(ADD_SESSION)
 
   const { loading, data } = useQuery(GET_STUDENT_NAMES)
   if (loading)
         return <div>Loading...</div>
 
   const students = data.getStudents || []
-  console.log(students)
 
-  const onFinish = () => {
-    console.log('finish')
+  const onFinish = async (values) => {
+    try {
+      console.log(values)
+      const { data } = await addSession({
+        variables: { sessionData: { ...values } }
+      })
+
+      if (data.addSession.id) {
+        form.resetFields()
+      } else {
+        setMessage({ text: 'The session was not added.', error: true })
+      }
+    }
+    catch (err) {
+      setMessage({ text: 'The session was not added.', error: true })
+      console.error(err)
+    }
+    // setLoading(false)
   }
 
   return (
@@ -33,7 +52,7 @@ const AddSessionForm = () => {
       onFinish={onFinish}
       validateMessages={validateMessages}
     >
-      <Item name={'student'} label="Student" rules={[{ required: true }]}>
+      <Item name={'student_id'} label="Student" rules={[{ required: true }]}>
         <Select>
           {
             students?.map((student) => (

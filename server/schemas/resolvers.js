@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { Student, Session } = require('../models')
+const { Student, Tutor, Session } = require('../models')
 
 const resolvers = {
     Query: {
@@ -15,6 +15,15 @@ const resolvers = {
             })
 
             return student
+        },
+
+        getTutorSessions: async (parent, { tutorId }) => {
+            const sessions = await Session.findAll({
+                where: { tutor_id: tutorId },
+                include: [Tutor, Student]
+            })
+
+            return sessions
         }
     },
 
@@ -76,21 +85,10 @@ const resolvers = {
                 date,
                 student_id,
                 tutor_id
-                // clock_in,
-                // clock_out,
-                // notes_added,
-                // b2b,
-                // presession_conf,
-                // b2b,
-                // presession_conf,
-                // tutor_eval,
-                // show,
             })
             return session
         }
     }
-
-
 }
 
 module.exports = resolvers

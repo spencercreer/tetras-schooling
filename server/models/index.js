@@ -10,6 +10,10 @@ Tutor.hasMany(Session, {
     foreignKey: 'tutor_id'
 })
 
+Session.belongsTo(Student, {
+    foreignKey: 'student_id'
+})
+
 Student.hasMany(Session, {
     foreignKey: 'student_id'
 })
