@@ -1,4 +1,9 @@
-# Tutor Templates
+<div style="display: flex; justify-content: center;">
+<img src="./client/public/assets/tetras_logo_name_transparent.png" width="600">
+</div>
+
+____
+
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
