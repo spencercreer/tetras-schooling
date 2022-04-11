@@ -34,7 +34,7 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
     }
 
     const getDescription = () => {
-        const gradDate = convertDate(grad_date)
+        const gradDate = convertDate(grad_date, 'MM/DD/YYYY')
         return <div>
             <div>{class_code}</div>
             <div>Graduation Date: <span style={{ color: gradDate.past && 'red'}}>{gradDate.formatted}</span></div>

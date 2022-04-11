@@ -10,14 +10,14 @@ import { getStudentsTime } from '../utils/conversions';
 const { Item } = Form
 
 const StudentInfo = ({ student }) => {
-    const [form] = Form.useForm()
-    const [studentsTime, setStudentsTime] = useState()
-
     const { first_name, last_name, email, class_code, gradDate, time_zone, slack } = student
+    const [form] = Form.useForm()
+    const [studentsTime, setStudentsTime] = useState(getStudentsTime(time_zone))
+
 
     setInterval(() => {
         setStudentsTime(getStudentsTime(time_zone))
-    }, 1000)
+    }, 30000)
 
     return (
         <>

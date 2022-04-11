@@ -6,20 +6,30 @@ import { convertDate } from '../utils/conversions'
 
 const { Meta } = Card;
 
-const SessionCard = ({ session }) => {
+const SessionCard = ({ session, handleToggleModal }) => {
     const { date, Student: { first_name, last_name } } = session
-    const sessionDate = convertDate(date)
+    const sessionDate = convertDate(date, 'ddd, ll')
+
+    const handleOnClick = () => {
+        handleToggleModal()
+    }
+
+
+    const getDescription = () => {
+        return <div>
+            <div>{first_name} {last_name}</div>
+        </div>
+    }
     return (
         <>
             <div>{session.id}</div>
-            <div>{sessionDate.formatted}</div>
             <div>{first_name} {last_name}</div>
             <Card
             style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: "inline-block" }}
             actions={[
                 <EllipsisOutlined
                     key="ellipsis"
-                    // onClick={() => handleOnClick(false)}
+                    onClick={() => handleOnClick()}
                 />,
                 <EditOutlined
                     key="edit"
@@ -33,12 +43,10 @@ const SessionCard = ({ session }) => {
         >
             <Skeleton 
                 loading={false}
-                // avatar active
             >
                 <Meta
-                    // avatar={getAvatar()}
-                    title={session.Student.first_name}
-                    // description={getDescription()}
+                    title={sessionDate.formatted}
+                    description={getDescription()}
                 />
             </Skeleton>
         </Card>
