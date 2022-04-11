@@ -1,15 +1,16 @@
+// React
 import { useState } from 'react'
-import convertGradDate from '../utils/conversions';
-
+// Antd
 import { Skeleton, Switch, Card, Avatar } from 'antd';
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+// Utils
+import { convertDate } from '../utils/conversions';
 
 const { Meta } = Card;
 
 const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, handleToggleEdit, setSelectedStudentId }) => {
     let { id, first_name, last_name, class_code, grad_date, status, github } = student
     const [active, setActive] = useState(status === "Active")
-    console.log(student)
 
     const handleOnClick = (edit) => {
         setSelectedStudentId(id)
@@ -33,10 +34,10 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
     }
 
     const getDescription = () => {
-        const { gradDate, graduated } = convertGradDate(grad_date)
+        const gradDate = convertDate(grad_date)
         return <div>
             <div>{class_code}</div>
-            <div>Graduation Date: <span style={{ color: graduated && 'red'}}>{gradDate}</span></div>
+            <div>Graduation Date: <span style={{ color: gradDate.past && 'red'}}>{gradDate.formatted}</span></div>
         </div>
     }
 

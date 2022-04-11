@@ -9,7 +9,7 @@ import EditStudentForm from './EditStudentForm'
 
 import { Modal, Form, Button, message, Tooltip } from 'antd'
 import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
-import convertGradDate from '../utils/conversions'
+import { convertDate } from '../utils/conversions'
 
 const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggleEdit }) => {
     const [form] = Form.useForm()
@@ -20,8 +20,8 @@ const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggle
         return <div>Loading...</div>
 
     const { first_name, last_name, email, class_code, grad_date, time_zone, slack } = data?.getStudent
-    const graduation = convertGradDate(grad_date)
-    let student = { first_name, last_name, email, class_code, graduation, time_zone, slack }
+    const gradDate = convertDate(grad_date)
+    let student = { first_name, last_name, email, class_code, gradDate, time_zone, slack }
 
     const handleCloseClick = () => {
         setUpdateMessage(null)
@@ -62,7 +62,7 @@ B2B-No`)
 
     const handleRecordSession = () => {
         //TODO: Automate this process
-        navigator.clipboard.writeText(`=SPLIT("${class_code},${graduation.gradDate},${first_name} ${last_name},${email},today's date,+blank hr", ",")
+        navigator.clipboard.writeText(`=SPLIT("${class_code},${gradDate.formatted},${first_name} ${last_name},${email},today's date,+blank hr", ",")
         `)
     }
 
@@ -87,13 +87,6 @@ B2B-No`)
             console.error(err)
         }
     };
-
-    // move this to conversions
-    const getStudentsTime = () => {
-        let currentTime = new Date()
-        currentTime = currentTime.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-        return currentTime
-    }
 
     const footerButtons = edit ?
         [

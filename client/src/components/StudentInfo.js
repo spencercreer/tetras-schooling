@@ -1,27 +1,23 @@
+// React
+import { useState } from 'react'
+// Antd
 import { Row, Button, Avatar, Tooltip, Form, Input } from 'antd'
 import { CopyOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
+// Utils
+import { layout } from '../utils/form'
+import { getStudentsTime } from '../utils/conversions';
 
 const { Item } = Form
 
-const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 16 },
-};
-
 const StudentInfo = ({ student }) => {
     const [form] = Form.useForm()
+    const [studentsTime, setStudentsTime] = useState()
 
-    const { first_name, last_name, email, class_code, graduation, time_zone, slack } = student
+    const { first_name, last_name, email, class_code, gradDate, time_zone, slack } = student
 
-    const onFinish = async (values) => {
-
-    };
-
-    const getStudentsTime = () => {
-        let currentTime = new Date()
-        currentTime = currentTime.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-        return currentTime
-    }
+    setInterval(() => {
+        setStudentsTime(getStudentsTime(time_zone))
+    }, 1000)
 
     return (
         <>
@@ -67,7 +63,7 @@ const StudentInfo = ({ student }) => {
                     <Input.Group compact>
                         <Input
                             style={{ width: '70%' }}
-                            defaultValue={getStudentsTime()}
+                            value={studentsTime}
                             disabled
                         />
                         <Input
@@ -79,8 +75,8 @@ const StudentInfo = ({ student }) => {
                 </Item>
                 <Item name={['student', 'grad_date']} label="Graduation Date">
                     <Input
-                        defaultValue={graduation.gradDate}
-                        suffix={graduation.graduated && <StopTwoTone twoToneColor={"red"} />}
+                        defaultValue={gradDate.formatted}
+                        suffix={gradDate.past && <StopTwoTone twoToneColor={"red"} />}
                         disabled
                     />
                 </Item>

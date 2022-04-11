@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import SessionCard from '../components/SessionCard'
 import { GET_TUTOR_SESSIONS } from '../utils/queries'
 
 const SessionsList = () => {
@@ -11,11 +12,7 @@ const SessionsList = () => {
         <>
             {
                 sessions?.map((session) => (
-                    <>
-                        <div>{session.id}</div>
-                        <div>{session.date}</div>
-                        <div>{session.Student.first_name}</div>
-                    </>
+                   <SessionCard session={session} />
                 ))
             }
         </>

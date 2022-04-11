@@ -1,37 +1,22 @@
+// React
 import { useState, useEffect } from 'react'
-
+// Antd
 import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
+// Utils
+import { layout, validateMessages } from '../utils/form'
+// TODO: Move convertDate
 import moment from 'moment';
 
 const { Item } = Form
 const { Option } = Select
 
-const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 16 },
-};
-
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-    },
-};
-
 const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
-    const { first_name, last_name, email, class_code, graduation, time_zone, slack } = student
+    const { first_name, last_name, email, class_code, gradDate, time_zone, slack } = student
     useEffect(() => {
         form.resetFields()
-    }, [student])
+    }, [student, form])
     const [editName, setEditName] = useState(false)
-    const [loading, setLoading] = useState()
-
-    const getStudentsTime = () => {
-        let currentTime = new Date()
-        currentTime = currentTime.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
-        return currentTime
-    }
+    // const [loading, setLoading] = useState()
 
     return (
         <>
@@ -57,7 +42,7 @@ const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
                         class_code: class_code,
                         email: email,
                         time_zone: time_zone,
-                        grad_date: moment(graduation.gradDate, "MM/DD/YYYY")
+                        grad_date: moment(gradDate.convertedDate, "MM/DD/YYYY")
                     }
                 }}
             >
