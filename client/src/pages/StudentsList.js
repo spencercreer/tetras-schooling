@@ -5,7 +5,7 @@ import { GET_STUDENT_CARDS } from '../utils/queries'
 import { UPDATE_STATUSES } from '../utils/mutations'
 
 import StudentCard from '../components/StudentCard';
-import LoadingStudentCard from '../components/LoadingStudentCard';
+import LoadingCard from '../components/LoadingCard';
 import StudentModal from '../components/StudentModal';
 
 import { Row, Button } from 'antd'
@@ -22,7 +22,7 @@ const StudentsList = ({ statuses }) => {
     if (loading)
         return (
             [...Array(12).keys()].map((i) => (
-                <LoadingStudentCard
+                <LoadingCard
                     key={i}
                     loading={true}
                 />

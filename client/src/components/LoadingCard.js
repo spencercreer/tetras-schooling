@@ -1,7 +1,7 @@
 import { Skeleton, Card } from 'antd'
 const { Meta } = Card;
 
-const LoadingStudentCard = ({ loading }) => {
+const LoadingCard = ({ loading }) => {
 
     return (
         <Card
@@ -14,4 +14,4 @@ const LoadingStudentCard = ({ loading }) => {
     )
 }
 
-export default LoadingStudentCard
+export default LoadingCard
