@@ -1,14 +1,14 @@
+// React
 import { useState } from 'react'
-
+// Apollo
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_CARDS } from '../utils/queries'
 import { UPDATE_STATUSES } from '../utils/mutations'
-
+//C omponents
 import StudentCard from '../components/StudentCard';
 import LoadingCard from '../components/LoadingCard';
 import StudentModal from '../components/StudentModal';
-
-import { Row, Button } from 'antd'
+import StudentListHeader from '../components/StudentListHeader';
 
 const StudentsList = ({ statuses }) => {
     // TODO: Search input
@@ -50,22 +50,22 @@ const StudentsList = ({ statuses }) => {
         const found = statusUpdates.find((statusUpdate) => statusUpdate.id === id)
         if (found) {
             const copyArray = statusUpdates.map((statusUpdate) => {
-                if(statusUpdate.id === id){
+                if (statusUpdate.id === id) {
                     return { id, status }
                 }
-                return statusUpdate            
+                return statusUpdate
             })
             console.log(copyArray)
             setStatusUpdates(copyArray)
         } else {
-            console.log([...statusUpdates, {id, status}])
-            setStatusUpdates([...statusUpdates, {id, status}])
+            console.log([...statusUpdates, { id, status }])
+            setStatusUpdates([...statusUpdates, { id, status }])
         }
     }
 
     const handleToggleModal = () => {
         setModalVisible(!modalVisible);
-    };
+    }
 
     const handleToggleEdit = (edit) => {
         setEditModal(edit)
@@ -73,14 +73,9 @@ const StudentsList = ({ statuses }) => {
 
     return (
         <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
-            <Row>
-                <Button
-                    type="primary"
-                    onClick={handleUpdateStatuses}
-                >
-                    Update Student Statuses
-                </Button>
-            </Row>
+           <StudentListHeader
+            handleUpdateStatuses={handleUpdateStatuses}
+           />
             {
                 students?.map((student) => (
                     statuses.includes(student.status) &&
