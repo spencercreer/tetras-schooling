@@ -7,10 +7,10 @@ import { PlusOutlined } from '@ant-design/icons'
 import AddStudentModal from '../components/AddStudentModal';
 
 const StudentListHeader = ({ handleUpdateStatuses }) => {
-    const [addModalVisible, setAddModalVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
 
     const handleToggleAddModal = () => {
-        setAddModalVisible(!addModalVisible)
+        setModalVisible(!modalVisible)
     }
 
 
@@ -34,7 +34,7 @@ const StudentListHeader = ({ handleUpdateStatuses }) => {
                 <Input placeholder="Search Students" />
             </Row>
             <AddStudentModal
-            visible={addModalVisible}
+            visible={modalVisible}
             handleCloseModal={handleToggleAddModal}
             />
         </>

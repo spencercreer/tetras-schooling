@@ -14,7 +14,6 @@ const StudentInfo = ({ student }) => {
     const [form] = Form.useForm()
     const [studentsTime, setStudentsTime] = useState(getStudentsTime(time_zone))
 
-
     setInterval(() => {
         setStudentsTime(getStudentsTime(time_zone))
     }, 30000)

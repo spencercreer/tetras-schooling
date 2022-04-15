@@ -4,16 +4,17 @@ import { useState } from 'react'
 import { useMutation } from "@apollo/client"
 import { ADD_STUDENT } from '../utils/mutations'
 // Antd
-import { Modal, Form, Input, Select, DatePicker, Alert, Button } from 'antd'
+import { Modal, Form, Input, Select, DatePicker, message, Alert, Button } from 'antd'
 // Utils
 import { validateMessages, layout } from '../utils/form'
+import { getRandomEmoji } from '../utils/conversions'
 
 const { Item } = Form
 const { Option } = Select
 
-const AddStudentModal = ({ visible }) => {
+const AddStudentModal = ({ visible, handleCloseModal }) => {
     const [form] = Form.useForm()
-    const [message, setMessage] = useState()
+    const [alert, setAlert] = useState()
     const [loading, setLoading] = useState()
     const [addStudent] = useMutation(ADD_STUDENT)
 
@@ -25,27 +26,45 @@ const AddStudentModal = ({ visible }) => {
 
             if (data.addStudent.id) {
                 form.resetFields()
+                message.success('Student added successfully! ' + getRandomEmoji())
+                setAlert({ text: 'The student was added.', error: false })
+
             } else {
-                setMessage({ text: 'The student was not added.', error: true })
+                setAlert({ text: 'Error: The student was not added.', error: true })
             }
         }
         catch (err) {
-            setMessage({ text: 'The student was not added.', error: true })
+            setAlert({ text: 'Error: The student was not added.', error: true })
             console.error(err)
         }
         setLoading(false)
-    };
+    }
+
+    const footerButtons =
+        [
+            <Button key="back" onClick={handleCloseModal}>
+                Exit
+            </Button>,
+            <Button
+                type="primary"
+                htmlType="submit"
+                style={{ width: "125px" }}
+                loading={loading}
+                onClick={() => form.submit()}
+            >
+                Submit
+            </Button>,
+        ]
 
     return (
         <>
             <Modal
                 title={"Add Student"}
                 visible={visible}
-                // onCancel={handleCloseClick}
-                footer={[]}
+                onCancel={handleCloseModal}
+                footer={footerButtons}
             >
                 <Form
-                    style={{ marginTop: 30, marginRight: 40 }}
                     {...layout}
                     form={form}
                     name="add-student"
@@ -76,18 +95,9 @@ const AddStudentModal = ({ visible }) => {
                     <Item name={['student', 'grad_date']} label="Graduation Date">
                         <DatePicker />
                     </Item>
-                    <Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
-                        {
-                            message && <Alert message={message.text} type={message.error ? "error" : "success"} />
-                        }
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            loading={loading}
-                        >
-                            Submit
-                        </Button>
-                    </Item>
+                    {
+                        alert?.error && <Alert message={alert.text} type="error" />
+                    }
                 </Form>
             </Modal>
         </>

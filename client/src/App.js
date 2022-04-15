@@ -10,7 +10,6 @@ import { setContext } from '@apollo/client/link/context';
 import Nav from './components/Nav';
 import NavSider from './components/NavSider';
 import TutorDashboard from './pages/TutorDashboard';
-import AddStudentForm from './pages/AddStudentForm';
 import AddSessionForm from './pages/AddSessionForm';
 import StudentsList from './pages/StudentsList';
 import SessionsList from './pages/SessionsList';
@@ -50,12 +49,8 @@ function App() {
             <Content>
               <Routes>
               <Route
-                  path="/dashboard"
+                  path="/"
                   element={<TutorDashboard />}
-                />
-                <Route
-                  path="/addStudent"
-                  element={<AddStudentForm />}
                 />
                 <Route
                   path="/addSession"
@@ -75,7 +70,7 @@ function App() {
                 />
                 <Route
                   path='*'
-                  element={<h1 className="display-2">Wrong page!</h1>}
+                  element={<h1 className="display-2">404 Not Found</h1>}
                 />
               </Routes>
             </Content>
