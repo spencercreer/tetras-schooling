@@ -53,6 +53,7 @@ export const GET_TUTOR_SESSIONS = gql`
                 email
                 class_code
                 grad_date
+                time_zone
                 slack
             }
         }

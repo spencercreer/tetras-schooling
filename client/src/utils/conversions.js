@@ -40,3 +40,14 @@ export const getRandomEmoji = () => {
     const emoji = emojis[Math.floor(Math.random() * emojis.length)]
     return String.fromCodePoint(emoji)
 }
+
+export const getEmailTemplate = (name, date) => {
+    return `Hi ${name}!
+
+Thank you for scheduling your session with me. I am looking forward to our session on ${date}.
+`
+}
+
+export const getEmailSubject = (date, timeZone) => {
+    return `Coding Boot Camp - Tutorial Confirmation - ${date} ${timeZone}`
+}

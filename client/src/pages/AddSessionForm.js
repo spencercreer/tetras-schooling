@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_NAMES } from '../utils/queries';
 import { ADD_SESSION } from '../utils/mutations';
 // Antd
-import { Form, Input, Select, DatePicker, TimePicker, Alert, Button } from 'antd'
+import { Form, Select, DatePicker, Button } from 'antd'
 // Utils
 import { validateMessages, layout } from '../utils/form'
 
@@ -27,9 +27,8 @@ const AddSessionForm = () => {
     try {
       console.log(values)
       const { data } = await addSession({
-        variables: { sessionData: { ...values } }
+        variables: { sessionData: { ...values, tutor_id: 1 } }
       })
-
       if (data.addSession.id) {
         form.resetFields()
       } else {
@@ -61,7 +60,7 @@ const AddSessionForm = () => {
           }
         </Select>
       </Item>
-      <Item name={'session_date'} label="Date & Time" rules={[{ required: true }]}>
+      <Item name={'date'} label="Date & Time" rules={[{ required: true }]}>
         <DatePicker showTime minuteStep={15} format="MM-DD-YYYY HH:mm a" />
       </Item>
 
