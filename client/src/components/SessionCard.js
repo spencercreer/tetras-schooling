@@ -2,13 +2,16 @@
 import { Skeleton, Switch, Card, message } from 'antd';
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
-import { convertDate, getEmailTemplate, getEmailSubject, getRandomEmoji } from '../utils/conversions'
+import { convertDate, formatTimeZone, getEmailTemplate, getEmailSubject, getRandomEmoji } from '../utils/conversions'
 
 const { Meta } = Card;
 
 const SessionCard = ({ session, handleToggleModal }) => {
     const { date, Student: { first_name, last_name, email, time_zone } } = session
-    const sessionDate = convertDate(date, 'llll')
+    // TODO: move timezone conversion to the backend
+    const timeZone = formatTimeZone(time_zone)
+    console.log(first_name, timeZone)
+    const sessionDate = convertDate(date, 'llll', timeZone.diff)
 
     const handleOnClick = () => {
         handleToggleModal()
@@ -21,7 +24,7 @@ const SessionCard = ({ session, handleToggleModal }) => {
     }
 
     const copySessionEmail = () => {
-        navigator.clipboard.writeText(getEmailTemplate(first_name, sessionDate.formatted))
+        navigator.clipboard.writeText(getEmailTemplate(first_name, sessionDate.formatted, timeZone.long))
             .then(() => message.success('Session confirmation email copied! ' + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(getEmailSubject(sessionDate.formatted, time_zone)))
             .then(() => message.success('Email subject line copied! ' + getRandomEmoji(), .7))
