@@ -7,6 +7,7 @@ import { GET_TUTOR_SESSIONS } from '../utils/queries'
 import SessionCard from '../components/SessionCard'
 import LoadingCard from '../components/LoadingCard'
 import SessionModal from '../components/SessionModal'
+import SessionListHeader from '../components/SessionListHeader'
 
 const SessionsList = () => {
     const [modalVisible, setModalVisible] = useState(false)
@@ -25,11 +26,12 @@ const SessionsList = () => {
     const sessions = data.getTutorSessions || []
 
     const handleToggleModal = () => {
-        setModalVisible(!modalVisible);
+        setModalVisible(!msodalVisible);
     };
 
     return (
-        <div>
+        <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
+            <SessionListHeader />
             {
                 sessions?.map((session) => (
                    <SessionCard 

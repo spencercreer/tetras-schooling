@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Antd
 import { Row, Button, Input } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-
+// Components
 import AddStudentModal from '../components/AddStudentModal';
 
 const StudentListHeader = ({ handleUpdateStatuses }) => {
@@ -12,7 +12,6 @@ const StudentListHeader = ({ handleUpdateStatuses }) => {
     const handleToggleAddModal = () => {
         setModalVisible(!modalVisible)
     }
-
 
     return (
         <>

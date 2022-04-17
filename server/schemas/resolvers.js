@@ -20,7 +20,8 @@ const resolvers = {
         getTutorSessions: async (parent, { tutorId }) => {
             const sessions = await Session.findAll({
                 where: { tutor_id: tutorId },
-                include: [Tutor, Student]
+                include: [Tutor, Student],
+                order: [['date', 'DESC']]
             })
 
             return sessions
