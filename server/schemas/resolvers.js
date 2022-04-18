@@ -88,6 +88,18 @@ const resolvers = {
                 tutor_id
             })
             return session
+        },
+
+        updateSession: async (parent, { sessionData }) => {
+            const { id, presession_conf } = sessionData
+            const sessionUpdated = await Session.update({
+                presession_conf
+            },
+            {
+                where: { id }
+            })
+
+            return sessionData
         }
     }
 }

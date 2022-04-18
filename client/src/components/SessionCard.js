@@ -1,13 +1,17 @@
+// Apollo
+import { useMutation } from '@apollo/client';
+import { UPDATE_SESSION } from '../utils/mutations';
 // Antd
-import { Skeleton, Switch, Card, message } from 'antd';
-import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { Skeleton, Card, message } from 'antd';
+import { MailOutlined, EllipsisOutlined, UserOutlined, CheckCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 // Utils
 import { convertDate, formatTimeZone, getEmailTemplate, getEmailSubject, getRandomEmoji } from '../utils/conversions'
 
 const { Meta } = Card;
 
 const SessionCard = ({ session, handleToggleModal }) => {
-    const { date, Student: { first_name, last_name, email, time_zone } } = session
+    const [updateSession] = useMutation(UPDATE_SESSION)
+    const { id, date, presession_conf, tutor_eval, Student: { first_name, last_name, email, time_zone } } = session
     // TODO: move timezone conversion to the backend
     const timeZone = formatTimeZone(time_zone)
     console.log(first_name, timeZone)
@@ -17,19 +21,31 @@ const SessionCard = ({ session, handleToggleModal }) => {
         handleToggleModal()
     }
 
+    const getIcon = (check) => {
+        return check ? <CheckCircleOutlined style={{color: 'green'}} /> : <MinusCircleOutlined style={{color: 'blue'}} />
+    }
+
     const getDescription = () => {
         return <div>
-            <div>{first_name} {last_name}</div>
+            <h3>{first_name} {last_name}</h3>
+            <div>Confirmation Email: {getIcon(presession_conf)}</div>
+            <div>Tutor Evaluation Form: {getIcon(tutor_eval)}</div>
         </div>
     }
 
-    const copySessionEmail = () => {
+    const copySessionEmail = async () => {
         navigator.clipboard.writeText(getEmailTemplate(first_name, sessionDate.formatted, timeZone.long))
             .then(() => message.success('Session confirmation email copied! ' + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(getEmailSubject(sessionDate.formatted, time_zone)))
             .then(() => message.success('Email subject line copied! ' + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(email))
             .then(() => message.success(`Student email copied! ` + getRandomEmoji(), .7))
+
+        const { data } = await updateSession({
+            variables: { sessionData: { id , presession_conf: true }}
+        })
+
+        console.log(data)
     }
 
     return (
@@ -41,15 +57,12 @@ const SessionCard = ({ session, handleToggleModal }) => {
                         key="ellipsis"
                         onClick={() => handleOnClick()}
                     />,
-                    <EditOutlined
+                    <MailOutlined
                         key="edit"
-                        // TODO: Change icon
                         onClick={copySessionEmail}
                     />,
-                    <Switch
-                    // checked={active}
-                    // onChange={handleStatusChange}
-                    />,
+                    <UserOutlined />,
+                    <UserOutlined />
                 ]}
             >
                 <Skeleton

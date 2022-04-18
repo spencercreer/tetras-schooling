@@ -26,7 +26,7 @@ const SessionsList = () => {
     const sessions = data.getTutorSessions || []
 
     const handleToggleModal = () => {
-        setModalVisible(!msodalVisible);
+        setModalVisible(!modalVisible);
     };
 
     return (

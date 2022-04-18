@@ -89,6 +89,7 @@ const typeDefs = gql`
         updateStudent(id: Int!, studentData: StudentInput!): Student
         updateStatuses(studentsData: [StudentInput]): [Student]
         addSession(sessionData: SessionInput!): Session
+        updateSession(sessionData: SessionInput!): Session
     }
 `
 

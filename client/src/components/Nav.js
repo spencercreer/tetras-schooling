@@ -10,7 +10,7 @@ const Nav = () => {
         <div className="logo" />
         <Menu theme="dark" mode="horizontal" >
             <Item key="1"><Link to={'/'}>Dashboard</Link></Item>
-            <Item key="2"><Link to={'/students'} >Students</Link></Item>
+            <Item key="2"><Link to={'/students/active'} >Students</Link></Item>
             <Item key="3"><Link to={'/sessions'}>Sessions</Link></Item>
         </Menu>
     </Header>

@@ -47,6 +47,8 @@ export const GET_TUTOR_SESSIONS = gql`
         getTutorSessions(tutorId: $tutorId) {
             id
             date
+            presession_conf
+            tutor_eval
             Student {
                 first_name
                 last_name

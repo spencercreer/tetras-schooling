@@ -26,7 +26,6 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
 
     const onFinish = async (values) => {
         try {
-            console.log(values)
             const { data } = await addSession({
                 variables: { sessionData: { ...values, tutor_id: 1 } }
             })
