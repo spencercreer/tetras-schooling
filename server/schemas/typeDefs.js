@@ -76,10 +76,9 @@ const typeDefs = gql`
         student_id: Int
     }
 
-    
-
     type Query {
-        getStudents: [Student]
+        getAllStudents: [Student]
+        getStudentsByParam(parameter: String!, val: String!): [Student]
         getStudent(id: Int!): Student
         getTutorSessions(tutorId: Int!): [Session]
     }

@@ -18,11 +18,18 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
     const [message, setMessage] = useState()
     const [addSession] = useMutation(ADD_SESSION)
 
-    const { loading, data } = useQuery(GET_STUDENT_NAMES)
+    const { loading, data } = useQuery(
+        GET_STUDENT_NAMES,
+        {
+            variables: {
+                parameter: "status",
+                val: "Active"
+            }
+        })
     if (loading)
         return <div>Loading...</div>
 
-    const students = data.getStudents || []
+    const students = data.getStudentsByParam || []
 
     const onFinish = async (values) => {
         try {

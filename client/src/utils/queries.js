@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_STUDENT_CARDS = gql`
     {
-        getStudents {
+        getAllStudents {
             id
             first_name
             last_name
@@ -16,8 +16,9 @@ export const GET_STUDENT_CARDS = gql`
 `
 
 export const GET_STUDENT_NAMES = gql`
+    query getStudentsByParam($parameter: String!, $val: String!)
     {
-        getStudents {
+        getStudentsByParam(parameter: $parameter, val: $val) {
             id
             first_name
             last_name
@@ -27,7 +28,7 @@ export const GET_STUDENT_NAMES = gql`
 
 export const GET_STUDENT_MODAL = gql`
     query getStudent($id: Int!) {
-        getStudent (id: $id) {
+        getStudent(id: $id) {
             id
             first_name
             last_name

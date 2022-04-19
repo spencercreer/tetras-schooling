@@ -14,7 +14,7 @@ const EmailForm = () => {
   if (loading)
     return <div>Loading...</div>
 
-  const students = data.getStudents || []
+  const students = data.getAllStudents || []
 
   const handleSelectStudent = (value) => {
     const student = data.getStudent[value.key]

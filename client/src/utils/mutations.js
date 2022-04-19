@@ -48,6 +48,7 @@ export const UPDATE_SESSION = gql`
     mutation updateSession($sessionData: SessionInput!) {
         updateSession(sessionData: $sessionData) {
             id
+            presession_conf
         }
     }
 `

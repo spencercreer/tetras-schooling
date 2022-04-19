@@ -29,7 +29,7 @@ const StudentsList = ({ statuses }) => {
             ))
         )
 
-    const students = data.getStudents || []
+    const students = data.getAllStudents || []
 
     const handleUpdateStatuses = async () => {
         try {

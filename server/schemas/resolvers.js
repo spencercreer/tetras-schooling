@@ -3,8 +3,18 @@ const { Student, Tutor, Session } = require('../models')
 
 const resolvers = {
     Query: {
-        getStudents: async () => {
+        getAllStudents: async () => {
             const students = await Student.findAll()
+
+            return students
+        },
+
+        getStudentsByParam: async (parent, { parameter, val }) => {
+            let what = {}
+            what[parameter] = val
+            const students = await Student.findAll({
+                where: what
+            })
 
             return students
         },
@@ -26,6 +36,7 @@ const resolvers = {
 
             return sessions
         }
+
     },
 
     Mutation: {
