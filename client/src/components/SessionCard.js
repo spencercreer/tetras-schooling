@@ -14,7 +14,6 @@ const SessionCard = ({ session, handleToggleModal }) => {
     const { id, date, presession_conf, tutor_eval, Student: { first_name, last_name, email, time_zone } } = session
     // TODO: move timezone conversion to the backend
     const timeZone = formatTimeZone(time_zone)
-    console.log(first_name, timeZone)
     const sessionDate = convertDate(date, 'llll', timeZone.diff)
 
     const handleOnClick = () => {
@@ -44,8 +43,6 @@ const SessionCard = ({ session, handleToggleModal }) => {
         const { data } = await updateSession({
             variables: { sessionData: { id , presession_conf: true }}
         })
-
-        console.log(data)
     }
 
     return (
@@ -69,7 +66,7 @@ const SessionCard = ({ session, handleToggleModal }) => {
                     loading={false}
                 >
                     <Meta
-                        title={sessionDate.formatted}
+                        title={<h1>{sessionDate.formatted} {timeZone.code}</h1>}
                         description={getDescription()}
                     />
                 </Skeleton>

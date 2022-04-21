@@ -38,7 +38,6 @@ const StudentsList = ({ statuses }) => {
                     studentsData: statusUpdates
                 }
             })
-            console.log(data)
             setStatusUpdates([])
         }
         catch (err) {
@@ -55,10 +54,8 @@ const StudentsList = ({ statuses }) => {
                 }
                 return statusUpdate
             })
-            console.log(copyArray)
             setStatusUpdates(copyArray)
         } else {
-            console.log([...statusUpdates, { id, status }])
             setStatusUpdates([...statusUpdates, { id, status }])
         }
     }

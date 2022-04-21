@@ -22,6 +22,7 @@ export const GET_STUDENT_NAMES = gql`
             id
             first_name
             last_name
+            grad_date
         }
     }
 `

@@ -5,10 +5,10 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_NAMES } from '../utils/queries';
 import { ADD_SESSION } from '../utils/mutations';
 // Antd
-import { Modal, Form, Input, Select, DatePicker, message, Alert, Button } from 'antd'
+import { Modal, Form, Select, DatePicker, Button } from 'antd'
 // Utils
 import { validateMessages, layout } from '../utils/form'
-import { getRandomEmoji } from '../utils/conversions'
+import { dateIsPast } from '../utils/conversions';
 
 const { Item } = Form
 const { Option } = Select
@@ -83,8 +83,8 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
                     <Item name={'student_id'} label="Student" rules={[{ required: true }]}>
                         <Select>
                             {
-                                students?.map((student) => (
-                                    <Option value={student.id}>{`${student.first_name} ${student.last_name}`}</Option>
+                                students?.map(({ id, first_name, last_name, grad_date }) => (
+                                    <Option value={id} style={{  color: dateIsPast(grad_date) && 'red'}}>{`${first_name} ${last_name} ${dateIsPast(grad_date)}`}</Option>
                                 ))
                             }
                         </Select>

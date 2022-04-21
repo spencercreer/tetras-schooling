@@ -8,6 +8,11 @@ export const convertDate = (date, format, diff) => {
     return { convertedDate, formatted, past }
 }
 
+export const dateIsPast = (date) => {
+    const parsedDate = new Date(parseInt(date))
+    return parsedDate < Date.now()
+}
+
 export const getStudentsTime = (time_zone) => {
     let currentTime = new Date()
     let timeZone
@@ -74,7 +79,7 @@ export const formatTimeZone = (time_zone) => {
             break;
     }
 
-    return {time_zone, long, location, diff}
+    return { code: time_zone, long, location, diff }
 }
 
 export const getRandomEmoji = () => {
