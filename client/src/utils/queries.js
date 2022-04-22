@@ -63,3 +63,23 @@ export const GET_TUTOR_SESSIONS = gql`
         }
 }
 `
+
+export const GET_SESSION = gql`
+    query Query($id: Int!) {
+        getSession(id: $id) {
+            id
+            date
+            presession_conf
+            tutor_eval
+            Student {
+                first_name
+                last_name
+                email
+                class_code
+                grad_date
+                time_zone
+                slack
+            }
+        }
+}
+`

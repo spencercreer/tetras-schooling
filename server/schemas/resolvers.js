@@ -35,6 +35,15 @@ const resolvers = {
             })
 
             return sessions
+        },
+
+        getSession: async (parent, { id }) => {
+            const session = await Session.findOne({
+                where: { id },
+                include: [Tutor, Student],
+            })
+
+            return session
         }
 
     },

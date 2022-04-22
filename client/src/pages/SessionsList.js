@@ -11,6 +11,7 @@ import SessionListHeader from '../components/SessionListHeader'
 
 const SessionsList = () => {
     const [modalVisible, setModalVisible] = useState(false)
+    const [selectedSessionId, setSelectedSessionId] = useState(11)
 
     const { loading, data } = useQuery(GET_TUTOR_SESSIONS, { variables: { tutorId: 1 } })
     if (loading)
@@ -43,6 +44,7 @@ const SessionsList = () => {
             }
             <SessionModal
                 visible={modalVisible}
+                sessionId={selectedSessionId}
                 handleCloseModal={handleToggleModal}
             />
         </div>

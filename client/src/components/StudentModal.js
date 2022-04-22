@@ -109,7 +109,10 @@ B2B-No`)
         ]
         :
         [
-            <Button key="back" onClick={handleCloseClick}>
+            <Button
+                key="back"
+                onClick={handleCloseClick}
+            >
                 Exit
             </Button>,
             <Tooltip key="form-notes" title={'Form Notes'}>

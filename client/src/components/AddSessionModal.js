@@ -84,7 +84,7 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
                         <Select>
                             {
                                 students?.map(({ id, first_name, last_name, grad_date }) => (
-                                    <Option value={id} style={{  color: dateIsPast(grad_date) && 'red'}}>{`${first_name} ${last_name} ${dateIsPast(grad_date)}`}</Option>
+                                    <Option value={id} style={{  color: dateIsPast(grad_date) && 'red'}}>{`${first_name} ${last_name}`}</Option>
                                 ))
                             }
                         </Select>

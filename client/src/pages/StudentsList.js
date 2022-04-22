@@ -90,9 +90,9 @@ const StudentsList = ({ statuses }) => {
             <StudentModal
                 visible={modalVisible}
                 edit={editModal}
+                studentId={selectedStudentId}
                 handleCloseModal={handleToggleModal}
                 handleToggleEdit={handleToggleEdit}
-                studentId={selectedStudentId}
             />
         </div>
     )

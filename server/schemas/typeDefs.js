@@ -81,6 +81,7 @@ const typeDefs = gql`
         getStudentsByParam(parameter: String!, val: String!): [Student]
         getStudent(id: Int!): Student
         getTutorSessions(tutorId: Int!): [Session]
+        getSession(id: Int!): Session
     }
 
     type Mutation {

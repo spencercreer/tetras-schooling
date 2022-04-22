@@ -5,7 +5,7 @@ import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
 // Utils
 import { layout, validateMessages } from '../utils/form'
 // TODO: Move convertDate
-import moment from 'moment';
+import moment from 'moment'
 
 const { Item } = Form
 const { Option } = Select
