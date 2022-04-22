@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express')
 const { Student, Tutor, Session } = require('../models')
+const { signToken } = require('../utils/auth')
 
 const resolvers = {
     Query: {
@@ -49,6 +50,24 @@ const resolvers = {
     },
 
     Mutation: {
+        login: async (parent, { email, password }) => {
+            const tutor = await Tutor.findOne({
+                where: { email }
+            })
+
+            if (!tutor) {
+                throw new AuthenticationError('Invalid email or password')
+            }
+
+            // const correctPw = await tutor.isCorrectPassword(password)
+
+            // if (!correctPw) {
+            //     throw new AuthenticationError('Invalid email or password')
+            // }
+
+            const token = signToken(tutor)
+            return { token, tutor }
+        },
         addStudent: async (parent, { studentData }) => {
             const { first_name, last_name, email, class_code, grad_date, time_zone, slack, status } = studentData
             const newStudent = await Student.create({

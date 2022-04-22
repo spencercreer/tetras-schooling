@@ -59,7 +59,6 @@ const SessionCard = ({ session, handleToggleModal }) => {
                         onClick={copySessionEmail}
                     />,
                     <UserOutlined />,
-                    <UserOutlined />
                 ]}
             >
                 <Skeleton
