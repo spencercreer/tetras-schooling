@@ -8,7 +8,6 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Nav from './components/Nav';
-import NavSider from './components/NavSider';
 import TutorDashboard from './pages/TutorDashboard';
 import StudentsList from './pages/StudentsList';
 import SessionsList from './pages/SessionsList';
@@ -16,7 +15,7 @@ import SessionsList from './pages/SessionsList';
 import { Layout } from 'antd'
 import './App.css';
 
-const { Footer, Content } = Layout
+const { Footer } = Layout
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -44,8 +43,6 @@ function App() {
         <Router>
           <Nav />
           <Layout>
-            <NavSider />
-            <Content>
               <Routes>
               <Route
                   path="/"
@@ -68,7 +65,6 @@ function App() {
                   element={<h1 className="display-2">404 Not Found</h1>}
                 />
               </Routes>
-            </Content>
           </Layout>
         </Router>
         <Footer>Footer</Footer>

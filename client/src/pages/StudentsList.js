@@ -4,11 +4,16 @@ import { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_CARDS } from '../utils/queries'
 import { UPDATE_STATUSES } from '../utils/mutations'
-//C omponents
-import StudentCard from '../components/StudentCard';
-import LoadingCard from '../components/LoadingCard';
-import StudentModal from '../components/StudentModal';
-import StudentListHeader from '../components/StudentListHeader';
+// Components
+import NavSider from "../components/NavSider"
+import StudentCard from '../components/StudentCard'
+import LoadingCard from '../components/LoadingCard'
+import StudentModal from '../components/StudentModal'
+import StudentListHeader from '../components/StudentListHeader'
+// Antd
+import { Layout } from 'antd'
+
+const { Content } = Layout
 
 const StudentsList = ({ statuses }) => {
     // TODO: Search input
@@ -69,32 +74,37 @@ const StudentsList = ({ statuses }) => {
     }
 
     return (
-        <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
-           <StudentListHeader
-            handleUpdateStatuses={handleUpdateStatuses}
-           />
-            {
-                students?.map((student) => (
-                    statuses.includes(student.status) &&
-                    <StudentCard
-                        key={student.id}
-                        student={student}
-                        loading={false}
-                        handleToggleStatus={handleToggleStatus}
-                        handleToggleModal={handleToggleModal}
-                        handleToggleEdit={handleToggleEdit}
-                        setSelectedStudentId={setSelectedStudentId}
+        <>
+            <NavSider page={'students'} />
+            <Content>
+                <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
+                    <StudentListHeader
+                        handleUpdateStatuses={handleUpdateStatuses}
                     />
-                ))
-            }
-            <StudentModal
-                visible={modalVisible}
-                edit={editModal}
-                studentId={selectedStudentId}
-                handleCloseModal={handleToggleModal}
-                handleToggleEdit={handleToggleEdit}
-            />
-        </div>
+                    {
+                        students?.map((student) => (
+                            statuses.includes(student.status) &&
+                            <StudentCard
+                                key={student.id}
+                                student={student}
+                                loading={false}
+                                handleToggleStatus={handleToggleStatus}
+                                handleToggleModal={handleToggleModal}
+                                handleToggleEdit={handleToggleEdit}
+                                setSelectedStudentId={setSelectedStudentId}
+                            />
+                        ))
+                    }
+                    <StudentModal
+                        visible={modalVisible}
+                        edit={editModal}
+                        studentId={selectedStudentId}
+                        handleCloseModal={handleToggleModal}
+                        handleToggleEdit={handleToggleEdit}
+                    />
+                </div>
+            </Content>
+        </>
     )
 }
 

@@ -4,10 +4,15 @@ import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_TUTOR_SESSIONS } from '../utils/queries'
 // Components
+import NavSider from "../components/NavSider"
 import SessionCard from '../components/SessionCard'
 import LoadingCard from '../components/LoadingCard'
 import SessionModal from '../components/SessionModal'
 import SessionListHeader from '../components/SessionListHeader'
+// Antd
+import { Layout } from 'antd'
+
+const { Content } = Layout
 
 const SessionsList = () => {
     const [modalVisible, setModalVisible] = useState(false)
@@ -31,23 +36,28 @@ const SessionsList = () => {
     };
 
     return (
-        <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
-            <SessionListHeader />
-            {
-                sessions?.map((session) => (
-                   <SessionCard 
-                        key={session.id}
-                        session={session}
-                        handleToggleModal={handleToggleModal}
+        <>
+            <NavSider page={'sessions'} />
+            <Content>
+                <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
+                    <SessionListHeader />
+                    {
+                        sessions?.map((session) => (
+                            <SessionCard
+                                key={session.id}
+                                session={session}
+                                handleToggleModal={handleToggleModal}
+                            />
+                        ))
+                    }
+                    <SessionModal
+                        visible={modalVisible}
+                        sessionId={selectedSessionId}
+                        handleCloseModal={handleToggleModal}
                     />
-                ))
-            }
-            <SessionModal
-                visible={modalVisible}
-                sessionId={selectedSessionId}
-                handleCloseModal={handleToggleModal}
-            />
-        </div>
+                </div>
+            </Content>
+        </>
     )
 }
 

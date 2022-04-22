@@ -1,6 +1,15 @@
+// Components
+import NavSider from "../components/NavSider"
+// Antd
+import { Layout } from 'antd'
+
+const { Content } = Layout
+
 const TutorDashboard = () => {
     return (
         <>
+        <NavSider page={'dashboard'} />
+        <Content>
             <h1>TutorDashboard</h1>
             <div>
                 <h2>Today's Sessions</h2>
@@ -13,6 +22,7 @@ const TutorDashboard = () => {
             <div>
                 <h2>Student Analytics</h2>
             </div>
+        </Content>
         </>
     )
 }
