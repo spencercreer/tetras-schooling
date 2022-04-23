@@ -130,7 +130,7 @@ const resolvers = {
         },
 
         updateSession: async (parent, { sessionData }) => {
-            const { id, clock_in, clock_out, presession_conf, b2b } = sessionData
+            const { id, clock_in, clock_out, presession_conf, b2b, show } = sessionData
             const sessionUpdated = await Session.update({
                 clock_in,
                 clock_out,
@@ -142,7 +142,12 @@ const resolvers = {
                 where: { id }
             })
 
-            return sessionData
+            const session = await Session.findOne({
+                where: { id },
+                include: [Tutor, Student],
+            })
+
+            return session
         }
     }
 }

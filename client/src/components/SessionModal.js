@@ -9,7 +9,8 @@ import { Modal, Form, Button, Select, Input, DatePicker, TimePicker, Alert, mess
 import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
 // Utils
 import { layout, validateMessages } from '../utils/form'
-import { convertDate, getRandomEmoji } from '../utils/conversions'
+import { convertDate, formatTimeZone, getRandomEmoji } from '../utils/conversions'
+import moment from 'moment'
 
 const { Item } = Form
 const { Option } = Select
@@ -21,16 +22,25 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
     if (loading)
         return <div>Loading...</div>
 
-    const { id, date, Student: { first_name, last_name, email, class_code }} = data?.getSession
+    const { id, date, Student: { first_name, last_name, email, class_code, grad_date, time_zone }} = data?.getSession
 
-    const onFinish = async (values) => {
-        const { b2b, clock_in, clock_out } = values
+    const onFinish = async ({ b2b, clock_in, clock_out, show }) => {
         const { data } = await updateSession({
-            variables: { sessionData: { id , b2b, clock_in, clock_out }}
+            variables: { sessionData: { id , b2b, clock_in, clock_out, show }}
         })
-        console.log(data)
+        const gradDate = convertDate(grad_date, 'L')
+        const today = convertDate(Date.now(), 'L')
+        const { diff } = formatTimeZone(time_zone)
+        const clockIn = convertDate(date, 'LT ', 0)
+        const clockOut = convertDate(data.updateSession.clock_out, 'LT', 0)
+        const B2B = b2b ? 'Y' : 'N'
+        const SHOW = show ? 'Y' : 'N'
+        //TODO: Add Notes input to form and presession conf
 
-        navigator.clipboard.writeText(email)
+        //TODO: Automate this process
+        navigator.clipboard.writeText(`=SPLIT("${class_code},${gradDate.formatted},${first_name} ${last_name},${email},${today.formatted},+${diff}hr,${clockIn.formatted},${clockOut.formatted},Y, ${B2B},Y, ${SHOW}", ",")`)
+            .then(() => message.success(`Google sheets row copied! ` + getRandomEmoji(), .7))
+            .then(() => navigator.clipboard.writeText(email))        
             .then(() => message.success(`${email} copied! ` + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(`${last_name}, ${first_name}`))
             .then(() => message.success(`${last_name}, ${first_name} copied! ` + getRandomEmoji(), .7))
@@ -104,14 +114,9 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                     name="session"
                     onFinish={onFinish}
                     validateMessages={validateMessages}
-                // initialValues={{
-                //     student: {
-                //         class_code: class_code,
-                //         email: email,
-                //         time_zone: time_zone,
-                //         grad_date: moment(gradDate.convertedDate, "MM/DD/YYYY")
-                //     }
-                // }}
+                initialValues={{
+                //  clock_out: convertDate(date, 'LT ', 0) Doesn't work
+                }}
                 >
                     <Item
                         name={'clock_in'}
