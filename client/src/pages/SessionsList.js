@@ -47,6 +47,7 @@ const SessionsList = () => {
                                 key={session.id}
                                 session={session}
                                 handleToggleModal={handleToggleModal}
+                                setSelectedSessionId={setSelectedSessionId}
                             />
                         ))
                     }

@@ -49,6 +49,9 @@ export const UPDATE_SESSION = gql`
         updateSession(sessionData: $sessionData) {
             id
             presession_conf
+            b2b
+            clock_in
+            clock_out
         }
     }
 `

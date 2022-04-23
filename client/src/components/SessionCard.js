@@ -9,7 +9,7 @@ import { convertDate, formatTimeZone, getEmailTemplate, getEmailSubject, getRand
 
 const { Meta } = Card;
 
-const SessionCard = ({ session, handleToggleModal }) => {
+const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     const [updateSession] = useMutation(UPDATE_SESSION)
     const { id, date, presession_conf, tutor_eval, Student: { first_name, last_name, email, time_zone } } = session
     // TODO: move timezone conversion to the backend
@@ -17,6 +17,7 @@ const SessionCard = ({ session, handleToggleModal }) => {
     const sessionDate = convertDate(date, 'llll', timeZone.diff)
 
     const handleOnClick = () => {
+        setSelectedSessionId(id)
         handleToggleModal()
     }
 

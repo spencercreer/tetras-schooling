@@ -130,9 +130,13 @@ const resolvers = {
         },
 
         updateSession: async (parent, { sessionData }) => {
-            const { id, presession_conf } = sessionData
+            const { id, clock_in, clock_out, presession_conf, b2b } = sessionData
             const sessionUpdated = await Session.update({
-                presession_conf
+                clock_in,
+                clock_out,
+                presession_conf,
+                show,
+                b2b
             },
             {
                 where: { id }

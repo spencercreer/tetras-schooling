@@ -3,7 +3,7 @@ import { useState } from 'react'
 // Apollo
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_SESSION } from '../utils/queries'
-import { UPDATE_STUDENT } from '../utils/mutations'
+import { UPDATE_SESSION } from '../utils/mutations'
 // Antd
 import { Modal, Form, Button, Select, Input, DatePicker, TimePicker, Alert, message, Tooltip } from 'antd'
 import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
@@ -14,18 +14,28 @@ import { convertDate, getRandomEmoji } from '../utils/conversions'
 const { Item } = Form
 const { Option } = Select
 
-const SessionModal = ({ visible, handleCloseModal }) => {
+const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
     const [form] = Form.useForm()
+    const [updateSession] = useMutation(UPDATE_SESSION)
+    const { loading, data } = useQuery(GET_SESSION, { variables: { id: sessionId } })
+    if (loading)
+        return <div>Loading...</div>
+
+    const { id, date, Student: { first_name, last_name, email, class_code }} = data?.getSession
 
     const onFinish = async (values) => {
-        console.log(values)
+        const { b2b, clock_in, clock_out } = values
+        const { data } = await updateSession({
+            variables: { sessionData: { id , b2b, clock_in, clock_out }}
+        })
+        console.log(data)
 
-        navigator.clipboard.writeText('email')
-            .then(() => message.success(`email} copied! ` + getRandomEmoji(), .7))
-            .then(() => navigator.clipboard.writeText(`last_name, first_name`))
-            .then(() => message.success(`last_name, first_name copied! ` + getRandomEmoji(), .7))
-            .then(() => navigator.clipboard.writeText('class_code'))
-            .then(() => message.success(`class_code copied! ` + getRandomEmoji(), .7))
+        navigator.clipboard.writeText(email)
+            .then(() => message.success(`${email} copied! ` + getRandomEmoji(), .7))
+            .then(() => navigator.clipboard.writeText(`${last_name}, ${first_name}`))
+            .then(() => message.success(`${last_name}, ${first_name} copied! ` + getRandomEmoji(), .7))
+            .then(() => navigator.clipboard.writeText(class_code))
+            .then(() => message.success(`${class_code} copied! ` + getRandomEmoji(), .7))
             .then(() => message.loading("Opening Form", 1))
             .then(() => window.open("https://docs.google.com/a/trilogyed.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform", "_blank", "noreferrer"))
     }
@@ -104,7 +114,7 @@ const SessionModal = ({ visible, handleCloseModal }) => {
                 // }}
                 >
                     <Item
-                        name={'clock-in'}
+                        name={'clock_in'}
                         label="Clock-in"
                         rules={[{ required: true }]}
                     >
@@ -113,7 +123,7 @@ const SessionModal = ({ visible, handleCloseModal }) => {
                         />
                     </Item>
                     <Item
-                        name={'clock-out'}
+                        name={'clock_out'}
                         label="Clock-Out"
                         rules={[{ required: true }]}
                     >
