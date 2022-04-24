@@ -37,8 +37,8 @@ const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggle
             .then(() => message.success(`${last_name}, ${first_name} copied! ` + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(class_code))
             .then(() => message.success(`${class_code} copied! ` + getRandomEmoji(), .7))
-            .then(() => message.loading("Opening Form", 1))
-            .then(() => window.open("https://docs.google.com/a/trilogyed.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform", "_blank", "noreferrer"))
+            .then(() => message.loading('Opening Form', 1))
+            .then(() => window.open('https://docs.google.com/a/trilogyed.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform', '_blank', 'noreferrer'))
     }
 
     const handleSlackClick = () => {
@@ -73,21 +73,21 @@ Your class code is: ${class_code}`)
 
     const footerButtons = edit ?
         [
-            <Button key="back" onClick={handleCloseClick}>
+            <Button key='back' onClick={handleCloseClick}>
                 Exit
             </Button>,
-            <Tooltip key="info" title={'Student Info'}>
+            <Tooltip key='info' title={'Student Info'}>
                 <Button
-                    type="primary"
+                    type='primary'
                     onClick={() => handleToggleEdit(false)}
                 >
                     <UserOutlined />
                 </Button>
             </Tooltip>,
             <Button
-                type="primary"
-                htmlType="submit"
-                style={{ width: "125px" }}
+                type='primary'
+                htmlType='submit'
+                style={{ width: '125px' }}
                 loading={loading}
                 onClick={() => form.submit()}
             >
@@ -97,30 +97,30 @@ Your class code is: ${class_code}`)
         :
         [
             <Button
-                key="back"
+                key='back'
                 onClick={handleCloseClick}
             >
                 Exit
             </Button>,
-            <Tooltip key="form-notes" title={'Form Notes'}>
+            <Tooltip key='form-notes' title={'Form Notes'}>
                 <Button
-                    type="primary"
+                    type='primary'
                     onClick={handleFormNotesClick}
                 >
                     <CopyOutlined />
                 </Button>
             </Tooltip>,
-            <Tooltip key="slack-message" title={'Slack Message'}>
+            <Tooltip key='slack-message' title={'Slack Message'}>
                 <Button
-                    type="primary"
+                    type='primary'
                     onClick={handleSlackClick}
                 >
                     <SlackOutlined />
                 </Button>
             </Tooltip>,
-            <Tooltip key="edit" title={'Edit'}>
+            <Tooltip key='edit' title={'Edit'}>
                 <Button
-                    type="primary"
+                    type='primary'
                     onClick={() => handleToggleEdit(true)}
                 >
                     <EditOutlined />
@@ -131,7 +131,7 @@ Your class code is: ${class_code}`)
     return (
         <>
             <Modal
-                title={edit ? "Edit Student Info" : "Student Info"}
+                title={edit ? 'Edit Student Info' : 'Student Info'}
                 visible={visible}
                 onCancel={handleCloseClick}
                 footer={footerButtons}

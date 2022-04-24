@@ -49,14 +49,14 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     return (
         <>
             <Card
-                style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: "inline-block" }}
+                style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: 'inline-block' }}
                 actions={[
                     <EllipsisOutlined
-                        key="ellipsis"
+                        key='ellipsis'
                         onClick={() => handleOnClick()}
                     />,
                     <MailOutlined
-                        key="edit"
+                        key='edit'
                         onClick={copySessionEmail}
                     />,
                     <UserOutlined />,

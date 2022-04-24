@@ -10,7 +10,7 @@ const { Meta } = Card;
 
 const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, handleToggleEdit, setSelectedStudentId }) => {
     let { id, first_name, last_name, class_code, grad_date, status, github } = student
-    const [active, setActive] = useState(status === "Active")
+    const [active, setActive] = useState(status === 'Active')
 
     const handleOnClick = (edit) => {
         setSelectedStudentId(id)
@@ -19,7 +19,7 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
     }
 
     const handleStatusChange = () => {
-        handleToggleStatus(id, active ? "Inactive" : "Active")
+        handleToggleStatus(id, active ? 'Inactive' : 'Active')
         setActive(!active)
     }
     
@@ -29,7 +29,7 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
         } else if (first_name && last_name) {
             return <Avatar style={{ backgroundColor: '#00a2ae' }}>{first_name[0].toUpperCase() + last_name[0].toUpperCase()}</Avatar>
         } else {
-            return <Avatar>{"Icon"}</Avatar>
+            return <Avatar>{'Icon'}</Avatar>
         }
     }
 
@@ -43,14 +43,14 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
 
     return (
         <Card
-            style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: "inline-block" }}
+            style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: 'inline-block' }}
             actions={[
                 <EllipsisOutlined
-                    key="ellipsis"
+                    key='ellipsis'
                     onClick={() => handleOnClick(false)}
                 />,
                 <EditOutlined
-                    key="edit"
+                    key='edit'
                     onClick={() => handleOnClick(true)}
                 />,
                 <Switch 

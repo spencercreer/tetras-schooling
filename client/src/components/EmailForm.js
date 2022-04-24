@@ -31,8 +31,8 @@ const EmailForm = () => {
       <Select
         style={{ width: '300px' }}
         showSearch
-        placeholder="Student"
-        optionFilterProp="children"
+        placeholder='Student'
+        optionFilterProp='children'
         labelInValue
         onSelect={handleSelectStudent}
         filterOption={(input, option) =>
@@ -49,7 +49,7 @@ const EmailForm = () => {
         value={timeData}
         onChange={handleSelectDate}
         showTime={{ format: 'HH:mm' }}
-        format="YYYY-MM-DD HH:mm"
+        format='YYYY-MM-DD HH:mm'
       />
     </>
   )

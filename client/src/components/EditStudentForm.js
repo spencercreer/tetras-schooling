@@ -34,7 +34,7 @@ const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
             <Form
                 {...layout}
                 form={form}
-                name="edit-student"
+                name='edit-student'
                 onFinish={onFinish}
                 validateMessages={validateMessages}
                 initialValues={{
@@ -42,36 +42,36 @@ const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
                         class_code: class_code,
                         email: email,
                         time_zone: time_zone,
-                        grad_date: moment(gradDate.convertedDate, "MM/DD/YYYY")
+                        grad_date: moment(gradDate.convertedDate, 'MM/DD/YYYY')
                     }
                 }}
             >
-                <Item name={['student', 'class_code']} label="Class Code"
+                <Item name={['student', 'class_code']} label='Class Code'
                     rules={[{ required: true }]}
                 >
                     <Input />
                 </Item>
-                <Item name={['student', 'email']} label="Email" rules={[{ required: true }, { type: 'email' }]} >
+                <Item name={['student', 'email']} label='Email' rules={[{ required: true }, { type: 'email' }]} >
                     <Input />
                 </Item>
-                <Item name={['student', 'time_zone']} label="Time Zone">
+                <Item name={['student', 'time_zone']} label='Time Zone'>
                     <Select
                     >
-                        <Option value="PT">Pacific Time</Option>
-                        <Option value="MST">Arizona Time</Option>
-                        <Option value="MT">Mountain Time</Option>
-                        <Option value="CT">Central Time</Option>
-                        <Option value="ET">Eastern Time</Option>
+                        <Option value='PT'>Pacific Time</Option>
+                        <Option value='MST'>Arizona Time</Option>
+                        <Option value='MT'>Mountain Time</Option>
+                        <Option value='CT'>Central Time</Option>
+                        <Option value='ET'>Eastern Time</Option>
                     </Select>
                 </Item>
-                <Item name={['student', 'grad_date']} label="Graduation Date">
+                <Item name={['student', 'grad_date']} label='Graduation Date'>
                     <DatePicker
-                        style={{ width: "100%" }}
-                        format={"MM/DD/YYYY"}
+                        style={{ width: '100%' }}
+                        format={'MM/DD/YYYY'}
                     />
                 </Item>
                 {
-                    updateMessage && <Alert message={updateMessage.text} type={updateMessage.error ? "error" : "success"} />
+                    updateMessage && <Alert message={updateMessage.text} type={updateMessage.error ? 'error' : 'success'} />
                 }
             </Form>
         </>

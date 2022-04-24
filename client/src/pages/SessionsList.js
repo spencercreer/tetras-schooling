@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_TUTOR_SESSIONS } from '../utils/queries'
 // Components
-import NavSider from "../components/NavSider"
+import NavSider from '../components/NavSider'
 import SessionCard from '../components/SessionCard'
 import LoadingCard from '../components/LoadingCard'
 import SessionModal from '../components/SessionModal'

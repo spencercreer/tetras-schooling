@@ -22,8 +22,8 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
         GET_STUDENT_NAMES,
         {
             variables: {
-                parameter: "status",
-                val: "Active"
+                parameter: 'status',
+                val: 'Active'
             }
         })
     if (loading)
@@ -50,13 +50,13 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
 
     const footerButtons =
         [
-            <Button key="back" onClick={handleCloseModal}>
+            <Button key='back' onClick={handleCloseModal}>
                 Exit
             </Button>,
             <Button
-                type="primary"
-                htmlType="submit"
-                style={{ width: "125px" }}
+                type='primary'
+                htmlType='submit'
+                style={{ width: '125px' }}
                 loading={loading}
                 onClick={() => form.submit()}
             >
@@ -67,7 +67,7 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
     return (
         <>
             <Modal
-                title={"Add Student"}
+                title={'Add Student'}
                 visible={visible}
                 onCancel={handleCloseModal}
                 footer={footerButtons}
@@ -76,11 +76,11 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
                     style={{ marginTop: 30, marginRight: 40 }}
                     {...layout}
                     form={form}
-                    name="add-session"
+                    name='add-session'
                     onFinish={onFinish}
                     validateMessages={validateMessages}
                 >
-                    <Item name={'student_id'} label="Student" rules={[{ required: true }]}>
+                    <Item name={'student_id'} label='Student' rules={[{ required: true }]}>
                         <Select>
                             {
                                 students?.map(({ id, first_name, last_name, grad_date }) => (
@@ -89,8 +89,8 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
                             }
                         </Select>
                     </Item>
-                    <Item name={'date'} label="Date & Time" rules={[{ required: true }]}>
-                        <DatePicker showTime minuteStep={15} format="MM-DD-YYYY HH:mm a" />
+                    <Item name={'date'} label='Date & Time' rules={[{ required: true }]}>
+                        <DatePicker showTime minuteStep={15} format='MM-DD-YYYY HH:mm a' />
                     </Item>
                 </Form>
             </Modal>

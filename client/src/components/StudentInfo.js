@@ -27,9 +27,9 @@ const StudentInfo = ({ student }) => {
             <Form
                 {...layout}
                 form={form}
-                name="student-info"
+                name='student-info'
             >
-                <Item name={['student', 'class_code']} label="Class Code">
+                <Item name={['student', 'class_code']} label='Class Code'>
                     <Input.Group compact>
                         <Input
                             style={{ width: '90%' }}
@@ -38,13 +38,13 @@ const StudentInfo = ({ student }) => {
                         />
                         <Tooltip
                             style={{ width: '10%' }}
-                            title="Copy Class Code"
+                            title='Copy Class Code'
                         >
                             <Button icon={<CopyOutlined />} />
                         </Tooltip>
                     </Input.Group>
                 </Item>
-                <Item name={['student', 'email']} label="Email">
+                <Item name={['student', 'email']} label='Email'>
                     <Input.Group compact>
                         <Input
                             style={{ width: '90%' }}
@@ -58,7 +58,7 @@ const StudentInfo = ({ student }) => {
                         </Tooltip>
                     </Input.Group>
                 </Item>
-                <Item name={['student', 'time_zone']} label="Time Zone">
+                <Item name={['student', 'time_zone']} label='Time Zone'>
                     <Input.Group compact>
                         <Input
                             style={{ width: '70%' }}
@@ -72,10 +72,10 @@ const StudentInfo = ({ student }) => {
                         />
                     </Input.Group>
                 </Item>
-                <Item name={['student', 'grad_date']} label="Graduation Date">
+                <Item name={['student', 'grad_date']} label='Graduation Date'>
                     <Input
                         defaultValue={gradDate.formatted}
-                        suffix={gradDate.past && <StopTwoTone twoToneColor={"red"} />}
+                        suffix={gradDate.past && <StopTwoTone twoToneColor={'red'} />}
                         disabled
                     />
                 </Item>

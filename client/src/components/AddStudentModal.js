@@ -1,7 +1,7 @@
 // React
 import { useState } from 'react'
 // Apollo
-import { useMutation } from "@apollo/client"
+import { useMutation } from '@apollo/client'
 import { ADD_STUDENT } from '../utils/mutations'
 // Antd
 import { Modal, Form, Input, Select, DatePicker, message, Alert, Button } from 'antd'
@@ -21,7 +21,7 @@ const AddStudentModal = ({ visible, handleCloseModal }) => {
     const onFinish = async (values) => {
         try {
             const { data } = await addStudent({
-                variables: { studentData: { ...values.student, status: "Active" } }
+                variables: { studentData: { ...values.student, status: 'Active' } }
             })
 
             if (data.addStudent.id) {
@@ -42,13 +42,13 @@ const AddStudentModal = ({ visible, handleCloseModal }) => {
 
     const footerButtons =
         [
-            <Button key="back" onClick={handleCloseModal}>
+            <Button key='back' onClick={handleCloseModal}>
                 Exit
             </Button>,
             <Button
-                type="primary"
-                htmlType="submit"
-                style={{ width: "125px" }}
+                type='primary'
+                htmlType='submit'
+                style={{ width: '125px' }}
                 loading={loading}
                 onClick={() => form.submit()}
             >
@@ -59,7 +59,7 @@ const AddStudentModal = ({ visible, handleCloseModal }) => {
     return (
         <>
             <Modal
-                title={"Add Student"}
+                title={'Add Student'}
                 visible={visible}
                 onCancel={handleCloseModal}
                 footer={footerButtons}
@@ -67,36 +67,36 @@ const AddStudentModal = ({ visible, handleCloseModal }) => {
                 <Form
                     {...layout}
                     form={form}
-                    name="add-student"
+                    name='add-student'
                     onFinish={onFinish}
                     validateMessages={validateMessages}
                 >
-                    <Item name={['student', 'first_name']} label="First Name" rules={[{ required: true }]}>
+                    <Item name={['student', 'first_name']} label='First Name' rules={[{ required: true }]}>
                         <Input />
                     </Item>
-                    <Item name={['student', 'last_name']} label="Last Name" rules={[{ required: true }]}>
+                    <Item name={['student', 'last_name']} label='Last Name' rules={[{ required: true }]}>
                         <Input />
                     </Item>
-                    <Item name={['student', 'email']} label="Email" rules={[{ required: true }, { type: 'email' }]}>
+                    <Item name={['student', 'email']} label='Email' rules={[{ required: true }, { type: 'email' }]}>
                         <Input />
                     </Item>
-                    <Item name={['student', 'class_code']} label="Class Code" rules={[{ required: true }]}>
+                    <Item name={['student', 'class_code']} label='Class Code' rules={[{ required: true }]}>
                         <Input />
                     </Item>
-                    <Item name={['student', 'time_zone']} label="Time Zone">
+                    <Item name={['student', 'time_zone']} label='Time Zone'>
                         <Select>
-                            <Option value="PT">Pacific Time</Option>
-                            <Option value="MST">Arizona Time</Option>
-                            <Option value="MT">Mountain Time</Option>
-                            <Option value="CT">Central Time</Option>
-                            <Option value="ET">Eastern Time</Option>
+                            <Option value='PT'>Pacific Time</Option>
+                            <Option value='MST'>Arizona Time</Option>
+                            <Option value='MT'>Mountain Time</Option>
+                            <Option value='CT'>Central Time</Option>
+                            <Option value='ET'>Eastern Time</Option>
                         </Select>
                     </Item>
-                    <Item name={['student', 'grad_date']} label="Graduation Date">
+                    <Item name={['student', 'grad_date']} label='Graduation Date'>
                         <DatePicker />
                     </Item>
                     {
-                        alert?.error && <Alert message={alert.text} type="error" />
+                        alert?.error && <Alert message={alert.text} type='error' />
                     }
                 </Form>
             </Modal>
