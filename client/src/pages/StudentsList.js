@@ -80,6 +80,8 @@ const StudentsList = ({ statuses }) => {
                 <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
                     <StudentListHeader
                         handleUpdateStatuses={handleUpdateStatuses}
+                        students={students}
+                        statuses={statuses}
                     />
                     {
                         students?.map((student) => (

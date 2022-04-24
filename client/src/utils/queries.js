@@ -6,6 +6,7 @@ export const GET_STUDENT_CARDS = gql`
             id
             first_name
             last_name
+            email
             time_zone
             class_code
             grad_date
