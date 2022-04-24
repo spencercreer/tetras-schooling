@@ -49,19 +49,6 @@ Your class code is: ${class_code}`)
         message.success('Slack message copied! ' + getRandomEmoji())
     };
 
-    const handleClockOutClick = () => {
-        navigator.clipboard.writeText(`${class_code}
-${first_name} ${last_name}
-B2B-No`)
-        message.success('Clock-out notes copied! ' + getRandomEmoji())
-    }
-
-    const handleRecordSession = () => {
-        //TODO: Automate this process
-        navigator.clipboard.writeText(`=SPLIT("${class_code},${gradDate.formatted},${first_name} ${last_name},${email},today's date,+blank hr", ",")
-        `)
-    }
-
     const handleSubmitEdit = async (values) => {
         try {
             const { data } = await updateStudent({
@@ -131,14 +118,6 @@ B2B-No`)
                     <SlackOutlined />
                 </Button>
             </Tooltip>,
-            <Tooltip key="clock-out-notes" title={'Clock-Out Notes'}>
-                <Button
-                    type="primary"
-                    onClick={handleClockOutClick}
-                >
-                    <ClockCircleOutlined />
-                </Button>
-            </Tooltip>,
             <Tooltip key="edit" title={'Edit'}>
                 <Button
                     type="primary"
@@ -147,15 +126,6 @@ B2B-No`)
                     <EditOutlined />
                 </Button>
             </Tooltip>,
-            <Button
-                key="record-session"
-                type="primary"
-                style={{ width: "125px" }}
-                loading={loading}
-                onClick={handleRecordSession}
-            >
-                Record Session
-            </Button>,
         ]
 
     return (
