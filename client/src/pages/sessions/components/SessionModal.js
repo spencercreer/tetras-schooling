@@ -11,6 +11,7 @@ import { SlackOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import { layout, validateMessages, topics } from '../../../utils/form'
 import { convertDate, formatTimeZone } from '../../../utils/conversions'
 import { getClockOutNotes, getSlackMessage, getRandomEmoji } from '../../../utils/messages'
+// import moment from 'moment'
 
 const { Item } = Form
 const { Option } = Select
@@ -38,9 +39,10 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
         const { diff } = formatTimeZone(time_zone)
         const clockIn = convertDate(date, 'LT ', 0)
         const clockOut = convertDate(data.updateSession.clock_out, 'LT', 0)
+        console.log(clockOut.hour, clockOut.minute)
         const B2B = b2b ? 'Yes' : 'No'
         const SHOW = show ? 'Show' : 'No Show'
-        //TODO: Add Notes input to form and presession conf
+        //TODO: Add presession conf
 
         //TODO: Automate this process
         navigator.clipboard.writeText(`=SPLIT('${class_code},${gradDate.formatted},${first_name} ${last_name},${email},${today.formatted},+${diff}hr,${clockIn.formatted},${clockOut.formatted},Yes, ${B2B},Yes, ${SHOW},${topics},${notes},Yes', ',')`)
@@ -48,9 +50,7 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
             .then(() => navigator.clipboard.writeText(getClockOutNotes(class_code, first_name, last_name, B2B, show)))
             .then(() => message.success('Clock-out notes copied! ' + getRandomEmoji(), .7))
             .then(() => message.loading('Opening Form', 1))
-        //Clock in and out
-
-        // .then(() => window.open(`https://docs.google.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform?entry.1626809215=${class_code}&entry.1262798942=${last_name}, ${first_name}&entry.1509111758=${email}&entry.1450620354=No&entry.758887222=Creer, Spencer&entry.1572772860=Yes&entry.568333504=FSF - Full Stack Flex Web Development(Javascript)&entry.1311659485=${B2B}&entry.401287639=${today.formatted}&entry.781752343_hour=21&entry.781752343_minute=30&entry.721200944_hour=22&entry.721200944_minute=04&entry.1394734474=No&entry.2041303987=${topics}&entry.790082012=I am not a TA in this student's class&entry.2075286046=5&entry.1836903312=No mention of it at all.&entry.2058615286=${notes}`, 'noreferrer'))
+            .then(() => window.open(`https://docs.google.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform?entry.1626809215=${class_code}&entry.1262798942=${last_name}, ${first_name}&entry.1509111758=${email}&entry.1450620354=No&entry.758887222=Creer, Spencer&entry.1572772860=Yes&entry.568333504=FSF - Full Stack Flex Web Development(Javascript)&entry.1311659485=${B2B}&entry.401287639=${today.formatted}&entry.781752343_hour=${clockIn.hour}&entry.781752343_minute=${clockIn.minute}&entry.721200944_hour=${clockOut.hour}&entry.721200944_minute=${clockOut.minute}&entry.1394734474=No&entry.2041303987=${topics}&entry.790082012=I am not a TA in this student's class&entry.2075286046=5&entry.1836903312=No mention of it at all.&entry.2058615286=${notes}`, 'noreferrer'))
     }
 
     const handleSlackClick = () => {
@@ -103,13 +103,13 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                         //  clock_in: moment(convertDate(date, 'HH:mm a', 0).formatted, 'HH:mm a')
                     }}
                 >
-                    <Item name={'clock_in'} label='Clock-in' rules={[{ required: true }]}
+                    {/* <Item name={'clock_in'} label='Clock-in' rules={[{ required: true }]}
                     >
                         <TimePicker
                             format='HH:mm a'
                         // disabled={true}
                         />
-                    </Item>
+                    </Item> */}
                     <Item name={'clock_out'} label='Clock-Out' rules={[{ required: true }]}
                     >
                         <TimePicker
