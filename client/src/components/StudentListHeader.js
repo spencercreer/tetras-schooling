@@ -6,7 +6,7 @@ import { TeamOutlined, PlusOutlined, MailOutlined } from '@ant-design/icons'
 // Components
 import AddStudentModal from '../components/AddStudentModal';
 // Utils
-import { getRandomEmoji } from '../utils/conversions'
+import { getRandomEmoji } from '../utils/messages'
 
 const StudentListHeader = ({ handleUpdateStatuses, students, statuses }) => {
     const [modalVisible, setModalVisible] = useState(false)

@@ -11,7 +11,8 @@ import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOut
 import StudentInfo from './StudentInfo'
 import EditStudentForm from './EditStudentForm'
 // Utils
-import { convertDate, getRandomEmoji } from '../utils/conversions'
+import { convertDate } from '../utils/conversions'
+import { getSlackMessage, getRandomEmoji } from '../utils/messages'
 
 const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggleEdit }) => {
     const [form] = Form.useForm()
@@ -30,22 +31,8 @@ const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggle
         handleCloseModal()
     }
 
-    const handleFormNotesClick = () => {
-        navigator.clipboard.writeText(email)
-            .then(() => message.success(`${email} copied! ` + getRandomEmoji(), .7))
-            .then(() => navigator.clipboard.writeText(`${last_name}, ${first_name}`))
-            .then(() => message.success(`${last_name}, ${first_name} copied! ` + getRandomEmoji(), .7))
-            .then(() => navigator.clipboard.writeText(class_code))
-            .then(() => message.success(`${class_code} copied! ` + getRandomEmoji(), .7))
-            .then(() => message.loading('Opening Form', 1))
-            .then(() => window.open('https://docs.google.com/a/trilogyed.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform', '_blank', 'noreferrer'))
-    }
-
     const handleSlackClick = () => {
-        navigator.clipboard.writeText(`Please fill out the evaluation form at the link below:
-https://docs.google.com/a/trilogyed.com/forms/d/e/1FAIpQLSdb4ejjbqoqKO-Q4k7zeO_xwykwB0dxYLWYm1mX5Ik45MzEeg/viewform
-
-Your class code is: ${class_code}`)
+        navigator.clipboard.writeText(getSlackMessage(class_code))
         message.success('Slack message copied! ' + getRandomEmoji())
     };
 
@@ -102,14 +89,6 @@ Your class code is: ${class_code}`)
             >
                 Exit
             </Button>,
-            <Tooltip key='form-notes' title={'Form Notes'}>
-                <Button
-                    type='primary'
-                    onClick={handleFormNotesClick}
-                >
-                    <CopyOutlined />
-                </Button>
-            </Tooltip>,
             <Tooltip key='slack-message' title={'Slack Message'}>
                 <Button
                     type='primary'

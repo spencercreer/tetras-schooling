@@ -7,7 +7,7 @@ import { ADD_STUDENT } from '../utils/mutations'
 import { Modal, Form, Input, Select, DatePicker, message, Alert, Button } from 'antd'
 // Utils
 import { validateMessages, layout } from '../utils/form'
-import { getRandomEmoji } from '../utils/conversions'
+import { getRandomEmoji } from '../utils/messages'
 
 const { Item } = Form
 const { Option } = Select

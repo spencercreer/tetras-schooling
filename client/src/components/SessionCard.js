@@ -5,8 +5,8 @@ import { UPDATE_SESSION } from '../utils/mutations';
 import { Skeleton, Card, message } from 'antd';
 import { MailOutlined, EllipsisOutlined, UserOutlined, CheckCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 // Utils
-import { convertDate, formatTimeZone, getEmailTemplate, getEmailSubject, getRandomEmoji } from '../utils/conversions'
-
+import { convertDate, formatTimeZone } from '../utils/conversions'
+import { getEmailTemplate, getEmailSubject, getRandomEmoji } from '../utils/messages';
 const { Meta } = Card;
 
 const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
@@ -14,7 +14,8 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     const { id, date, presession_conf, tutor_eval, Student: { first_name, last_name, email, time_zone } } = session
     // TODO: move timezone conversion to the backend
     const timeZone = formatTimeZone(time_zone)
-    const sessionDate = convertDate(date, 'llll', timeZone.diff)
+    const sessionDate = convertDate(date, 'llll')
+    const studentTime = convertDate(date, 'LT', timeZone.diff)
 
     const handleOnClick = () => {
         setSelectedSessionId(id)
@@ -22,15 +23,17 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     }
 
     const getIcon = (check) => {
-        return check ? <CheckCircleOutlined style={{color: 'green'}} /> : <MinusCircleOutlined style={{color: 'blue'}} />
+        return check ? <CheckCircleOutlined style={{ color: 'green' }} /> : <MinusCircleOutlined style={{ color: 'blue' }} />
     }
 
     const getDescription = () => {
-        return <div>
-            <h3>{first_name} {last_name}</h3>
-            <div>Confirmation Email: {getIcon(presession_conf)}</div>
-            <div>Tutor Evaluation Form: {getIcon(tutor_eval)}</div>
-        </div>
+        return (
+            <div>
+                <h3>{first_name} {last_name}, {studentTime.formatted} {timeZone.code}</h3>
+                <div>Confirmation Email: {getIcon(presession_conf)}</div>
+                <div>Tutor Evaluation Form: {getIcon(tutor_eval)}</div>
+            </div>
+        )
     }
 
     const copySessionEmail = async () => {
@@ -42,7 +45,7 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
             .then(() => message.success(`Student email copied! ` + getRandomEmoji(), .7))
 
         const { data } = await updateSession({
-            variables: { sessionData: { id , presession_conf: true }}
+            variables: { sessionData: { id, presession_conf: true } }
         })
     }
 
@@ -66,7 +69,7 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
                     loading={false}
                 >
                     <Meta
-                        title={<h1>{sessionDate.formatted} {timeZone.code}</h1>}
+                        title={<h1>{sessionDate.formatted}</h1>}
                         description={getDescription()}
                     />
                 </Skeleton>

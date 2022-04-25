@@ -9,7 +9,8 @@ import { Modal, Form, Button, Select, Input, TimePicker, message, Tooltip } from
 import { SlackOutlined, ClockCircleOutlined } from '@ant-design/icons'
 // Utils
 import { layout, validateMessages, topics } from '../utils/form'
-import { convertDate, formatTimeZone, getRandomEmoji } from '../utils/conversions'
+import { convertDate, formatTimeZone } from '../utils/conversions'
+import { getClockOutNotes, getSlackMessage, getRandomEmoji } from '../utils/messages'
 
 const { Item } = Form
 const { Option } = Select
@@ -41,19 +42,21 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
         const SHOW = show ? 'Show' : 'No Show'
         //TODO: Add Notes input to form and presession conf
 
-        console.log(today)
         //TODO: Automate this process
         navigator.clipboard.writeText(`=SPLIT('${class_code},${gradDate.formatted},${first_name} ${last_name},${email},${today.formatted},+${diff}hr,${clockIn.formatted},${clockOut.formatted},Yes, ${B2B},Yes, ${SHOW},${topics},${notes},Yes', ',')`)
             .then(() => message.success(`Google sheets row copied! ` + getRandomEmoji(), .7))
-            .then(() => navigator.clipboard.writeText(`${class_code}
-${first_name} ${last_name}
-B2B-No`))
+            .then(() => navigator.clipboard.writeText(getClockOutNotes(class_code, first_name, last_name, B2B, show)))
             .then(() => message.success('Clock-out notes copied! ' + getRandomEmoji(), .7))
             .then(() => message.loading('Opening Form', 1))
-//Clock in and out
+        //Clock in and out
 
-            // .then(() => window.open(`https://docs.google.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform?entry.1626809215=${class_code}&entry.1262798942=${last_name}, ${first_name}&entry.1509111758=${email}&entry.1450620354=No&entry.758887222=Creer, Spencer&entry.1572772860=Yes&entry.568333504=FSF - Full Stack Flex Web Development(Javascript)&entry.1311659485=${B2B}&entry.401287639=${today.formatted}&entry.781752343_hour=21&entry.781752343_minute=30&entry.721200944_hour=22&entry.721200944_minute=04&entry.1394734474=No&entry.2041303987=${topics}&entry.790082012=I am not a TA in this student's class&entry.2075286046=5&entry.1836903312=No mention of it at all.&entry.2058615286=${notes}`, 'noreferrer'))
+        // .then(() => window.open(`https://docs.google.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform?entry.1626809215=${class_code}&entry.1262798942=${last_name}, ${first_name}&entry.1509111758=${email}&entry.1450620354=No&entry.758887222=Creer, Spencer&entry.1572772860=Yes&entry.568333504=FSF - Full Stack Flex Web Development(Javascript)&entry.1311659485=${B2B}&entry.401287639=${today.formatted}&entry.781752343_hour=21&entry.781752343_minute=30&entry.721200944_hour=22&entry.721200944_minute=04&entry.1394734474=No&entry.2041303987=${topics}&entry.790082012=I am not a TA in this student's class&entry.2075286046=5&entry.1836903312=No mention of it at all.&entry.2058615286=${notes}`, 'noreferrer'))
     }
+
+    const handleSlackClick = () => {
+        navigator.clipboard.writeText(getSlackMessage(class_code))
+        message.success('Slack message copied! ' + getRandomEmoji())
+    };
 
     const footerButtons = [
         <Button
@@ -65,28 +68,21 @@ B2B-No`))
         <Tooltip key='slack-message' title={'Slack Message'}>
             <Button
                 type='primary'
-            // onClick={handleSlackClick}
+                onClick={handleSlackClick}
             >
                 <SlackOutlined />
             </Button>
         </Tooltip>,
-        <Tooltip key='clock-out-notes' title={'Clock-Out Notes'}>
+        <Tooltip key='record-session' title={'Record Session'}>
             <Button
+                key='record-session'
                 type='primary'
-            // onClick={handleClockOutClick}
+                // loading={loading}
+                onClick={() => form.submit()}
             >
                 <ClockCircleOutlined />
             </Button>
         </Tooltip>,
-        <Button
-            key='record-session'
-            type='primary'
-            style={{ width: '125px' }}
-            // loading={loading}
-            onClick={() => form.submit()}
-        >
-            Record Session
-        </Button>,
     ]
 
     return (
@@ -111,7 +107,7 @@ B2B-No`))
                     >
                         <TimePicker
                             format='HH:mm a'
-                            disabled={true}
+                        // disabled={true}
                         />
                     </Item>
                     <Item name={'clock_out'} label='Clock-Out' rules={[{ required: true }]}
