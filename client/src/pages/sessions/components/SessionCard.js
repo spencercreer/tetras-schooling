@@ -1,12 +1,12 @@
 // Apollo
 import { useMutation } from '@apollo/client';
-import { UPDATE_SESSION } from '../utils/mutations';
+import { UPDATE_SESSION } from '../../../utils/mutations';
 // Antd
 import { Skeleton, Card, message } from 'antd';
 import { MailOutlined, EllipsisOutlined, UserOutlined, CheckCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 // Utils
-import { convertDate, formatTimeZone } from '../utils/conversions'
-import { getEmailTemplate, getEmailSubject, getRandomEmoji } from '../utils/messages';
+import { convertDate, formatTimeZone } from '../../../utils/conversions'
+import { getEmailTemplate, getEmailSubject, getRandomEmoji } from '../../../utils/messages';
 const { Meta } = Card;
 
 const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {

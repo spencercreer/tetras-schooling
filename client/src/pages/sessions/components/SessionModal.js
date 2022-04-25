@@ -2,15 +2,15 @@
 import { useEffect } from 'react'
 // Apollo
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_SESSION } from '../utils/queries'
-import { UPDATE_SESSION } from '../utils/mutations'
+import { GET_SESSION } from '../../../utils/queries'
+import { UPDATE_SESSION } from '../../../utils/mutations'
 // Antd
 import { Modal, Form, Button, Select, Input, TimePicker, message, Tooltip } from 'antd'
 import { SlackOutlined, ClockCircleOutlined } from '@ant-design/icons'
 // Utils
-import { layout, validateMessages, topics } from '../utils/form'
-import { convertDate, formatTimeZone } from '../utils/conversions'
-import { getClockOutNotes, getSlackMessage, getRandomEmoji } from '../utils/messages'
+import { layout, validateMessages, topics } from '../../../utils/form'
+import { convertDate, formatTimeZone } from '../../../utils/conversions'
+import { getClockOutNotes, getSlackMessage, getRandomEmoji } from '../../../utils/messages'
 
 const { Item } = Form
 const { Option } = Select

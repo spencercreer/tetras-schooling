@@ -29,15 +29,6 @@ const StudentListHeader = ({ handleUpdateStatuses, students, statuses }) => {
     return (
         <>
             <Row>
-                <Tooltip key="update-statuses" title={'Update Student Statuses'}>
-                    <Button
-                        type="primary"
-                        style={{ marginRight: 5 }}
-                        onClick={handleUpdateStatuses}
-                    >
-                        <TeamOutlined />
-                    </Button>
-                </Tooltip>
                 <Tooltip key="add-student" title={'Add Student'}>
                     <Button
                         type="primary"
@@ -45,6 +36,15 @@ const StudentListHeader = ({ handleUpdateStatuses, students, statuses }) => {
                         onClick={handleToggleAddModal}
                     >
                         <PlusOutlined />
+                    </Button>
+                </Tooltip>
+                <Tooltip key="update-statuses" title={'Update Student Statuses'}>
+                    <Button
+                        type="primary"
+                        style={{ marginRight: 5 }}
+                        onClick={handleUpdateStatuses}
+                    >
+                        <TeamOutlined />
                     </Button>
                 </Tooltip>
                 <Tooltip key="email-students" title={`Email ${studentPage} Students`}>

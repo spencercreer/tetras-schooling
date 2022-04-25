@@ -10,7 +10,7 @@ import { setContext } from '@apollo/client/link/context';
 import Nav from './components/Nav';
 import TutorDashboard from './pages/TutorDashboard';
 import StudentsList from './pages/StudentsList';
-import SessionsList from './pages/SessionsList';
+import SessionsList from './pages/sessions/SessionsList';
 
 import { Layout } from 'antd'
 import './App.css';

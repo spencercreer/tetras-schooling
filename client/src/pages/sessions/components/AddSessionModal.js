@@ -2,13 +2,13 @@
 import { useState } from 'react'
 // Apollo
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_STUDENT_NAMES } from '../utils/queries';
-import { ADD_SESSION } from '../utils/mutations';
+import { GET_STUDENT_NAMES } from '../../../utils/queries';
+import { ADD_SESSION } from '../../../utils/mutations';
 // Antd
 import { Modal, Form, Select, DatePicker, Button } from 'antd'
 // Utils
-import { validateMessages, layout } from '../utils/form'
-import { dateIsPast } from '../utils/conversions';
+import { validateMessages, layout } from '../../../utils/form'
+import { dateIsPast } from '../../../utils/conversions';
 
 const { Item } = Form
 const { Option } = Select

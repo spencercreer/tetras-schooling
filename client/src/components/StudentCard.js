@@ -62,7 +62,7 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
             <Skeleton loading={loading} avatar active>
                 <Meta
                     avatar={getAvatar()}
-                    title={`${first_name} ${last_name}`}
+                    title={<h1>{first_name} {last_name}</h1>}
                     description={getDescription()}
                 />
             </Skeleton>
