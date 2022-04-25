@@ -1,1 +1,6 @@
 @import '~antd/dist/antd.css';
+
+.page-content {
+    margin-left: 45px;
+    margin-top: 20px;
+}

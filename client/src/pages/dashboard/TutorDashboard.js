@@ -5,12 +5,13 @@ import { useQuery } from '@apollo/client'
 import { GET_TUTOR_SESSIONS } from '../../utils/queries'
 // Components
 import NavSider from '../../components/NavSider'
-import SessionCard from '../sessions/components/SessionCard'
+import SessionsList from '../sessions/components/SessionsList'
 import LoadingCard from '../../components/LoadingCard'
 // Utils
 import { convertDate } from '../../utils/conversions'
 // Antd
 import { Layout, Row, Radio } from 'antd'
+import '../../App.css'
 
 const { Content } = Layout
 
@@ -40,7 +41,7 @@ const TutorDashboard = () => {
     return (
         <>
             <NavSider page={'dashboard'} />
-            <Content style={{ marginLeft: '45px', marginTop: '20px' }}>
+            <Content className='page-content'>
                 <h1 style={{ fontSize: '30px' }}>Welcome Spencer!</h1>
                 <div style={{ margin: '20px' }}>
                     <div>
@@ -53,14 +54,7 @@ const TutorDashboard = () => {
                         {filteredSessions.length === 0 ?
                             <div style={{ height: '215px', fontSize: '30px'}}>You don't have any sessions {selectedDay}</div>
                             :
-                            filteredSessions.reverse().map(session => (
-                                <SessionCard
-                                    key={session.id}
-                                    session={session}
-                                // handleToggleModal={handleToggleModal}
-                                // setSelectedSessionId={setSelectedSessionId}
-                                />
-                            ))
+                            <SessionsList sessions={filteredSessions} />
                         }
                     </div>
                     <div>

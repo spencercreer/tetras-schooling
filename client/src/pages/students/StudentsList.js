@@ -12,6 +12,8 @@ import StudentModal from './components/StudentModal'
 import StudentListHeader from './components/StudentListHeader'
 // Antd
 import { Layout } from 'antd'
+// Styles
+import '../../App.css'
 
 const { Content } = Layout
 
@@ -76,35 +78,33 @@ const StudentsList = ({ statuses }) => {
     return (
         <>
             <NavSider page={'students'} />
-            <Content>
-                <div style={{ marginLeft: 10, marginRight: 10, paddingTop: 10 }}>
-                    <StudentListHeader
-                        handleUpdateStatuses={handleUpdateStatuses}
-                        students={students}
-                        statuses={statuses}
-                    />
-                    {
-                        students?.map((student) => (
-                            statuses.includes(student.status) &&
-                            <StudentCard
-                                key={student.id}
-                                student={student}
-                                loading={false}
-                                handleToggleStatus={handleToggleStatus}
-                                handleToggleModal={handleToggleModal}
-                                handleToggleEdit={handleToggleEdit}
-                                setSelectedStudentId={setSelectedStudentId}
-                            />
-                        ))
-                    }
-                    <StudentModal
-                        visible={modalVisible}
-                        edit={editModal}
-                        studentId={selectedStudentId}
-                        handleCloseModal={handleToggleModal}
-                        handleToggleEdit={handleToggleEdit}
-                    />
-                </div>
+            <Content className='page-content'>
+                <StudentListHeader
+                    handleUpdateStatuses={handleUpdateStatuses}
+                    students={students}
+                    statuses={statuses}
+                />
+                {
+                    students?.map((student) => (
+                        statuses.includes(student.status) &&
+                        <StudentCard
+                            key={student.id}
+                            student={student}
+                            loading={false}
+                            handleToggleStatus={handleToggleStatus}
+                            handleToggleModal={handleToggleModal}
+                            handleToggleEdit={handleToggleEdit}
+                            setSelectedStudentId={setSelectedStudentId}
+                        />
+                    ))
+                }
+                <StudentModal
+                    visible={modalVisible}
+                    edit={editModal}
+                    studentId={selectedStudentId}
+                    handleCloseModal={handleToggleModal}
+                    handleToggleEdit={handleToggleEdit}
+                />
             </Content>
         </>
     )

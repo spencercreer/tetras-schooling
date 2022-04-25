@@ -10,7 +10,7 @@ import { setContext } from '@apollo/client/link/context';
 import Nav from './components/Nav';
 import TutorDashboard from './pages/dashboard/TutorDashboard';
 import StudentsList from './pages/students/StudentsList';
-import SessionsList from './pages/sessions/SessionsList';
+import SessionsPage from './pages/sessions/SessionsPage';
 
 import { Layout } from 'antd'
 import './App.css';
@@ -58,7 +58,7 @@ function App() {
                 />
                 <Route 
                   path="/sessions"
-                  element={<SessionsList />}
+                  element={<SessionsPage />}
                 />
                 <Route
                   path='*'
