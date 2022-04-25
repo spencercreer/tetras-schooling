@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Skeleton, Switch, Card, Avatar } from 'antd';
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
-import { convertDate } from '../utils/conversions';
+import { convertDate } from '../../../utils/conversions';
 
 const { Meta } = Card;
 

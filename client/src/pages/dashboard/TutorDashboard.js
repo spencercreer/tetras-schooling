@@ -2,13 +2,13 @@
 import { useState } from 'react'
 // Apollo
 import { useQuery } from '@apollo/client'
-import { GET_TUTOR_SESSIONS } from '../utils/queries'
+import { GET_TUTOR_SESSIONS } from '../../utils/queries'
 // Components
-import NavSider from '../components/NavSider'
-import SessionCard from './sessions/components/SessionCard'
-import LoadingCard from '../components/LoadingCard'
+import NavSider from '../../components/NavSider'
+import SessionCard from '../sessions/components/SessionCard'
+import LoadingCard from '../../components/LoadingCard'
 // Utils
-import { convertDate } from '../utils/conversions'
+import { convertDate } from '../../utils/conversions'
 // Antd
 import { Layout, Row, Radio } from 'antd'
 
@@ -41,7 +41,7 @@ const TutorDashboard = () => {
         <>
             <NavSider page={'dashboard'} />
             <Content style={{ marginLeft: '45px', marginTop: '20px' }}>
-                <h1 style={{ fontSize: '30px' }}>Welcome Spencer</h1>
+                <h1 style={{ fontSize: '30px' }}>Welcome Spencer!</h1>
                 <div style={{ margin: '20px' }}>
                     <div>
                         <Row>

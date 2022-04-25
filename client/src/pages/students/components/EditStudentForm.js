@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 // Antd
 import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
 // Utils
-import { layout, validateMessages } from '../utils/form'
+import { layout, validateMessages } from '../../../utils/form'
 // TODO: Move convertDate
 import moment from 'moment'
 

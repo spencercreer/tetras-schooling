@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Row, Button, Tooltip, Input, message } from 'antd'
 import { TeamOutlined, PlusOutlined, MailOutlined } from '@ant-design/icons'
 // Components
-import AddStudentModal from '../components/AddStudentModal';
+import AddStudentModal from './AddStudentModal';
 // Utils
-import { getRandomEmoji } from '../utils/messages'
+import { getRandomEmoji } from '../../../utils/messages'
 
 const StudentListHeader = ({ handleUpdateStatuses, students, statuses }) => {
     const [modalVisible, setModalVisible] = useState(false)

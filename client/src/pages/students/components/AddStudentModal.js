@@ -2,12 +2,12 @@
 import { useState } from 'react'
 // Apollo
 import { useMutation } from '@apollo/client'
-import { ADD_STUDENT } from '../utils/mutations'
+import { ADD_STUDENT } from '../../../utils/mutations'
 // Antd
 import { Modal, Form, Input, Select, DatePicker, message, Alert, Button } from 'antd'
 // Utils
-import { validateMessages, layout } from '../utils/form'
-import { getRandomEmoji } from '../utils/messages'
+import { validateMessages, layout } from '../../../utils/form'
+import { getRandomEmoji } from '../../../utils/messages'
 
 const { Item } = Form
 const { Option } = Select

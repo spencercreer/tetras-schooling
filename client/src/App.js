@@ -8,8 +8,8 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Nav from './components/Nav';
-import TutorDashboard from './pages/TutorDashboard';
-import StudentsList from './pages/StudentsList';
+import TutorDashboard from './pages/dashboard/TutorDashboard';
+import StudentsList from './pages/students/StudentsList';
 import SessionsList from './pages/sessions/SessionsList';
 
 import { Layout } from 'antd'

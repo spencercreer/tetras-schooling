@@ -2,8 +2,8 @@
 import { useState } from 'react'
 // Apollo
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_STUDENT_MODAL } from '../utils/queries'
-import { UPDATE_STUDENT } from '../utils/mutations'
+import { GET_STUDENT_MODAL } from '../../../utils/queries'
+import { UPDATE_STUDENT } from '../../../utils/mutations'
 // Antd
 import { Modal, Form, Button, message, Tooltip } from 'antd'
 import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
@@ -11,8 +11,8 @@ import { UserOutlined, EditOutlined, SlackOutlined, CopyOutlined, ClockCircleOut
 import StudentInfo from './StudentInfo'
 import EditStudentForm from './EditStudentForm'
 // Utils
-import { convertDate } from '../utils/conversions'
-import { getSlackMessage, getRandomEmoji } from '../utils/messages'
+import { convertDate } from '../../../utils/conversions'
+import { getSlackMessage, getRandomEmoji } from '../../../utils/messages'
 
 const StudentModal = ({ visible, edit, studentId, handleCloseModal, handleToggleEdit }) => {
     const [form] = Form.useForm()

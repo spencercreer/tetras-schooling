@@ -2,14 +2,14 @@
 import { useState } from 'react'
 // Apollo
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_STUDENT_CARDS } from '../utils/queries'
-import { UPDATE_STATUSES } from '../utils/mutations'
+import { GET_STUDENT_CARDS } from '../../utils/queries'
+import { UPDATE_STATUSES } from '../../utils/mutations'
 // Components
-import NavSider from '../components/NavSider'
-import StudentCard from '../components/StudentCard'
-import LoadingCard from '../components/LoadingCard'
-import StudentModal from '../components/StudentModal'
-import StudentListHeader from '../components/StudentListHeader'
+import NavSider from '../../components/NavSider'
+import StudentCard from './components/StudentCard'
+import LoadingCard from '../../components/LoadingCard'
+import StudentModal from './components/StudentModal'
+import StudentListHeader from './components/StudentListHeader'
 // Antd
 import { Layout } from 'antd'
 

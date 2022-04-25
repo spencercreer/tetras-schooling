@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { Row, Button, Avatar, Tooltip, Form, Input } from 'antd'
 import { CopyOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
 // Utils
-import { layout } from '../utils/form'
-import { getStudentsTime } from '../utils/conversions';
+import { layout } from '../../../utils/form'
+import { getStudentsTime } from '../../../utils/conversions';
 
 const { Item } = Form
 
