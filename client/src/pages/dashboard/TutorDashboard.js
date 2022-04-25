@@ -10,7 +10,7 @@ import LoadingCard from '../../components/LoadingCard'
 // Utils
 import { convertDate } from '../../utils/conversions'
 // Antd
-import { Layout, Row, Radio } from 'antd'
+import { Layout, Card } from 'antd'
 import '../../App.css'
 
 const { Content } = Layout
@@ -45,17 +45,29 @@ const TutorDashboard = () => {
                 <h1 style={{ fontSize: '30px' }}>Welcome Spencer!</h1>
                 <div style={{ margin: '20px' }}>
                     <div>
-                        <Row>
-                            <Radio.Group value={selectedDay} buttonStyle="solid" onChange={(event) => setSelectedDay(event.target.value)}>
-                                <Radio.Button value='today'>Today</Radio.Button>
-                                <Radio.Button value='tomorrow'>Tomorrow</Radio.Button>
-                            </Radio.Group>
-                        </Row>
-                        {filteredSessions.length === 0 ?
-                            <div style={{ height: '215px', fontSize: '30px'}}>You don't have any sessions {selectedDay}</div>
-                            :
-                            <SessionsList sessions={filteredSessions} />
-                        }
+                        <Card
+                            style={{ width: '100%' }}
+                            tabList={[
+                                {
+                                    key: 'today',
+                                    tab: 'Today',
+                                },
+                                {
+                                    key: 'tomorrow',
+                                    tab: 'Tomorrow',
+                                },
+                            ]}
+                            activeTabKey={selectedDay}
+                            onTabChange={key => {
+                                setSelectedDay(key);
+                            }}
+                        >
+                            {filteredSessions.length === 0 ?
+                                <div style={{ height: '215px', fontSize: '30px' }}>You don't have any sessions {selectedDay}</div>
+                                :
+                                <SessionsList sessions={filteredSessions} />
+                            }
+                        </Card>
                     </div>
                     <div>
                         <h2>Paycheck Info</h2>
