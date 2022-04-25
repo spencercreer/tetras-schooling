@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_SESSION } from '../../../utils/queries'
 import { UPDATE_SESSION } from '../../../utils/mutations'
 // Antd
-import { Modal, Form, Button, Select, Input, TimePicker, message, Tooltip } from 'antd'
+import { Modal, Form, Button, Radio, Select, Input, TimePicker, message, Tooltip } from 'antd'
 import { SlackOutlined, ClockCircleOutlined } from '@ant-design/icons'
 // Utils
 import { layout, validateMessages, topics } from '../../../utils/form'
@@ -28,11 +28,16 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
         return <div>Loading...</div>
 
     const { id, date, Student: { first_name, last_name, email, class_code, grad_date, time_zone } } = data?.getSession
+    // TODO: This is doubled on SessionCard
+    const timeZone = formatTimeZone(time_zone)
+    const sessionDate = convertDate(date, 'llll')
+    const studentTime = convertDate(date, 'LT', timeZone.diff)
 
 
-    const onFinish = async ({ b2b, clock_in, clock_out, show, topics, notes }) => {
+
+    const onFinish = async ({ b2b, clock_out, show, topics, notes }) => {
         const { data } = await updateSession({
-            variables: { sessionData: { id, b2b, clock_in, clock_out, show } }
+            variables: { sessionData: { id, b2b, clock_out, tutor_eval: true, show, topics, notes } }
         })
         const gradDate = convertDate(grad_date, 'L')
         const today = convertDate(Date.now(), 'YYYY-MM-DD')
@@ -88,7 +93,12 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
     return (
         <>
             <Modal
-                title={'Session Info'}
+                title={
+                    <>
+                        <h3>{first_name} {last_name}</h3>
+                        <h3>{sessionDate.formatted}</h3>
+                    </>
+                }
                 visible={visible}
                 onCancel={handleCloseModal}
                 footer={footerButtons}
@@ -100,6 +110,8 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                     onFinish={onFinish}
                     validateMessages={validateMessages}
                     initialValues={{
+                        b2b: false,
+                        show: true,
                         //  clock_in: moment(convertDate(date, 'HH:mm a', 0).formatted, 'HH:mm a')
                     }}
                 >
@@ -116,21 +128,17 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                             format='HH:mm a'
                         />
                     </Item>
-                    <Item name={'b2b'} label='B2B' rules={[{ required: true }]}
-                    >
-                        <Select
-                        >
-                            <Option value={false}>No</Option>
-                            <Option value={true}>Yes</Option>
-                        </Select>
+                    <Item name={'b2b'} label='B2B' rules={[{ required: true }]}>
+                        <Radio.Group>
+                            <Radio.Button value={false}>No</Radio.Button>
+                            <Radio.Button value={true}>Yes</Radio.Button>
+                        </Radio.Group>
                     </Item>
-                    <Item name={'show'} label='Show' rules={[{ required: true }]}
-                    >
-                        <Select
-                        >
-                            <Option value={true}>Show</Option>
-                            <Option value={false}>No Show</Option>
-                        </Select>
+                    <Item name={'show'} label='Show' rules={[{ required: true }]}>
+                        <Radio.Group>
+                            <Radio.Button value={true}>Show</Radio.Button>
+                            <Radio.Button value={false}>No Show</Radio.Button>
+                        </Radio.Group>
                     </Item>
                     <Item name={'topics'} label='Topics' rules={[{ required: true }]}
                     >

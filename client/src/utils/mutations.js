@@ -52,6 +52,7 @@ export const UPDATE_SESSION = gql`
             b2b
             clock_in
             clock_out
+            tutor_eval
         }
     }
 `
