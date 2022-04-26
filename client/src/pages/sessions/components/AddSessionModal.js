@@ -5,17 +5,18 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_STUDENT_NAMES } from '../../../utils/queries';
 import { ADD_SESSION } from '../../../utils/mutations';
 // Antd
-import { Modal, Form, Select, DatePicker, Button } from 'antd'
+import { Modal, Form, Select, DatePicker, Button, Alert, message } from 'antd'
 // Utils
 import { validateMessages, layout } from '../../../utils/form'
-import { dateIsPast } from '../../../utils/conversions';
+import { dateIsPast } from '../../../utils/conversions'
+import { getRandomEmoji } from '../../../utils/messages'
 
 const { Item } = Form
 const { Option } = Select
 
 const AddSessionModal = ({ visible, handleCloseModal }) => {
     const [form] = Form.useForm()
-    const [message, setMessage] = useState()
+    const [alert, setAlert] = useState()
     const [addSession] = useMutation(ADD_SESSION)
 
     const { loading, data } = useQuery(
@@ -38,12 +39,15 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
             })
             if (data.addSession.id) {
                 form.resetFields()
+                message.success('Session added successfully! ' + getRandomEmoji())
+                setAlert({ text: 'The session was added.', error: false })
+
             } else {
-                setMessage({ text: 'The session was not added.', error: true })
+                setAlert({ text: 'The session was not added.', error: true })
             }
         }
         catch (err) {
-            setMessage({ text: 'The session was not added.', error: true })
+            setAlert({ text: 'The session was not added.', error: true })
             console.error(err)
         }
     }
@@ -92,6 +96,9 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
                     <Item name={'date'} label='Date & Time' rules={[{ required: true }]}>
                         <DatePicker showTime minuteStep={15} format='MM-DD-YYYY HH:mm a' />
                     </Item>
+                    {
+                        alert?.error && <Alert message={alert.text} type='error' />
+                    }
                 </Form>
             </Modal>
         </>
