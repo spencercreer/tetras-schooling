@@ -68,7 +68,7 @@ const StudentsList = ({ statuses }) => {
     }
 
     const handleToggleModal = () => {
-        setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible)
     }
 
     const handleToggleEdit = (edit) => {

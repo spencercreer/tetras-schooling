@@ -31,14 +31,12 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
     // TODO: This is doubled on SessionCard
     const timeZone = formatTimeZone(time_zone)
     const sessionDate = convertDate(date, 'llll')
-    const studentTime = convertDate(date, 'LT', timeZone.diff)
-
-
 
     const onFinish = async ({ b2b, clock_out, show, topics, effort, notes }) => {
         const { data } = await updateSession({
             variables: { sessionData: { id, b2b, clock_out, tutor_eval: true, show, topics, notes } }
         })
+        // TODO: Load the session modal with data if the session has already been recorded
         const gradDate = convertDate(grad_date, 'L')
         const today = convertDate(Date.now(), 'YYYY-MM-DD')
         const { diff } = formatTimeZone(time_zone)
@@ -50,7 +48,7 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
         //TODO: Add presession conf
 
         //TODO: Automate this process
-        navigator.clipboard.writeText(`=SPLIT('${class_code},${gradDate.formatted},${first_name} ${last_name},${email},${today.formatted},+${diff}hr,${clockIn.formatted},${clockOut.formatted},Yes, ${B2B},Yes, ${SHOW},${topics},${notes},Yes', ',')`)
+        navigator.clipboard.writeText(`=SPLIT("${class_code},${gradDate.formatted},${first_name} ${last_name},${email},${today.formatted},+${diff}hr,${clockIn.formatted},${clockOut.formatted},Yes, ${B2B},Yes, ${SHOW},${topics},${notes},Yes", ",")`)
             .then(() => message.success(`Google sheets row copied! ` + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(getClockOutNotes(class_code, first_name, last_name, B2B, show)))
             .then(() => message.success('Clock-out notes copied! ' + getRandomEmoji(), .7))
@@ -116,6 +114,12 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                         //  clock_in: moment(convertDate(date, 'HH:mm a', 0).formatted, 'HH:mm a')
                     }}
                 >
+                    <Item name={'show'} label='Show' rules={[{ required: true }]}>
+                        <Radio.Group>
+                            <Radio.Button value={true}>Show</Radio.Button>
+                            <Radio.Button value={false}>No Show</Radio.Button>
+                        </Radio.Group>
+                    </Item>
                     {/* <Item name={'clock_in'} label='Clock-in' rules={[{ required: true }]}
                     >
                         <TimePicker
@@ -135,12 +139,6 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                             <Radio.Button value={true}>Yes</Radio.Button>
                         </Radio.Group>
                     </Item>
-                    <Item name={'show'} label='Show' rules={[{ required: true }]}>
-                        <Radio.Group>
-                            <Radio.Button value={true}>Show</Radio.Button>
-                            <Radio.Button value={false}>No Show</Radio.Button>
-                        </Radio.Group>
-                    </Item>
                     <Item name='effort' label='Student Effort' rules={[{ required: true }]}>
                         <Radio.Group>
                             <Radio value='1'>1</Radio>
@@ -153,6 +151,10 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                     <Item name={'topics'} label='Topics' rules={[{ required: true }]}
                     >
                         <Select
+                            showSearch
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
                         >
                             {topics.map((topic, index) => (
                                 <Option key={index} value={topic}>{topic}</Option>

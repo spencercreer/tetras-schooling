@@ -43,28 +43,28 @@ function App() {
         <Router>
           <Nav />
           <Layout>
-              <Routes>
+            <Routes>
               <Route
-                  path="/"
-                  element={<TutorDashboard />}
-                />
-                <Route
-                  path="/students"
-                  element={<StudentsList statuses={["Active", "Inactive"]} />}
-                />
-                <Route
-                  path="/students/active"
-                  element={<StudentsList statuses={["Active"]} />}
-                />
-                <Route 
-                  path="/sessions"
-                  element={<SessionsPage />}
-                />
-                <Route
-                  path='*'
-                  element={<h1 className="display-2">404 Not Found</h1>}
-                />
-              </Routes>
+                path="/"
+                element={<TutorDashboard />}
+              />
+              <Route
+                path="/students"
+                element={<StudentsList statuses={["Active", "Inactive"]} />}
+              />
+              <Route
+                path="/students/active"
+                element={<StudentsList statuses={["Active"]} />}
+              />
+              <Route
+                path="/sessions"
+                element={<SessionsPage />}
+              />
+              <Route
+                path='*'
+                element={<h1 className="display-2">404 Not Found</h1>}
+              />
+            </Routes>
           </Layout>
         </Router>
         <Footer>Footer</Footer>

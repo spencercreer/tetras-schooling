@@ -5,9 +5,10 @@ export const convertDate = (date, format, diff) => {
     const past = convertedDate < Date.now()
     // TODO: adding diff likely made many of the values off
     const formatted = moment(convertedDate).add(diff, 'hours').format(format)
+    const time = moment(convertedDate).add(diff, 'hours').format('LT')
     const hour = moment(convertedDate).hour()
     const minute = moment(convertedDate).minute()
-    return { convertedDate, formatted, hour, minute, past }
+    return { formatted, time, hour, minute, past }
 }
 
 export const dateIsPast = (date) => {

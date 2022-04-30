@@ -85,7 +85,12 @@ const AddSessionModal = ({ visible, handleCloseModal }) => {
                     validateMessages={validateMessages}
                 >
                     <Item name={'student_id'} label='Student' rules={[{ required: true }]}>
-                        <Select>
+                        <Select
+                            showSearch
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                        >
                             {
                                 students?.map(({ id, first_name, last_name, grad_date }) => (
                                     <Option value={id} style={{  color: dateIsPast(grad_date) && 'red'}}>{`${first_name} ${last_name}`}</Option>

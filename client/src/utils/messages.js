@@ -32,7 +32,7 @@ export const getClockOutNotes = (class_code, first_name, last_name, B2B, show) =
     return `${class_code}
 ${first_name} ${last_name}
 B2B-${B2B}
-${!show && 'No Show'}`
+${!show ? 'No Show' : ''}`
 }
 
 // export const copySessionValues = () => {

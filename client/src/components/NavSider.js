@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 
 const { Sider } = Layout
-const { SubMenu, Item } = Menu;
+const { SubMenu, Item } = Menu
 
 const NavSider = ({ page }) => {
 

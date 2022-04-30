@@ -14,8 +14,9 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     const { id, date, presession_conf, tutor_eval, Student: { first_name, last_name, email, time_zone } } = session
     // TODO: move timezone conversion to the backend
     const timeZone = formatTimeZone(time_zone)
+    // TODO: Student time for email is wrong
     const sessionDate = convertDate(date, 'llll')
-    const studentTime = convertDate(date, 'LT', timeZone.diff)
+    const studentDate = convertDate(date, 'llll', timeZone.diff)
 
     const handleOnClick = () => {
         setSelectedSessionId(id)
@@ -29,7 +30,7 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     const getDescription = () => {
         return (
             <div>
-                <h3>{first_name} {last_name}, {studentTime.formatted} {timeZone.code}</h3>
+                <h3>{first_name} {last_name}, {studentDate.time} {timeZone.code}</h3>
                 <div>Confirmation Email: {getIcon(presession_conf)}</div>
                 <div>Tutor Evaluation Form: {getIcon(tutor_eval)}</div>
             </div>
@@ -37,9 +38,9 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     }
 
     const copySessionEmail = async () => {
-        navigator.clipboard.writeText(getEmailTemplate(first_name, sessionDate.formatted, timeZone.long))
+        navigator.clipboard.writeText(getEmailTemplate(first_name, studentDate.formatted, timeZone.long))
             .then(() => message.success('Session confirmation email copied! ' + getRandomEmoji(), .7))
-            .then(() => navigator.clipboard.writeText(getEmailSubject(sessionDate.formatted, time_zone)))
+            .then(() => navigator.clipboard.writeText(getEmailSubject(studentDate.formatted, time_zone)))
             .then(() => message.success('Email subject line copied! ' + getRandomEmoji(), .7))
             .then(() => navigator.clipboard.writeText(email))
             .then(() => message.success(`Student email copied! ` + getRandomEmoji(), .7))
