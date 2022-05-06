@@ -19,10 +19,11 @@ const { TextArea } = Input;
 
 const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
     const [preworkSession, setPreworkSession] = useState(false)
+    const [studentShow, setStudentShow] = useState(true)
     const [form] = Form.useForm()
     useEffect(() => {
         form.resetFields()
-    }, [sessionId, form])
+    }, [sessionId, studentShow, form])
     const [updateSession] = useMutation(UPDATE_SESSION)
     const { loading, data } = useQuery(GET_SESSION, { variables: { id: sessionId } })
     if (loading)
@@ -104,8 +105,9 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                     initialValues={{
                         prework: 'No',
                         b2b: false,
-                        show: true,
-                        effort: "5"
+                        show: studentShow,
+                        effort: studentShow ? '5' : '0',
+                        topics: studentShow ? '' : 'No Show OR < 6 hours notice of Cancellation.'
                         //  clock_in: moment(convertDate(date, 'HH:mm a', 0).formatted, 'HH:mm a')
                     }}
                 >
@@ -121,7 +123,10 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                         </Item>
                     }
                     <Item name={'show'} label='Show' rules={[{ required: true }]}>
-                        <Radio.Group>
+                        <Radio.Group onChange={() => {
+                            setStudentShow(!studentShow)
+                            // form.resetFields()
+                            }}>
                             <Radio.Button value={true}>Show</Radio.Button>
                             <Radio.Button value={false}>No Show</Radio.Button>
                         </Radio.Group>
@@ -139,7 +144,8 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                         </Radio.Group>
                     </Item>
                     <Item name='effort' label='Student Effort' rules={[{ required: true }]}>
-                        <Radio.Group>
+                        <Radio.Group disabled={!studentShow}>
+                            <Radio value='0'>0</Radio>
                             <Radio value='1'>1</Radio>
                             <Radio value='2'>2</Radio>
                             <Radio value='3'>3</Radio>
@@ -147,19 +153,24 @@ const SessionModal = ({ visible, handleCloseModal, sessionId }) => {
                             <Radio value='5'>5</Radio>
                         </Radio.Group>
                     </Item>
-                    <Item name={'topics'} label='Topics' rules={[{ required: true }]}
-                    >
-                        <Select
-                            showSearch
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                        >
-                            {topics.map((topic, index) => (
-                                <Option key={index} value={topic}>{topic}</Option>
-                            ))}
-                        </Select>
-                    </Item>
+                    {studentShow ?
+                        <Item name={'topics'} label='Topics' rules={[{ required: true }]}>
+                            <Select
+                                showSearch
+                                filterOption={(input, option) =>
+                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            >
+                                {topics.map((topic, index) => (
+                                    <Option key={index} value={topic}>{topic}</Option>
+                                ))}
+                            </Select>
+                        </Item>
+                        :
+                        <Item name={'topics'} label='Topics' rules={[{ required: true }]}>
+                            <Input disabled/>
+                        </Item>
+                    }
                     <Item name={'notes'} label='Notes' rules={[{ required: true }]}
                     >
                         <TextArea rows={2} />

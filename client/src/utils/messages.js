@@ -33,12 +33,14 @@ export const getSessionMessages = (data, { prework, prework_topics = '', b2b, sh
     const clockOut = convertDate(data.updateSession.clock_out, 'LT', 0)
     const B2B = b2b ? 'Yes' : 'No'
     const SHOW = show ? 'Show' : 'No Show'
+    const evalLink = show ? 'Yes' : 'Student did not show up for the session.'
+    
     return {
         googleSheet: `=SPLIT("${class_code},${gradDate.formatted},${first_name} ${last_name},${email},${today.formatted},+${diff}hr,${clockIn.formatted},${clockOut.formatted},Yes, ${B2B},Yes, ${SHOW},${topics},${notes},Yes", ",")`,
         clockOutNotes: `${class_code}
 ${first_name} ${last_name}
 B2B-${B2B}
 ${!show ? 'No Show' : ''}`,
-        formUrl: `https://docs.google.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform?entry.1626809215=${class_code}&entry.1262798942=${last_name}, ${first_name}&entry.1509111758=${email}&entry.1450620354=No&entry.758887222=Creer, Spencer&entry.1572772860=Yes&entry.568333504=FSF - Full Stack Flex Web Development(Javascript)&entry.1311659485=${B2B}&entry.401287639=${today.formatted}&entry.781752343_hour=${clockIn.hour}&entry.781752343_minute=${clockIn.minute}&entry.721200944_hour=${clockOut.hour}&entry.721200944_minute=${clockOut.minute}&entry.1394734474=${prework}&entry.1151868399=${prework_topics}&entry.2041303987=${topics}&entry.790082012=I am not a TA in this student's class&entry.2075286046=${effort}&entry.1836903312=No mention of it at all.&entry.2058615286=${notes}`
+        formUrl: `https://docs.google.com/forms/d/e/1FAIpQLSc_q0CSp5Bpn7lfDAdoPCbBTW-OxWQVhC3gG5P9e6iE4FERjw/viewform?entry.1626809215=${class_code}&entry.1262798942=${last_name}, ${first_name}&entry.1509111758=${email}&entry.1450620354=No&entry.758887222=Creer, Spencer&entry.1572772860=${evalLink}&entry.568333504=FSF - Full Stack Flex Web Development(Javascript)&entry.1311659485=${B2B}&entry.401287639=${today.formatted}&entry.781752343_hour=${clockIn.hour}&entry.781752343_minute=${clockIn.minute}&entry.721200944_hour=${clockOut.hour}&entry.721200944_minute=${clockOut.minute}&entry.1394734474=${prework}&entry.1151868399=${prework_topics}&entry.2041303987=${topics}&entry.790082012=I am not a TA in this student's class&entry.2075286046=${effort}&entry.1836903312=No mention of it at all.&entry.2058615286=${notes}`
     }
 }
