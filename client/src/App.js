@@ -4,37 +4,37 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+} from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 
-import Nav from './components/Nav';
-import TutorDashboard from './pages/dashboard/TutorDashboard';
-import StudentsList from './pages/students/StudentsList';
-import SessionsPage from './pages/sessions/SessionsPage';
+import Nav from './components/Nav'
+import TutorDashboard from './pages/dashboard/TutorDashboard'
+import StudentsList from './pages/students/StudentsList'
+import SessionsPage from './pages/sessions/SessionsPage'
+import AppFooter from './components/AppFooter'
+
+import './App.css'
 
 import { Layout } from 'antd'
-import './App.css';
-
-const { Footer } = Layout
 
 const httpLink = createHttpLink({
   uri: '/graphql',
-});
+})
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem('id_token')
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : '',
     },
-  };
-});
+  }
+})
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-});
+})
 
 function App() {
   return (
@@ -67,10 +67,10 @@ function App() {
             </Routes>
           </Layout>
         </Router>
-        <Footer>Footer</Footer>
+        <AppFooter />
       </Layout>
     </ApolloProvider>
   );
 }
 
-export default App;
+export default App
