@@ -10,7 +10,7 @@ import LoadingCard from '../../components/LoadingCard'
 // Utils
 import { convertDate } from '../../utils/conversions'
 // Antd
-import { Layout, Card } from 'antd'
+import { Layout, Row, Col, Card } from 'antd'
 import '../../App.css'
 
 const { Content } = Layout
@@ -44,36 +44,69 @@ const TutorDashboard = () => {
             <Content className='page-content'>
                 <h1 style={{ fontSize: '30px' }}>Welcome Spencer!</h1>
                 <div style={{ margin: '20px' }}>
+                    <Row style={{ marginBottom: '15px' }}>
+                        <Col sm={24} md={18} style={{paddingRight: '15px'}}>
+                            <Card
+                                // style={{ width: '100%' }}
+                                tabList={[
+                                    {
+                                        key: 'today',
+                                        tab: 'Today',
+                                    },
+                                    {
+                                        key: 'tomorrow',
+                                        tab: 'Tomorrow',
+                                    },
+                                ]}
+                                activeTabKey={selectedDay}
+                                onTabChange={key => {
+                                    setSelectedDay(key);
+                                }}
+                            >
+                                {filteredSessions.length === 0 ?
+                                    <div style={{ height: '215px', fontSize: '30px' }}>You don't have any sessions {selectedDay}</div>
+                                    :
+                                    <SessionsList sessions={filteredSessions} />
+                                }
+                            </Card>
+                        </Col>
+                        <Col sm={24} md={6}>
+                            <Card title="Paycheck Info">
+                                <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                    Inner Card content
+                                </Card>
+                            </Card>
+                        </Col>
+                    </Row>
                     <div>
-                        <Card
-                            style={{ width: '100%' }}
-                            tabList={[
-                                {
-                                    key: 'today',
-                                    tab: 'Today',
-                                },
-                                {
-                                    key: 'tomorrow',
-                                    tab: 'Tomorrow',
-                                },
-                            ]}
-                            activeTabKey={selectedDay}
-                            onTabChange={key => {
-                                setSelectedDay(key);
-                            }}
-                        >
-                            {filteredSessions.length === 0 ?
-                                <div style={{ height: '215px', fontSize: '30px' }}>You don't have any sessions {selectedDay}</div>
-                                :
-                                <SessionsList sessions={filteredSessions} />
-                            }
+                        <Card title="Paycheck Info">
+                            <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                Inner Card content
+                            </Card>
+                            <Card
+                                style={{ marginTop: 16 }}
+                                type="inner"
+                                title="Inner Card title"
+                                extra={<a href="#">More</a>}
+                            >
+                                Inner Card content
+                            </Card>
                         </Card>
                     </div>
                     <div>
-                        <h2>Paycheck Info</h2>
-                    </div>
-                    <div>
-                        <h2>Student Analytics</h2>
+                        <Card title="Student Info">
+                            <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
+                                Inner Card content
+                            </Card>
+                            <Card
+                                style={{ marginTop: 16 }}
+                                type="inner"
+                                title="Inner Card title"
+                                extra={<a href="#">More</a>}
+                            >
+                                Inner Card content
+                            </Card>
+                        </Card>
                     </div>
                 </div>
             </Content>

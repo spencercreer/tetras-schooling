@@ -5,6 +5,7 @@ import { Skeleton, Switch, Card, Avatar } from 'antd';
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 // Utils
 import { convertDate } from '../../../utils/conversions';
+import '../style.css';
 
 const { Meta } = Card;
 
@@ -43,7 +44,7 @@ const StudentCard = ({ student, loading, handleToggleStatus, handleToggleModal, 
 
     return (
         <Card
-            style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: 'inline-block' }}
+            className='student-card'
             actions={[
                 <EllipsisOutlined
                     key='ellipsis'

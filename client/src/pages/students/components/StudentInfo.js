@@ -6,6 +6,7 @@ import { CopyOutlined, MailOutlined, StopTwoTone } from '@ant-design/icons';
 // Utils
 import { layout } from '../../../utils/form'
 import { getStudentsTime } from '../../../utils/conversions';
+import '../style.css';
 
 const { Item } = Form
 
@@ -18,10 +19,14 @@ const StudentInfo = ({ student }) => {
         setStudentsTime(getStudentsTime(time_zone))
     }, 30000)
 
+    const copyEmail = () => {
+        navigator.clipboard.writeText(email)
+    }
+
     return (
         <>
             <Row>
-                <Avatar style={{ backgroundColor: '#00a2ae', marginRight: '8px' }}>{first_name[0] + last_name[0]}</Avatar>
+                <Avatar className='student-avatar'>{first_name[0] + last_name[0]}</Avatar>
                 <h2>{`${first_name}  ${last_name}`}</h2>
             </Row>
             <Form
@@ -54,7 +59,10 @@ const StudentInfo = ({ student }) => {
                         <Tooltip
                             style={{ width: '10%' }}
                         >
-                            <Button icon={<MailOutlined />} />
+                            <Button
+                                icon={<MailOutlined />}
+                                onClick={copyEmail}
+                            />
                         </Tooltip>
                     </Input.Group>
                 </Item>

@@ -6,6 +6,7 @@ import { Row, Avatar, Form, Input, Select, DatePicker, Alert } from 'antd'
 import { layout, validateMessages } from '../../../utils/form'
 // TODO: Move convertDate
 import moment from 'moment'
+import '../style.css';
 
 const { Item } = Form
 const { Option } = Select
@@ -21,7 +22,7 @@ const EditStudentForm = ({ student, form, updateMessage, onFinish }) => {
     return (
         <>
             <Row>
-                <Avatar style={{ backgroundColor: '#00a2ae', marginRight: '8px' }}>{first_name[0] + last_name[0]}</Avatar>
+                <Avatar className='student-avatar'>{first_name[0] + last_name[0]}</Avatar>
                 {editName ?
                     <Input
                         style={{ width: '90%' }}

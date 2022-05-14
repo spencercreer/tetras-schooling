@@ -7,6 +7,8 @@ import { MailOutlined, EllipsisOutlined, UserOutlined, CheckCircleOutlined, Minu
 // Utils
 import { convertDate, formatTimeZone } from '../../../utils/conversions'
 import { getEmailTemplate, getEmailSubject, getRandomEmoji } from '../../../utils/messages';
+import '../style.css';
+
 const { Meta } = Card;
 
 const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
@@ -53,7 +55,7 @@ const SessionCard = ({ session, handleToggleModal, setSelectedSessionId }) => {
     return (
         <>
             <Card
-                style={{ width: 400, marginTop: 16, marginLeft: 10, marginRight: 10, display: 'inline-block' }}
+                className="session-card"
                 actions={[
                     <EllipsisOutlined
                         key='ellipsis'

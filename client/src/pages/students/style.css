@@ -1,0 +1,10 @@
+.student-avatar {
+    background-color: #00a2ae;
+    margin-right: 8px
+}
+
+.student-card {
+    width: 380px;
+    margin: 15px 10px 0px 10px;
+    display: inline-block
+}
